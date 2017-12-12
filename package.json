@@ -1,5 +1,5 @@
 {
-  "name": "scarping",
+  "name": "default",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -9,19 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "connect-busboy": "0.0.2",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "express-validator": "^4.3.0",
-    "fs": "0.0.1-security",
-    "mysql": "^2.15.0",
-    "request": "^2.83.0",
-    "util": "^0.10.3"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "json/*"
-    ],
-    "delay": "2500"
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0"
   }
 }
