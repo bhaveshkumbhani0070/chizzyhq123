@@ -1,21 +1,29 @@
-var mysql = require('mysql');
+var sql = require('mssql');
 
-var connection = mysql.createConnection({
-    host: 'localhost', //'13.229.86.120',//,
-    user: 'root',
-    port: '3306',
-    password: '', //Token@qw!@ 'ahextech',//'',
-    database: 'holidaypack'
-});
+var user = process.env.user;
+var password = process.env.password;
+var server = process.env.server;
+var database = process.env.server;
 
-connection.connect(function(err, connection) {
-    if (err) {
-        connection.release();
-        res.json({ "code": 100, "status": "Error in connection database" });
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
+if (!user) {
+    console.log('Please enter user name');
+}
+if (!password) {
+    console.log('Please enter password');
+}
+if (!server) {
+    console.log('Please enter server');
+}
+if (!database) {
+    console.log('Please enter database');
+}
+var config = {
+    user: process.env.user, // 'holiday',
+    password: process.env.password, //'97762fc4a786331a90f044485ecd11c47acced473e460191',
+    server: process.env.server, //'holidaypackages.corkidnfytiw.ap-southeast-2.rds.amazonaws.com',
+    database: process.env.database //'holidaypackage'
+};
+const pool = new sql.ConnectionPool(config)
 
-});
 
-module.exports = connection;
+module.exports = pool;

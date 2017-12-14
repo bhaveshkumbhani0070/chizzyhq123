@@ -1,4 +1,4 @@
-var hollidayPack = angular.module('hollidayPack', []);
+var holidayPack = angular.module('holidayPack', []);
 
 function mainController($scope, $http) {
     // $scope.formData = {};
