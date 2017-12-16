@@ -1,16 +1,19 @@
+
 var holidayPack = angular.module('holidayPack', []);
 
 function mainController($scope, $http) {
     // $scope.formData = {};
-
-    // // when landing on the page, get all todos and show them
-    // $http.get('/api/todos')
-    // 	.success(function(data) {
-    // 		$scope.todos = data;
-    // 	})
-    // 	.error(function(data) {
-    // 		console.log('Error: ' + data);
-    // 	});
+    // var sampleData=[{"title":"AA"},{"title":"BB"},{"title":"CC"},{"title":"DD"},{"title":"EE"}];
+    //         $scope.dealData = sampleData;
+    $http.get('/api/getallDeal')
+    	.success(function(data) {
+            console.log('Get data from data base',data.data);
+            // var sampleData=[{"title":"AA"},{"title":"BB"},{"title":"CC"},{"title":"DD"},{"title":"EE"}];
+            $scope.dealData = data.data;
+    	})
+    	.error(function(data) {
+    		console.log('Error: ' + data.message);
+    	});
 
     // // when submitting the add form, send the text to the node API
     // $scope.createTodo = function() {

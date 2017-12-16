@@ -8,7 +8,7 @@ var pool = require('../config/db');
 const requ = new sql.Request(pool);
 
 var links = [
-    "https://www.flightcentre.com.au/holidays/search?fdeparture=Sydney", //51
+    //"https://www.flightcentre.com.au/holidays/search?fdeparture=Sydney", //51
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Adelaide", //51
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Brisbane", //48
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Cairns", //47
@@ -35,7 +35,7 @@ exports.scrape = function(req, res) {
                     setTimeout(function(y) {
                         console.log(url, y);
                         Scrap(url, y);
-                        if (y >= 4) {
+                        if (y >= 51) {
                             if (l < 10) {
                                 callScrape(links[l++])
                             } else if (l > 10) {
