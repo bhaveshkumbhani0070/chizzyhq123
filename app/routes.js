@@ -12,5 +12,6 @@ module.exports = function(app) {
     });
     app.get('/admin/scrape/flightcentre', flightcentre.scrape);
     app.get('/api/getallDeal',api.getallDeal);
+    app.get('/api/getDeparture',api.getDeparture);
     
 };

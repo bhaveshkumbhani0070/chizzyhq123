@@ -14,7 +14,14 @@ function mainController($scope, $http) {
     	.error(function(data) {
     		console.log('Error: ' + data.message);
     	});
-
+    $http.get('/api/getDeparture')
+    .success(function(data){
+        console.log('getDeparture',data.data);
+        $scope.departure=data.data;
+    })
+    .error(function(data){
+        console.log(data.message);
+    })
     // // when submitting the add form, send the text to the node API
     // $scope.createTodo = function() {
     // 	$http.post('/api/todos', $scope.formData)
