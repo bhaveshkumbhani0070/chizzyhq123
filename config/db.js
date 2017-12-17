@@ -21,7 +21,12 @@ var config = {
     user: process.env.user,
     password: process.env.password,
     server: process.env.server,
-    database: process.env.database
+    database: process.env.database,
+    pool: {
+        max: 20,
+        min: 10,
+        idleTimeoutMillis: 3000
+    }
 };
 const pool = new sql.ConnectionPool(config)
 

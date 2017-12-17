@@ -47,7 +47,7 @@
                             <li class="has-sub">
                                 <a href="#">Departure</a>
                                 <ul class="nav list-unstyled">
-                                    <li ng-repeat="data in departure"><a href="#" >{{data.departure}}</a></li>
+                                    <li><a href="#">Departure</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -92,43 +92,25 @@
                 <div class="container">
                     <div class="banner-form">
                         <h2>Find<span>Holiday Packages</span></h2>
-                        <form action="#" method="post">
+                        <form ng-submit="submit(search)">
                             <fieldset>
                                 <div class="field">
                                     <label for="departure_city">Departure City</label>
-                                    <select class="form-control" id="departure_city">
+                                    <select ng-model="search.city" class="form-control" id="departure_city">
 											<option value="-1" disabled selected>Select Departure Port</option>
-											<option value="#">Option #1</option>
-											<option value="#">Option #2</option>
-											<option value="#">Option #3</option>
-											<option value="#">Option #4</option>
-											<option value="#">Option #5</option>
-											<option value="#">Option #6</option>
-											<option value="#">Option #7</option>
-											<option value="#">Option #8</option>
-											<option value="#">Option #9</option>
-											<option value="#">Option #10</option>
+											<option ng-repeat="data in departure" value="{{data.departure}}">{{data.departure}}</option>
 									</select>
                                 </div>
                                 <div class="field">
                                     <label for="destination_city">Destination</label>
-                                    <select class="form-control" id="destination_city">
+                                    <select ng-model="search.dest" class="form-control" id="destination_city">
 											<option value="-1" disabled selected>Any</option>
-											<option value="#">Option #1</option>
-											<option value="#">Option #2</option>
-											<option value="#">Option #3</option>
-											<option value="#">Option #4</option>
-											<option value="#">Option #5</option>
-											<option value="#">Option #6</option>
-											<option value="#">Option #7</option>
-											<option value="#">Option #8</option>
-											<option value="#">Option #9</option>
-											<option value="#">Option #10</option>
-										</select>
+											<option ng-repeat="data in destination" value="{{data.destination}}">{{data.destination}}</option>
+									</select>
                                 </div>
                                 <div class="field">
                                     <label for="departure">Departure</label>
-                                    <input class="form-control datepicker" id="departure" type="text" placeholder="Departure">
+                                    <input class="form-control datepicker" ng-model="search.date" id="departure" type="text" placeholder="Departure">
                                 </div>
                             </fieldset>
                             <div class="buttonset">
@@ -218,9 +200,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div ng-repeat="val in dealData" class="item-slides" >
-                                        <div class="item" >
-                                            <h3>{{val.title}}</h3>
+                                    <div class="item-slides">
+                                        <!-- ng-repeat="val in dealData" -->
+                                        <div class="item">
+                                            <!-- <h3>{{val.title}}</h3> -->
                                             <div class="package-slider">
                                                 <div class="slides">
                                                     <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
@@ -252,7 +235,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
