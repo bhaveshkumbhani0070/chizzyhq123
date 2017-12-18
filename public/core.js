@@ -1,18 +1,6 @@
 var holidayPack = angular.module('holidayPack', []);
 
 function mainController($scope, $http) {
-    $scope.storageResult = {
-        "storageAccount": "Enable",
-        "user": "sdcard",
-        "pass": "sdcard",
-        "wifiIP": "0",
-        "ipAddr": "0",
-        "accessMode": [
-            { "name": "Local Storage", "status": "0" },
-            { "name": "WiFi Storage", "status": "1" },
-            { "name": "Internet Storage", "status": "0" }
-        ]
-    }
 
     //get Departure
     $http.get('/api/getDeparture')
@@ -38,18 +26,20 @@ function mainController($scope, $http) {
         console.log("seaarch data", data);
         var searchData = {
             date: data.date,
-            departure: "Sydney",
-            destination: "Port Douglas, Australia"
+            departure: data.depselect,
+            destination: data.desselect
         }
-        $http.post('/api/getallDeal', { data: searchData })
-            .success(function(data) {
-                //	$scope.formData = {}; // clear the form so our user is ready to enter another
-                //	$scope.todos = data;
-                console.log(data);
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
+        console.log('searchData', searchData);
+
+        // $http.post('/api/getallDeal', { data: searchData })
+        //     .success(function(data) {
+        //         //	$scope.formData = {}; // clear the form so our user is ready to enter another
+        //         //	$scope.todos = data;
+        //         console.log(data);
+        //     })
+        //     .error(function(data) {
+        //         console.log('Error: ' + data);
+        //     });
     };
 
 }
