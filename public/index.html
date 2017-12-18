@@ -91,33 +91,33 @@
                 <div class="container">
                     <div class="banner-form">
                         <h2>Find<span>Holiday Packages</span></h2>
-
-                        <form ng-submit="submit(search)">
+                        <form>
                             <fieldset>
                                 <div class="field">
                                     <label for="departure_city">Departure City</label>
-                                    <select ng-model="search.depselect" class="form-control" id="departure_city">
+                                    <select class="form-control" ng-options="data.departure for data in departure" ng-model="sendData.depselect" id="departure_city">
 										<option value="" disabled ng-selected="true">Select Departure Port</option>
-										<option  ng-repeat="data in departure" value="{{data.departure}}">{{data.departure}}</option>
+										<!-- <option  ng-repeat="data in departure" value="{{data.departure}}">{{data.departure}}</option> -->
 									</select>
                                 </div>
                                 <div class="field">
                                     <label for="destination_city">Destination</label>
-                                    <select ng-model="search.desselect" class="form-control" id="destination_city">
+                                    <select class="form-control" ng-options="data.destination for data in destination" ng-model="sendData.desselect" id="destination_city">
 										<option value="" disabled ng-selected="true">Any</option>
-										<option  ng-repeat="data in destination" value="{{data.destination}}">{{data.destination}}</option>
+										<!-- <option  ng-repeat="data in destination" value="{{data.destination}}">{{data.destination}}</option> -->
 									</select>
                                 </div>
 
                                 <div class="field">
                                     <label for="departure">Departure</label>
-                                    <input class="form-control datepicker" ng-model="search.date" id="departure" type="text" placeholder="Departure">
+                                    <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
                                 </div>
                             </fieldset>
-                            <div class="buttonset">
-                                <button type="submit" class="btn btn-01">SEARCH NOW</button>
-                            </div>
                         </form>
+                        <div class="buttonset">
+                            <button type="submit" class="btn btn-01" ng-click="submit(sendData)">SEARCH NOW</button>
+                        </div>
+
                     </div>
                 </div>
             </div>

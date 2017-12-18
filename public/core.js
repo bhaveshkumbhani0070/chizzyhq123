@@ -1,8 +1,7 @@
 var holidayPack = angular.module('holidayPack', []);
 
-function mainController($scope, $http) {
+holidayPack.controller('mainController', function($scope, $http) {
 
-    //get Departure
     $http.get('/api/getDeparture')
         .success(function(data) {
             console.log('getDeparture', data.data);
@@ -29,7 +28,6 @@ function mainController($scope, $http) {
             departure: data.depselect,
             destination: data.desselect
         }
-        console.log('searchData', searchData);
 
         // $http.post('/api/getallDeal', { data: searchData })
         //     .success(function(data) {
@@ -41,8 +39,14 @@ function mainController($scope, $http) {
         //         console.log('Error: ' + data);
         //     });
     };
+});
 
-}
+// function mainController($scope, $http) {
+
+//     //get Departure
+
+
+// }
 
 // // when submitting the add form, send the text to the node API
 // $scope.createTodo = function() {
