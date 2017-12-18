@@ -92,19 +92,20 @@
                 <div class="container">
                     <div class="banner-form">
                         <h2>Find<span>Holiday Packages</span></h2>
+
                         <form ng-submit="submit(search)">
                             <fieldset>
                                 <div class="field">
                                     <label for="departure_city">Departure City</label>
-                                    <select ng-model="search.city" class="form-control" id="departure_city">
-											<option value="-1" disabled selected>Select Departure Port</option>
-											<option ng-repeat="data in departure" value="{{data.departure}}">{{data.departure}}</option>
+                                    <select ng-model="search.depselect" class="form-control" id="departure_city">
+											<option value="-1" disabled ng-selected="true">Select Departure Port</option>
+											<option ng-selected="{{data.departure == depselect}}" ng-repeat="data in departure" value="{{data.departure}}">{{data.departure}}</option>
 									</select>
                                 </div>
                                 <div class="field">
                                     <label for="destination_city">Destination</label>
-                                    <select ng-model="search.dest" class="form-control" id="destination_city">
-											<option value="-1" disabled selected>Any</option>
+                                    <select ng-model="search.des" class="form-control" id="destination_city">
+											<option value="-1" disabled ng-selected="true">Any</option>
 											<option ng-repeat="data in destination" value="{{data.destination}}">{{data.destination}}</option>
 									</select>
                                 </div>

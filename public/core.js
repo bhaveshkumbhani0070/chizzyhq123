@@ -1,6 +1,18 @@
 var holidayPack = angular.module('holidayPack', []);
 
 function mainController($scope, $http) {
+    $scope.storageResult = {
+        "storageAccount": "Enable",
+        "user": "sdcard",
+        "pass": "sdcard",
+        "wifiIP": "0",
+        "ipAddr": "0",
+        "accessMode": [
+            { "name": "Local Storage", "status": "0" },
+            { "name": "WiFi Storage", "status": "1" },
+            { "name": "Internet Storage", "status": "0" }
+        ]
+    }
 
     //get Departure
     $http.get('/api/getDeparture')
