@@ -29,15 +29,18 @@ holidayPack.controller('mainController', function($scope, $http) {
             destination: data.desselect
         }
 
-        // $http.post('/api/getallDeal', { data: searchData })
-        //     .success(function(data) {
-        //         //	$scope.formData = {}; // clear the form so our user is ready to enter another
-        //         //	$scope.todos = data;
-        //         console.log(data);
-        //     })
-        //     .error(function(data) {
-        //         console.log('Error: ' + data);
-        //     });
+        $http.post('/api/getallDeal', searchData)
+            .success(function(data) {
+                console.log(data);
+                if (data.status) {
+                    console.log('ok display me');
+                } else {
+                    console.log('Something gone wrong!', data.message);
+                }
+            })
+            .error(function(data) {
+                console.log('Error: ' + data.message);
+            });
     };
 });
 
