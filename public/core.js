@@ -1,7 +1,21 @@
-var holidayPack = angular.module('holidayPack', []);
+var holidayPack = angular.module('holidayPack', ['ngRoute']);
 
+holidayPack.config(function($routeProvider) {
+    $routeProvider
+        .when("/home", {
+            templateUrl: "/public/home.html"
+                // controller: "homeClt"
+        })
+        .when("/blue", {
+            templateUrl: "blue.htm"
+        });
+});
+holidayPack.controller('homeClt', function($scope, $http) {
+
+
+})
 holidayPack.controller('mainController', function($scope, $http) {
-
+    //   $scope.dealData = [{ title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }];
     $http.get('/api/getDeparture')
         .success(function(data) {
             console.log('getDeparture', data.data);
@@ -10,7 +24,6 @@ holidayPack.controller('mainController', function($scope, $http) {
         .error(function(data) {
             console.log(data.message);
         })
-        ///api/getDestination
 
     $http.get('api/getDestination')
         .success(function(data) {
@@ -21,7 +34,7 @@ holidayPack.controller('mainController', function($scope, $http) {
             console.log(data.message);
         })
 
-    $scope.submit = function(data) {
+    $scope.GetSearch = function(data) {
         console.log("seaarch data", data);
         var searchData = {
             date: data.date,
@@ -31,9 +44,10 @@ holidayPack.controller('mainController', function($scope, $http) {
 
         $http.post('/api/getallDeal', searchData)
             .success(function(data) {
-                console.log(data);
+                console.log('data', data);
                 if (data.status) {
                     console.log('ok display me');
+                    $scope.dealData = data.data;
                 } else {
                     console.log('Something gone wrong!', data.message);
                 }
@@ -42,35 +56,7 @@ holidayPack.controller('mainController', function($scope, $http) {
                 console.log('Error: ' + data.message);
             });
     };
+
+    // Footer
+    $scope.currentYear = new Date().getFullYear();
 });
-
-// function mainController($scope, $http) {
-
-//     //get Departure
-
-
-// }
-
-// // when submitting the add form, send the text to the node API
-// $scope.createTodo = function() {
-// 	$http.post('/api/todos', $scope.formData)
-// 		.success(function(data) {
-// 			$scope.formData = {}; // clear the form so our user is ready to enter another
-// 			$scope.todos = data;
-// 			console.log(data);
-// 		})
-// 		.error(function(data) {
-// 			console.log('Error: ' + data);
-// 		});
-// };
-
-// // delete a todo after checking it
-// $scope.deleteTodo = function(id) {
-// 	$http.delete('/api/todos/' + id)
-// 		.success(function(data) {
-// 			$scope.todos = data;
-// 		})
-// 		.error(function(data) {
-// 			console.log('Error: ' + data);
-// 		});
-// };

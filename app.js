@@ -23,6 +23,8 @@ app.use("/js", express.static(__dirname + '/app/js'));
 app.use("/css", express.static(__dirname + '/app/css'));
 app.use("/fonts", express.static(__dirname + '/app/fonts'));
 app.use("/images", express.static(__dirname + '/app/images'));
+app.use("/public", express.static(__dirname + '/public'));
+app.use("/node_module", express.static(__dirname + '/node_modules'));
 
 require('./app/routes.js')(app);
 
