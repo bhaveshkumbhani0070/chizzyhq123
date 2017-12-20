@@ -35,12 +35,13 @@ holidayPack.controller('mainController', function($scope, $http) {
         })
 
     $scope.GetSearch = function(data) {
-        console.log("seaarch data", data);
         var searchData = {
-            date: data.date,
-            departure: data.depselect,
-            destination: data.desselect
+            date: data.date ? data.date : "",
+            departure: data.depselect ? data.depselect.departure : "",
+            destination: data.desselect ? data.desselect.destination : ""
         }
+        console.log("seaarch data", data);
+        console.log("searchData", searchData);
 
         $http.post('/api/getallDeal', searchData)
             .success(function(data) {
