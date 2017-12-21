@@ -10,18 +10,16 @@ exports.getallDeal = function(req, res) {
     var date = dataForSearch.date;
     var date_from = date.split("to")[0];
     var date_to = date.split("to")[1];
-    var departure = "Sydney";
-    var destination = "Brisbane, Australia";
+    var departure = dataForSearch.departure; // || "Sydney";
+    var destination = dataForSearch.destination; // || "Brisbane, Australia";
 
     // select d.*,de.* from deal_dates d left join deal de on d.deal_id=de.id where d.date_from >='2018-03-09' and date_to <= '2018-10-01' and de.destination='detinatio name';
     // select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id left join deal_departure depa on date.deal_departure_id=depa.id where date.date_from >= '2017-01-01' and date.date_to <= '2018-01-19' and depa.departure='Sydney' and de.destination ='Brisbane, Australia'
     pool.connect(function(err, connection) {
         if (!err) {
             console.log('date_from', date_from, ' date_to', date_to);
-            //    requ.query("select * from deal_dates where date_from >='" + date_from + "' and date_to<='" + date_to + "'", function(err, data) {
             requ.query("select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id left join deal_departure depa on date.deal_departure_id=depa.id where date.date_from >= '" + date_from + "' and date.date_to <= '" + date_to + "' and depa.departure='" + departure + "' and de.destination ='" + destination + "'", function(err, data) {
                 if (!err) {
-                    //             console.log('data', data.recordset);
                     res.send({ code: 200, status: 1, message: 'Deal data get successfully', data: data.recordset });
                     return;
                 } else {
