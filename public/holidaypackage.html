@@ -16,9 +16,26 @@
     <link rel="stylesheet" href="css/flatpickr.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.0.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')
+    </script>
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
     <script src="core.js"></script>
+    <script src="js/plugins.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
+    <script src="/node_module/select2/dist/js/select2.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/flatpickr.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="core.js"></script> -->
 </head>
 
 <body ng-controller="mainController">
@@ -97,32 +114,12 @@
                             <div class="col-sm-4 col-md-2">
                                 <select>
 										<option value="-1" disabled selected>Departure Port</option>
-										<option value="#">Option #1</option>
-										<option value="#">Option #2</option>
-										<option value="#">Option #3</option>
-										<option value="#">Option #4</option>
-										<option value="#">Option #5</option>
-										<option value="#">Option #6</option>
-										<option value="#">Option #7</option>
-										<option value="#">Option #8</option>
-										<option value="#">Option #9</option>
-										<option value="#">Option #10</option>
-									</select>
+								</select>
                             </div>
                             <div class="col-sm-4 col-md-2">
-                                <select>
+                                <select ng-options="data.destination for data in destination" ng-model="sendData.desselect">
 										<option value="-1" disabled selected>Destination</option>
-										<option value="#">Option #1</option>
-										<option value="#">Option #2</option>
-										<option value="#">Option #3</option>
-										<option value="#">Option #4</option>
-										<option value="#">Option #5</option>
-										<option value="#">Option #6</option>
-										<option value="#">Option #7</option>
-										<option value="#">Option #8</option>
-										<option value="#">Option #9</option>
-										<option value="#">Option #10</option>
-									</select>
+								</select>
                             </div>
                             <div class="col-sm-4 col-md-2">
                                 <select>
@@ -155,10 +152,10 @@
 									</select>
                             </div>
                             <div class="col-sm-4 col-md-2">
-                                <input class="form-control datepicker" id="departure" type="text" placeholder="Departure">
+                                <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
                             </div>
                             <div class="col-sm-4 col-md-2">
-                                <button type="submit" class="btn btn-01">SEARCH</button>
+                                <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal(sendData)">SEARCH</button>
                             </div>
                         </div>
                     </div>
@@ -183,7 +180,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr ng-repeat="val in dealData">
+                                <td data-th="Travel Date"><strong>{{val.date_from | date:'dd MMM yyyy'}} - {{val.date_to | date:'dd MMM yyyy'}}</strong></td>
+                                <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
+                                <td data-th="Price" class="price">${{val.price}}</td>
+                                <td data-th="Destination">{{val.destination}}</td>
+                                <td data-th="Package Name">{{val.title}}</td>
+                                <td data-th="Nights">{{val.nights}}</td>
+                                <td data-th="Purchase By">{{val.purchase_by}}</td>
+                                <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
+                            </tr>
+                            <!-- <tr>
                                 <td data-th="Travel Date"><strong>6th May - 4th July 2017</strong></td>
                                 <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
                                 <td data-th="Price" class="price">$399</td>
@@ -192,17 +199,7 @@
                                 <td data-th="Nights">14</td>
                                 <td data-th="Purchase By">Sun Princess</td>
                                 <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
-                            </tr>
-                            <tr>
-                                <td data-th="Travel Date"><strong>6th May - 4th July 2017</strong></td>
-                                <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
-                                <td data-th="Price" class="price">$399</td>
-                                <td data-th="Destination">Fiji and South Pacific</td>
-                                <td data-th="Package Name">Sydney, Isle of Pines, Mystery Island, Dravuni Island Suva, Savu Savu, Lautok, Noumea</td>
-                                <td data-th="Nights">14</td>
-                                <td data-th="Purchase By">Sun Princess</td>
-                                <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -296,9 +293,7 @@
     </footer>
 
 
-
-
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script>
         window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')
     </script>
@@ -306,7 +301,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="js/slick.min.js"></script>
     <script src="js/flatpickr.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js"></script> -->
 
 </body>
 

@@ -14,4 +14,5 @@ module.exports = function(app) {
     app.post('/api/getallDeal', api.getallDeal);
     app.get('/api/getDeparture', api.getDeparture);
     app.get('/api/getDestination', api.getDestination);
+    app.post('/api/getallHolidayDeal', api.getallHolidayDeal);
 };

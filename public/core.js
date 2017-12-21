@@ -10,6 +10,13 @@ holidayPack.config(function($routeProvider) {
             templateUrl: "blue.htm"
         });
 });
+// holidayPack.directive('jque', function() {
+//     console.log('Called directive');
+//     return {
+//         restrict: 'A',
+//         link: "js/vendor/modernizr-2.8.3.min.js"
+//     };
+// });
 holidayPack.controller('homeClt', function($scope, $http) {
 
 
@@ -58,6 +65,26 @@ holidayPack.controller('mainController', function($scope, $http) {
             });
     };
 
-    // Footer
+    $scope.GetallHolidayDeal = function(data) {
+            var searchData = {
+                date: data.date ? data.date : "",
+                departure: data.depselect ? data.depselect.departure : "",
+                destination: data.desselect ? data.desselect.destination : ""
+            }
+            $http.post('/api/getallHolidayDeal', searchData)
+                .success(function(data) {
+                    console.log('data', data);
+                    if (data.status) {
+                        console.log('ok display me');
+                        $scope.dealData = data.data;
+                    } else {
+                        console.log('Something gone wrong!', data.message);
+                    }
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data.message);
+                });
+        }
+        // Footer
     $scope.currentYear = new Date().getFullYear();
 });

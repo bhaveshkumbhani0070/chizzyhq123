@@ -19,6 +19,22 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 
+
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.0.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')
+    </script>
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    <script src="core.js"></script>
+    <script src="js/plugins.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
+    <script src="/node_module/select2/dist/js/select2.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/flatpickr.js"></script>
+    <script src="js/main.js"></script>
 </head>
 
 <body ng-controller="mainController">
@@ -118,7 +134,7 @@
                             </div>
                             <div class="content">
                                 <div class="content-slider">
-                                    <!-- <div class="item-slides">
+                                    <div class="item-slides">
                                         <div class="item">
                                             <h3>Siem Reap to Ho Chi Mich</h3>
                                             <div class="package-slider">
@@ -150,11 +166,210 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div>
+                                    <div class="item-slides">
+                                        <div class="item">
+                                            <h3>Siem Reap to Ho Chi Mich</h3>
+                                            <div class="package-slider">
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                            </div>
+                                            <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                            <span>Departs 14 Feb 2017</span>
+                                            <div class="price">
+                                                <div class="price-content">
+                                                    <small>Twin Cabin from</small><span>$1348</span>/per person
+                                                </div>
+                                            </div>
+                                            <div class="buttonset">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-01">VIEW</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-slides">
+                                        <div class="item">
+                                            <h3>Siem Reap to Ho Chi Mich</h3>
+                                            <div class="package-slider">
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                            </div>
+                                            <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                            <span>Departs 14 Feb 2017</span>
+                                            <div class="price">
+                                                <div class="price-content">
+                                                    <small>Twin Cabin from</small><span>$1348</span>/per person
+                                                </div>
+                                            </div>
+                                            <div class="buttonset">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-01">VIEW</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-slides">
+                                        <div class="item">
+                                            <h3>Siem Reap to Ho Chi Mich</h3>
+                                            <div class="package-slider">
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                            </div>
+                                            <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                            <span>Departs 14 Feb 2017</span>
+                                            <div class="price">
+                                                <div class="price-content">
+                                                    <small>Twin Cabin from</small><span>$1348</span>/per person
+                                                </div>
+                                            </div>
+                                            <div class="buttonset">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-01">VIEW</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-slides">
+                                        <div class="item">
+                                            <h3>Siem Reap to Ho Chi Mich</h3>
+                                            <div class="package-slider">
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                            </div>
+                                            <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                            <span>Departs 14 Feb 2017</span>
+                                            <div class="price">
+                                                <div class="price-content">
+                                                    <small>Twin Cabin from</small><span>$1348</span>/per person
+                                                </div>
+                                            </div>
+                                            <div class="buttonset">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-01">VIEW</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-slides">
+                                        <div class="item">
+                                            <h3>Siem Reap to Ho Chi Mich</h3>
+                                            <div class="package-slider">
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                            </div>
+                                            <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                            <span>Departs 14 Feb 2017</span>
+                                            <div class="price">
+                                                <div class="price-content">
+                                                    <small>Twin Cabin from</small><span>$1348</span>/per person
+                                                </div>
+                                            </div>
+                                            <div class="buttonset">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-01">VIEW</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-slides">
+                                        <div class="item">
+                                            <h3>Siem Reap to Ho Chi Mich</h3>
+                                            <div class="package-slider">
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                                <div class="slides">
+                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                                </div>
+                                            </div>
+                                            <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                            <span>Departs 14 Feb 2017</span>
+                                            <div class="price">
+                                                <div class="price-content">
+                                                    <small>Twin Cabin from</small><span>$1348</span>/per person
+                                                </div>
+                                            </div>
+                                            <div class="buttonset">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6">
+                                                        <a href="#" class="btn btn-01">VIEW</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="item-slides">
                                         <!-- ng-repeat="val in dealData" -->
                                         <div class="item">
-                                            <!-- <h3>{{val.title}}</h3> -->
+                                            <h3>{{val.title}}</h3>
                                             <div class="package-slider">
                                                 <div class="slides">
                                                     <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
@@ -334,21 +549,6 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="js/vendor/jquery-1.12.0.min.js"></script>
-    <script>
-        window.jQuery || document.write('')
-    </script>
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
-    <script src="core.js"></script>
-    <script src="js/plugins.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
-    <script src="/node_module/select2/dist/js/select2.min.js"></script>
-    <script src="js/slick.min.js"></script>
-    <script src="js/flatpickr.js"></script>
-    <script src="js/main.js"></script>
 
 </body>
 
