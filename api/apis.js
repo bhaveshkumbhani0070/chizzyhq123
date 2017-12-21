@@ -60,6 +60,7 @@ exports.getallDeal = function(req, res) {
 // })
 
 exports.getDeparture = function(req, res) {
+    console.log('************* calling  getDeparture *************');
     pool.close();
     pool.connect(function(err, connection) {
         if (!err) {
@@ -84,6 +85,7 @@ exports.getDeparture = function(req, res) {
 
 
 exports.getDestination = function(req, res) {
+    console.log('************* calling  getDestination *************');
     pool.close();
     pool.connect(function(err, connection) {
         if (!err) {
