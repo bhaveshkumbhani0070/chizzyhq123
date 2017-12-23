@@ -73,33 +73,12 @@ exports.getallHolidayDeal = function(req, res) {
     })
 }
 
-// var date = "2018-03-09 to 2018-06-30"
-// var date_from = date.split("to")[0];
-// var date_to = date.split("to")[1];
-
-// pool.close();
-// pool.connect(function(err, connection) {
-//     if (!err) {
-//         console.log('date_from', date_from, ' date_to', date_to);
-//         requ.query("select * from deal_dates where date_from >='" + date_from + "' and date_to<='" + date_to + "'", function(err, data) {
-//             if (!err) {
-//                 console.log('data', data.recordset);
-//             } else {
-//                 console.log('Error for selecting data from data base', err);
-//                 return;
-//             }
-//         })
-//     } else {
-//         console.log('Error for connection', err);
-//     }
-// })
-
 exports.getDeparture = function(req, res) {
     console.log('************* calling  getDeparture *************');
     pool.close();
     pool.connect(function(err, connection) {
         if (!err) {
-            requ.query("select DISTINCT departure from deal_departure", function(err, cityD) {
+            requ.query("select DISTINCT departure from deal_departure order by departure", function(err, cityD) {
                 if (!err) {
                     console.log('Deal data get successs', cityD.recordset);
                     res.send({ code: 200, status: 1, message: 'Deal data get successfully', data: cityD.recordset });
@@ -127,7 +106,7 @@ exports.getDestination = function(req, res) {
     pool.connect(function(err, connection) {
         if (!err) {
             // requ.query("select DISTINCT destination from deal", function(err, cityD) {
-            requ.query("select DISTINCT d.destination from deal_departure de left join deal d on de.deal_id = d.id where de.departure = '" + destination + "'", function(err, cityD) {
+            requ.query("select DISTINCT d.destination from deal_departure de left join deal d on de.deal_id = d.id where de.departure = '" + destination + "' order by d.destination", function(err, cityD) {
                 if (!err) {
                     console.log('Destination data get successs', cityD.recordset);
                     res.send({ code: 200, status: 1, message: 'Destination data get successfully', data: cityD.recordset });
