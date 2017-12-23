@@ -8,8 +8,8 @@ var pool = require('../config/db');
 const requ = new sql.Request(pool);
 
 var links = [
-    //"https://www.flightcentre.com.au/holidays/search?fdeparture=Sydney", //51
-    //"https://www.flightcentre.com.au/holidays/search?fdeparture=Adelaide", //51
+    "https://www.flightcentre.com.au/holidays/search?fdeparture=Sydney", //51
+    "https://www.flightcentre.com.au/holidays/search?fdeparture=Adelaide", //51
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Brisbane", //48
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Cairns", //47
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Canberra", //48
@@ -21,28 +21,28 @@ var links = [
 ]
 
 exports.scrape = function(req, res) {
-    var l = 0;
+    var l = req.params.l;
     var url = links[l];
+    console.log('@@@@@@@@@@@@@@', l, url);
+
     callScrape(url)
 
     function callScrape(url) {
         pool.close();
         pool.connect(function(err, connection) {
             if (!err) {
-
-                l++;
                 var city = url.split("=")[1];
                 for (var x = 0; x < 52; x++) {
                     setTimeout(function(y) {
                         console.log(url, y);
                         Scrap(url, y);
-                        if (y >= 51) {
-                            if (l < 10) {
-                                callScrape(links[l++])
-                            } else if (l > 10) {
-                                return;
-                            }
-                        }
+                        // if (y >= 51) {
+                        //     if (l < 10) {
+                        //         callScrape(links[l++])
+                        //     } else if (l > 10) {
+                        //         return;
+                        //     }
+                        // }
                     }, x * 20000, x);
                 }
             } else {
