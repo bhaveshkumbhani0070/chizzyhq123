@@ -26,9 +26,10 @@ exports.scrape = function(req, res) {
     callScrape(url)
 
     function callScrape(url) {
+        pool.close();
         pool.connect(function(err, connection) {
             if (!err) {
-                pool.close();
+
                 l++;
                 var city = url.split("=")[1];
                 for (var x = 0; x < 52; x++) {
