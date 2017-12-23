@@ -112,7 +112,7 @@
                     <div class="content">
                         <div class="row">
                             <div class="col-sm-4 col-md-2">
-                                <select ng-options="data.departure for data in departure" ng-model="sendData.depselect">
+                                <select ng-options="data.departure for data in departure" ng-model="sendData.depselect" ng-change="getDesti(sendData.depselect)">
 										<option value="" disabled ng-selected="true">Departure Port</option>
 								</select>
                             </div>
@@ -165,7 +165,7 @@
         <div class="holiday-list-area">
             <div class="holiday-list-block">
                 <div class="container">
-                    <h1>Holiday Packges departing from Sydeny</h1>
+                    <h1>Holiday Packges departing from {{departureName}}</h1>
                     <table>
                         <thead>
                             <tr>

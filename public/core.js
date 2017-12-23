@@ -32,14 +32,7 @@ holidayPack.controller('mainController', function($scope, $http) {
             console.log(data.message);
         })
 
-    $http.get('api/getDestination')
-        .success(function(data) {
-            console.log('getDestination', data.data);
-            $scope.destination = data.data;
-        })
-        .error(function(data) {
-            console.log(data.message);
-        })
+
 
     $scope.GetSearch = function(data) {
         var searchData = {
@@ -64,7 +57,19 @@ holidayPack.controller('mainController', function($scope, $http) {
                 console.log('Error: ' + data.message);
             });
     };
-
+    $scope.getDesti = function(data) {
+        console.log('getDesti', data);
+        var departure = data.departure;
+        $scope.departureName = departure;
+        $http.get('api/getDestination/' + data.departure)
+            .success(function(data) {
+                console.log('getDestination', data.data);
+                $scope.destination = data.data;
+            })
+            .error(function(data) {
+                console.log(data.message);
+            })
+    }
     $scope.GetallHolidayDeal = function(data) {
             var searchData = {
                 date: data.date ? data.date : "",

@@ -9,7 +9,7 @@ const requ = new sql.Request(pool);
 
 var links = [
     //"https://www.flightcentre.com.au/holidays/search?fdeparture=Sydney", //51
-    "https://www.flightcentre.com.au/holidays/search?fdeparture=Adelaide", //51
+    //"https://www.flightcentre.com.au/holidays/search?fdeparture=Adelaide", //51
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Brisbane", //48
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Cairns", //47
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Canberra", //48

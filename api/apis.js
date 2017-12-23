@@ -120,11 +120,14 @@ exports.getDeparture = function(req, res) {
 
 
 exports.getDestination = function(req, res) {
-    console.log('************* calling  getDestination *************');
     pool.close();
+    var destination = req.params.destination;
+    console.log('************* calling  getDestination *************', destination);
+
     pool.connect(function(err, connection) {
         if (!err) {
-            requ.query("select DISTINCT destination from deal", function(err, cityD) {
+            // requ.query("select DISTINCT destination from deal", function(err, cityD) {
+            requ.query("select DISTINCT d.destination from deal_departure de left join deal d on de.deal_id = d.id where de.departure = '" + destination + "'", function(err, cityD) {
                 if (!err) {
                     console.log('Destination data get successs', cityD.recordset);
                     res.send({ code: 200, status: 1, message: 'Destination data get successfully', data: cityD.recordset });
