@@ -34,6 +34,7 @@ holidayPack.controller('mainController', function($scope, $http) {
 
 
 
+
     $scope.GetSearch = function(data) {
         var searchData = {
             date: data.date ? data.date : "",
@@ -60,8 +61,12 @@ holidayPack.controller('mainController', function($scope, $http) {
     $scope.getDesti = function(data) {
         console.log('getDesti', data);
         var departure = data.departure;
+        getDestination(departure);
+    }
+
+    function getDestination(departure) {
         $scope.departureName = departure;
-        $http.get('api/getDestination/' + data.departure)
+        $http.get('api/getDestination/' + departure)
             .success(function(data) {
                 console.log('getDestination', data.data);
                 $scope.destination = data.data;
@@ -92,7 +97,6 @@ holidayPack.controller('mainController', function($scope, $http) {
             });
     }
     var searchData = {
-        departure: "Sydney",
         withCity: true
     }
     $http.post('/api/getallHolidayDeal', searchData)
@@ -101,7 +105,9 @@ holidayPack.controller('mainController', function($scope, $http) {
             if (data.status) {
                 console.log('ok display me');
                 $scope.departure = data.city;
+                $scope.depselect = data.city[0].departure;
                 $scope.dealData = data.data;
+                getDestination(data.city[0].departure);
             } else {
                 console.log('Something gone wrong!', data.message);
             }
@@ -109,6 +115,7 @@ holidayPack.controller('mainController', function($scope, $http) {
         .error(function(data) {
             console.log('Error: ' + data.message);
         });
+
     // Footer
     $scope.currentYear = new Date().getFullYear();
 });

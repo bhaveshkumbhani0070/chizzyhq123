@@ -75,9 +75,9 @@ exports.getallHolidayDeal = function(req, res) {
                 console.log('With city');
                 requ.query("select DISTINCT departure from deal_departure order by departure", function(err, cityD) {
                     if (!err) {
-                        console.log('Deal data get successs', cityD.recordset);
-                        //       requ.query("select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id left join deal_departure depa on date.deal_departure_id=depa.id where date.date_from >= '" + date_from + "' and date.date_to <= '" + date_to + "' and depa.departure='" + departure + "' and de.destination ='" + destination + "'", function(err, data) {
-                        requ.query(SearchQue, function(err, data) {
+                        var city = cityD.recordset[0].departure;
+                        var searchS = "select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id left join deal_departure depa on date.deal_departure_id=depa.id where depa.departure='" + city + "' order by de.destination";
+                        requ.query(searchS, function(err, data) {
                             if (!err) {
                                 res.send({ code: 200, status: 1, message: 'Deal data get successfully', data: data.recordset, city: cityD.recordset });
                                 return;
