@@ -165,3 +165,23 @@ exports.getDestination = function(req, res) {
         }
     })
 }
+
+// pool.close();
+// pool.connect(function(err, connnection) {
+//     if (!err) {
+//         requ.query('select * from deal where id=1', function(err, data) {
+//             if (!err) {
+//                 console.log('data get success', data);
+//                 for (var i = 0; i < data.recordset.length; i++) {
+//                     console.log('data', data.recordset[i].link);
+
+//                 }
+//             } else {
+//                 console.log('Error for selecting data from deal table', err);
+//                 return;
+//             }
+//         })
+//     } else {
+//         console.log('Error for connection', err);
+//     }
+// })

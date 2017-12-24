@@ -118,13 +118,15 @@ function ScrapInnerData(url, alldata, y) {
                 alldata[data.text()] = data.next().text();
             });
             alldata["price"] = $('.price').attr("content");
+            alldata["purchase_by"] = $('.priceValidUntil').attr("content");
+
             var whatNext = $('.product-checkbox-icon').next().next();
             var whatNextData = [];
             whatNext.children().each(function(i) {
                 var data = $(this);
                 whatNextData.push(data.text());
             })
-            alldata[$('.product-checkbox-icon').next().text()] = whatNextData
+            alldata[$('.product-checkbox-icon').next().text()] = whatNextData;
 
             requ.query("select * from deal where link='" + alldata.url + "'", function(err, cityD) {
                 if (!err) {
@@ -138,13 +140,15 @@ function ScrapInnerData(url, alldata, y) {
                         var nights = parseInt(alldata.Duration) || 0;
                         var link = alldata.url || "";
                         var title = alldata.package || "";
-                        requ.query("insert into deal(description,destination,stars,nights,link,title) values('" +
+                        var purchase_by = alldata.purchase_by || "";
+                        requ.query("insert into deal(description,destination,stars,nights,link,title,purchase_by) values('" +
                             description + "','" +
                             destination + "','" +
                             stars + "','" +
                             nights + "','" +
                             link + "','" +
-                            title + "')",
+                            title + "','" +
+                            purchase_by + "')",
                             function(err, dealAdded) {
                                 if (!err) {
                                     requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastIns) {

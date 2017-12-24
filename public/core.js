@@ -60,6 +60,22 @@ holidayPack.controller('mainController', function($scope, $http) {
     };
     $scope.getDesti = function(departure) {
         getDestination(departure);
+        var searchData = {
+            departure: departure,
+            withCity: false
+        }
+        $http.post('/api/getallHolidayDeal', searchData)
+            .success(function(data) {
+                console.log('getallHolidayDeal', data);
+                if (data.status) {
+                    $scope.dealData = data.data;
+                } else {
+                    console.log('Something gone wrong!', data.message);
+                }
+            })
+            .error(function(data) {
+                console.log('Error: ' + data.message);
+            });
     }
 
     function getDestination(departure) {
@@ -94,9 +110,12 @@ holidayPack.controller('mainController', function($scope, $http) {
                 console.log('Error: ' + data.message);
             });
     }
+
+
     var searchData = {
         withCity: true
     }
+
     $http.post('/api/getallHolidayDeal', searchData)
         .success(function(data) {
             console.log('getallHolidayDeal', data);
