@@ -97,7 +97,7 @@ exports.getallHolidayDeal = function(req, res) {
                 console.log('Without City');
                 requ.query(SearchQue, function(err, data) {
                     if (!err) {
-                        res.send({ code: 200, status: 1, message: 'Deal data get successfully', data: data.recordset, city: cityD.recordset });
+                        res.send({ code: 200, status: 1, message: 'Deal data get successfully', data: data.recordset });
                         return;
                     } else {
                         console.log('Error for selecting data from data base', err);
