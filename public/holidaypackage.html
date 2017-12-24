@@ -113,10 +113,10 @@
                         <div class="row">
                             <div class="col-sm-4 col-md-2">
                                 <select ng-options="data.departure for data in departure" ng-model="sendData.depselect" ng-change="getDesti(sendData.depselect)">
-										<option value="" disabled ng-selected="true">Departure Port</option>
+										<option value="" disabled ng-selected="true">Departure City</option>
 								</select>
                             </div>
-                            <div class="col-sm-4 col-md-2">
+                            <div class="col-sm-5 col-md-3">
                                 <select ng-options="data.destination for data in destination" ng-model="sendData.desselect">
 										<option value="" disabled ng-selected="true">Destination</option>
 								</select>
