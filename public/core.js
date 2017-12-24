@@ -114,6 +114,13 @@ holidayPack.controller('mainController', function($scope, $http) {
             console.log('Error: ' + data.message);
         });
 
+    // For Sorting
+    $scope.reverse = true;
+    $scope.sortBy = function(dealName) {
+        $scope.reverse = ($scope.dealName === dealName) ? !$scope.reverse : false;
+        $scope.dealName = dealName;
+    };
+
     // Footer
     $scope.currentYear = new Date().getFullYear();
 });
