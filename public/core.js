@@ -76,7 +76,7 @@ holidayPack.controller('mainController', function($scope, $http) {
     $scope.GetallHolidayDeal = function(data) {
         var searchData = {
             date: data.date ? data.date : "",
-            departure: data.depselect ? data.depselect.departure : "",
+            departure: $scope.depselect,
             destination: data.desselect ? data.desselect.destination : "",
             withCity: false
         }
