@@ -58,9 +58,7 @@ holidayPack.controller('mainController', function($scope, $http) {
                 console.log('Error: ' + data.message);
             });
     };
-    $scope.getDesti = function(data) {
-        console.log('getDesti', data);
-        var departure = data.departure;
+    $scope.getDesti = function(departure) {
         getDestination(departure);
     }
 

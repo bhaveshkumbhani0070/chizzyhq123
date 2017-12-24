@@ -121,7 +121,7 @@ exports.getDeparture = function(req, res) {
         if (!err) {
             requ.query("select DISTINCT departure from deal_departure order by departure", function(err, cityD) {
                 if (!err) {
-                    console.log('Deal data get successs', cityD.recordset);
+                    console.log('Deal data get successs');
                     res.send({ code: 200, status: 1, message: 'Deal data get successfully', data: cityD.recordset });
                     return;
                 } else {
@@ -149,7 +149,7 @@ exports.getDestination = function(req, res) {
             // requ.query("select DISTINCT destination from deal", function(err, cityD) {
             requ.query("select DISTINCT d.destination from deal_departure de left join deal d on de.deal_id = d.id where de.departure = '" + destination + "' order by d.destination", function(err, cityD) {
                 if (!err) {
-                    console.log('Destination data get successs', cityD.recordset);
+                    console.log('Destination data get successs');
                     res.send({ code: 200, status: 1, message: 'Destination data get successfully', data: cityD.recordset });
                     return;
                 } else {
