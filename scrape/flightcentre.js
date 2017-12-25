@@ -118,8 +118,7 @@ function ScrapInnerData(url, alldata, y) {
                 alldata[data.text()] = data.next().text();
             });
             alldata["price"] = $('.price').attr("content");
-            alldata["purchase_by"] = $('.priceValidUntil').attr("content");
-
+            alldata["purchase_by"] = $('meta[itemprop=priceValidUntil]').attr("content");
             var whatNext = $('.product-checkbox-icon').next().next();
             var whatNextData = [];
             whatNext.children().each(function(i) {
@@ -140,15 +139,17 @@ function ScrapInnerData(url, alldata, y) {
                         var nights = parseInt(alldata.Duration) || 0;
                         var link = alldata.url || "";
                         var title = alldata.package || "";
-                        var purchase_by = alldata.purchase_by || "";
-                        requ.query("insert into deal(description,destination,stars,nights,link,title,purchase_by) values('" +
+                        var purchase_by = purchageDate(alldata.purchase_by) || "";
+                        var agency = "flight centre";
+                        requ.query("insert into deal(description,destination,stars,nights,link,title,purchase_by,agency) values('" +
                             description + "','" +
                             destination + "','" +
                             stars + "','" +
                             nights + "','" +
                             link + "','" +
                             title + "','" +
-                            purchase_by + "')",
+                            purchase_by + "','" +
+                            agency + "')",
                             function(err, dealAdded) {
                                 if (!err) {
                                     requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastIns) {
@@ -265,3 +266,65 @@ function dateFormate(d) {
 //     //after read file append new data in old
 //     fs.writeFile(path, JSON.stringify(json, null, 4))
 // })
+
+
+
+// pool.close();
+// pool.connect(function(err, connnection) {
+//     if (!err) {
+//         requ.query('select * from deal where id>3000', function(err, data) {
+//             if (!err) {
+//                 for (var i = 0; i < data.recordset.length; i++) {
+//                     setTimeout(function(y) {
+//                         SetPurchageBy(data.recordset[y].id, data.recordset[y].link)
+//                     }, i * 1000, i);
+//                 }
+//             } else {
+//                 console.log('Error for selecting data from deal table', err);
+//                 return;
+//             }
+//         })
+//     } else {
+//         console.log('Error for connection', err);
+//     }
+// })
+
+// Get purchage date and update it
+function SetPurchageBy(id, url) {
+    request(url, function(error, response, html) {
+        if (!error) {
+            var $ = cheerio.load(html);
+            // Find from meta tag
+            var purchase_by = $('meta[itemprop=priceValidUntil]').attr("content");
+            purchase_by = purchageDate(purchase_by)
+            if (purchase_by) {
+                requ.query("update deal set purchase_by='" + purchase_by + "' where id=" + id, function(err, cityD) {
+                    if (!err) {
+                        console.log('update', id);
+                    } else {
+                        console.log('Error', err);
+                    }
+                });
+            } else {
+                console.log('not update', id)
+            }
+        } else {
+            console.log('Error', err);
+        }
+    });
+
+}
+/**
+ * DD/MM/YYYY
+ *  TO
+ * MM/DD/YYY
+ */
+function purchageDate(date) {
+    if (date) {
+        var newD = date.split("/");
+        var retuData = newD[1] + '/' + newD[0] + '/' + newD[2];
+        return retuData;
+    } else {
+        return false;
+    }
+}
