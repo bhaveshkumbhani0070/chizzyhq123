@@ -9,9 +9,8 @@ var pool = require('../config/db');
 const requ = new sql.Request(pool);
 
 
-exports.scrape = function(req, res) {
-    startJob();
-}
+exports.scrape = function(req, res) {}
+    // startJob();
 
 function startJob() {
     pool.close();
@@ -21,7 +20,7 @@ function startJob() {
             for (var x = 0; x < 18; x++) {
                 setTimeout(function(y) {
                     ScrapStudent(url, y);
-                }, x * 20000, x); // we're passing x
+                }, x * 40000, x); // we're passing x
                 //20000 means 16 Second, it will tack 16 Second for one page to scrape data
             }
         } else {
@@ -60,7 +59,7 @@ function ScrapStudent(u, y) {
                                 console.log('Error for select data from deal table', err);
                             }
                         });
-                    }, x * 2000, x);
+                    }, x * 1500, x);
                 }
             });
         } else {
@@ -182,7 +181,7 @@ function ScrapInnerData(url, alldata, y) {
                                                 console.log('Error for adding into deal_departure');
                                                 return;
                                             }
-                                        })
+                                        });
                                 }
                             } else {
                                 console.log('error for select into deal id', err);
