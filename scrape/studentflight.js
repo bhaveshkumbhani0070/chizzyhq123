@@ -14,13 +14,15 @@ exports.Studentscrape = function(req, res) {
     pool.connect(function(err, connection) {
         if (!err) {
             var url = 'https://www.studentflights.com.au';
-            var y = req.params.page;
-            ScrapStudent(url, y);
-            // for (var x = 0; x < 18; x++) {
-            //     setTimeout(function(y) {
-            //     }, x * 40000, x); // we're passing x
-            //     //20000 means 16 Second, it will tack 16 Second for one page to scrape data
-            // }
+            //var y = req.params.page;
+            // ScrapStudent(url, y);
+
+            for (var x = 0; x < 18; x++) {
+                setTimeout(function(y) {
+                    ScrapStudent(url, y)
+                }, x * 40000, x); // we're passing x
+                //20000 means 16 Second, it will tack 16 Second for one page to scrape data
+            }
         } else {
             console.log('Error for connection');
         }
@@ -139,9 +141,9 @@ function ScrapInnerData(url, alldata, y) {
 
             var purchase_by = alldata.expire;
             var description = alldata.description;
-            var stars = alldata.star || 0;
+            var stars = alldata.star || 4;
             var destination = alldata.destination;
-            var nights = parseInt(alldata.Duration) || 0;
+            var nights = parseInt(alldata.Duration) || 3;
             var link = alldata.url;
             var title = alldata.package_name;
             var agency = "student flight";
@@ -169,7 +171,7 @@ function ScrapInnerData(url, alldata, y) {
                                     var deal_id = dealD.d_id;
                                     console.log('0 deal_id', deal_id);
                                     var departure = alldata.departure[k].value || "";
-                                    var price = parseFloat(alldata.departure[k].price) || 0.0;
+                                    var price = parseFloat(alldata.departure[k].price) || 300.0;
                                     requ.query("insert into deal_departure(deal_id,departure,price) values(  '" +
                                         deal_id + "', '" +
                                         departure + "',  '" +
