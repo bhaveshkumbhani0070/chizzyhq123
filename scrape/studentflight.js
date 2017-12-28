@@ -68,7 +68,7 @@ function ScrapStudent(u, y) {
                                 console.log('Error for select data from deal table', err);
                             }
                         });
-                    }, x * 3000, x);
+                    }, x * 2500, x);
                 }
             });
         } else {
@@ -118,7 +118,8 @@ function ScrapInnerData(url, alldata, y) {
             $('div.sf-prodinfo-description p').each(function(i, e) {
                 var newData = $(this);
                 if (i == 1) {
-                    alldata["description"] = newData.text().toString();
+                    var des = newData.text().toString();
+                    alldata["description"] = des.replace(/'/g, "");
                 }
                 if (newData.text().includes('$')) {
                     var departing = newData.text();
@@ -134,6 +135,8 @@ function ScrapInnerData(url, alldata, y) {
                         }
                     }
                     alldata["departure"] = departure;
+                } else {
+                    alldata["departure"] = [];
                 }
             });
 
@@ -145,42 +148,48 @@ function ScrapInnerData(url, alldata, y) {
             var link = alldata.url;
             var title = alldata.package_name;
             var agency = "student flight";
-            description = description.replace("'", "");
-            console.log('description', description);
-            console.log('destination', destination);
-            console.log('stars', stars);
-            console.log('nights', nights);
-            console.log('link', link);
-            console.log('title', title);
-            console.log('purchase_by', purchase_by);
 
-            requ.query(
-                'insert into deal(description,destination,stars,nights,link,title,purchase_by,agency) values( "' + description + '", "' + destination + '",' + stars + ',' + nights + ', "' + link + '", "' + title + '","' + purchase_by + '","student flight")',
+            console.log('alldata', alldata);
+            var dealD = [];
+            requ.query("insert into deal(description,destination,stars,nights,link,title,purchase_by,agency) values( '" +
+                description + "',  '" +
+                destination + "', " +
+                stars + ", " +
+                nights + ",  '" +
+                link + "',  '" +
+                title + "', '" +
+                purchase_by + "','student flight')",
                 function(err, dealAdded) {
                     if (!err) {
-                        requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastIns) {
+                        //  requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastIns) {
+                        requ.query("SELECT max(id) id from deal", function(err, lastIns) {
                             if (!err) {
+                                var d_id = lastIns.recordset[0].id;
+                                dealD["d_id"] = d_id;
+                                console.log('deal_id', d_id);
                                 for (var k = 0; k < alldata.departure.length; k++) {
-                                    var deal_id = lastIns.recordset[0].Identity;
+                                    //  setTimeout(function (k) {
+                                    var deal_id = dealD.d_id;
+                                    console.log('0 deal_id', deal_id);
                                     var departure = alldata.departure[k].value || "";
                                     var price = parseFloat(alldata.departure[k].price) || 0.0;
-                                    requ.query('insert into deal_departure(deal_id,departure,price) values( "' +
-                                        deal_id + '", "' +
-                                        departure + '", "' +
-                                        price + '")',
+                                    requ.query("insert into deal_departure(deal_id,departure,price) values(  '" +
+                                        deal_id + "', '" +
+                                        departure + "',  '" +
+                                        price + "')",
                                         function(err, addDepart) {
                                             if (!err) {
                                                 requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastInsDepart) {
                                                     if (!err) {
                                                         var da = alldata.dates.split('-');
-                                                        var deal_departure_id = lastIns.recordset[0].Identity;
+                                                        var deal_departure_id = lastInsDepart.recordset[0].Identity;
                                                         var date_from = da[0];
                                                         var date_to = da[1];
-                                                        requ.query('insert into deal_dates(deal_id,deal_departure_id,date_from,date_to) values( "' +
-                                                            deal_id + '", ' +
-                                                            deal_departure_id + ', "' +
-                                                            date_from + '", "' +
-                                                            date_to + '")',
+                                                        requ.query("insert into deal_dates(deal_id,deal_departure_id,date_from,date_to) values(  '" +
+                                                            deal_id + "',  " +
+                                                            deal_departure_id + ", '" +
+                                                            date_from + "',  '" +
+                                                            date_to + "')",
                                                             function(err, dateIns) {
                                                                 if (!err) {
                                                                     console.log('INserted');
@@ -197,12 +206,14 @@ function ScrapInnerData(url, alldata, y) {
                                                 console.log('Error for adding into deal_departure', err);
                                             }
                                         });
+                                    //  }, x * 1000, x); // we're passing x
                                 }
                             } else {
                                 console.log('error for select into deal id', err);
                                 return;
                             }
                         });
+
                     } else {
                         console.log('Error for insert into deal', err);
                         return;
