@@ -9,6 +9,7 @@ var pool = require('../config/db');
 const requ = new sql.Request(pool);
 
 
+
 exports.Studentscrape = function(req, res) {
     pool.close();
     pool.connect(function(err, connection) {
