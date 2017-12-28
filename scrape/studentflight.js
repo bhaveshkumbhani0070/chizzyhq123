@@ -9,25 +9,24 @@ var pool = require('../config/db');
 const requ = new sql.Request(pool);
 
 
-exports.scrape = function(req, res) {}
-    // startJob();
-
-function startJob() {
+exports.Studentscrape = function(req, res) {
     pool.close();
     pool.connect(function(err, connection) {
         if (!err) {
             var url = 'https://www.studentflights.com.au';
-            for (var x = 0; x < 18; x++) {
-                setTimeout(function(y) {
-                    ScrapStudent(url, y);
-                }, x * 40000, x); // we're passing x
-                //20000 means 16 Second, it will tack 16 Second for one page to scrape data
-            }
+            var y = req.params.page;
+            ScrapStudent(url, y);
+            // for (var x = 0; x < 18; x++) {
+            //     setTimeout(function(y) {
+            //     }, x * 40000, x); // we're passing x
+            //     //20000 means 16 Second, it will tack 16 Second for one page to scrape data
+            // }
         } else {
             console.log('Error for connection');
         }
     })
 }
+
 // pool.close();
 // pool.connect(function(err, connection) {
 //     if (!err) {
@@ -68,7 +67,7 @@ function ScrapStudent(u, y) {
                                 console.log('Error for select data from deal table', err);
                             }
                         });
-                    }, x * 2500, x);
+                    }, x * 3500, x);
                 }
             });
         } else {
@@ -135,8 +134,6 @@ function ScrapInnerData(url, alldata, y) {
                         }
                     }
                     alldata["departure"] = departure;
-                } else {
-                    alldata["departure"] = [];
                 }
             });
 
@@ -148,8 +145,8 @@ function ScrapInnerData(url, alldata, y) {
             var link = alldata.url;
             var title = alldata.package_name;
             var agency = "student flight";
-
-            console.log('alldata', alldata);
+            alldata["departure"] = alldata["departure"] ? alldata["departure"] : [];
+            //   console.log('alldata', alldata);
             var dealD = [];
             requ.query("insert into deal(description,destination,stars,nights,link,title,purchase_by,agency) values( '" +
                 description + "',  '" +

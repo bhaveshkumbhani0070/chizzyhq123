@@ -4,7 +4,7 @@ var api = require('../api/apis.js');
 module.exports = function(app) {
 
     app.get('/admin/scrape/flightcentre/:l', flightcentre.scrape);
-    app.get('/admin/scrape/studentflight', studentflight.scrape);
+    app.get('/admin/scrape/studentflight/:page', studentflight.Studentscrape);
     // application -------------------------------------------------------------
     app.get('/', function(req, res) {
         res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
