@@ -7,7 +7,7 @@ var sql = require('mssql');
 var pool = require('../config/db');
 const requ = new sql.Request(pool);
 
-
+//destination
 
 //  deal(description,destination,stars,nights,link,title,purchase_by,agency)
 // *** String ,String,int,int,String,String,String('mm/dd/yyyy')
@@ -22,6 +22,8 @@ exports.holidaycenterScrape = function(req, res) {
 
 }
 
+// getAllUrl()
+
 function getAllUrl() {
     var url = "https://www.myholidaycentre.com.au/";
     request(url, function(error, response, html) {
@@ -31,10 +33,10 @@ function getAllUrl() {
                 var data = $(this);
 
                 if (data.attr("href").includes('http:')) {
-                    console.log('this', data.attr("href"));
-                    //getChildData(data.attr("href"));
+                    //console.log('this', data.attr("href"));
+                    getChildData(data.attr("href"));
                 } else {
-                    console.log('Other Urls', data.attr("href"));
+                    //console.log('Other Urls', data.attr("href"));
                 }
             })
         } else {
@@ -110,7 +112,7 @@ function ScrapeFromInner(allData, z) {
 
             var purchase_by = $('.book-date .date').text();
             purchase_by = purchase_by.split('Book by')[1].trim();
-            allData["purchase_by"] = getDate(purchase_by)
+            allData["purchase_by"] = dateFormate(purchase_by)
 
             var des = [];
             // Get Before hr tag
@@ -131,23 +133,29 @@ function ScrapeFromInner(allData, z) {
              * Need to get date_from and date_to from here
              */
 
-            // var all_text = '';
-            // $('.one_half hr').nextAll().each(function(i, e) {
-            //     if (i == 0) {
-            //         console.log('i', i);
-            //         var data = $(this);
-            //         var td_clone = $(this).clone();
-            //         $('strong', td_clone).remove();
-            //         console.log('all_text', parseInt(td_clone.text().replace(/ /g, '')));
-            //     }
-            // })
-
-
-            $('.one_half p').each(function(i, e) {
+            var dates = [];
+            $('.one_half hr').nextAll().eq(0).each(function(i, e) {
                 var data = $(this);
-                console.log('data', data);
+                var date = data.text().split("Valid");
+                for (var i = 0; i < date.length; i++) {
+                    if (date[i]) {
+                        var d = date[i].split("ex ").pop().replace("–", "").replace("–", "-");
+                        d = d.split('-')
+                        var firstDigit = d[0].match(/\d/);
+                        var indexed = d[0].indexOf(firstDigit);
+                        var dd = getDate(d[0].slice(indexed) + '-' + d[1]);
+                        dd = dd.split('-')
+                        var date_to = dd[0];
+                        var date_from = dd[1];
+                        dates.push({
+                            date_to: date_to,
+                            date_from: date_from
+                        })
+                    }
+                }
             })
-
+            allData["dates"] = dates;
+            console.log('allData', allData);
         } else {
             console.log('Error for scrape from inner', error);
         }
@@ -158,12 +166,26 @@ function ScrapeFromInner(allData, z) {
 
 
 
+function getDate(d) {
+    var date = d.trim().split('-')
+    var year = new Date(date[1]).getFullYear();
+    var mm = date[0].trim().split(" ");
+    if (!mm[1]) {
+        var toDate = new Date(date[1]);
+        var from = toDate.setMonth(toDate.getMonth() - mm);
+        var from = new Date(from).setMonth(mm - 1)
+    } else {
+        var from = date[0] + ' ' + year;
+    }
+    var to = date[1]
+    return dateFormate(from) + '-' + dateFormate(to)
+}
 
 
-
-function getDate(date) {
-    var d = new Date(date);
-    return d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear();
+function dateFormate(d) {
+    var date = new Date(d);
+    var mm = parseInt(date.getMonth()) + 1;
+    return mm + '/' + date.getDate() + '/' + date.getFullYear();
 }
 
 /**
