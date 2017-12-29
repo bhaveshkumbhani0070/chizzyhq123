@@ -16,7 +16,7 @@ const requ = new sql.Request(pool);
 // ** Int,String,Float
 
 // deal_dates(deal_id,deal_departure_id,date_from,date_to)
-// ** Int,Int,date,String('mm/dd/yyyy')
+// ** Int,Int,String('mm/dd/yyyy'),String('mm/dd/yyyy')
 
 exports.holidaycenterScrape = function(req, res) {
 
@@ -86,10 +86,11 @@ function getChildData(child) {
     });
 }
 
-var allData = {
-        link: "https://www.myfiji.com/package/sheraton-fiji-resort-ocean-view-room-7-nights-flash-sale/"
-    }
-    //ScrapeFromInner(allData, 0);
+// var allData = {
+//     link: "https://www.myfiji.com/package/sheraton-fiji-resort-ocean-view-room-7-nights-flash-sale/"
+// }
+
+// ScrapeFromInner(allData, 0);
 
 function ScrapeFromInner(allData, z) {
     request(allData.link, function(error, response, html) {
@@ -110,6 +111,43 @@ function ScrapeFromInner(allData, z) {
             var purchase_by = $('.book-date .date').text();
             purchase_by = purchase_by.split('Book by')[1].trim();
             allData["purchase_by"] = getDate(purchase_by)
+
+            var des = [];
+            // Get Before hr tag
+            $('.one_half hr').prevAll().each(function(i, e) {
+                var data = $(this);
+                //console.log('data', data.text());
+                if (data[0].name == "p") {
+                    des.push("<p>" + data.text() + "</p>");
+                } else {
+                    des.push("<ul><li>" + data.text().replace(/(\r\n|\n|\r)/gm, "") + "</li></ul>"); //
+                }
+            })
+            des = des.reverse();
+            allData["description"] = des.toString().replace(/(\,)/gm, "");
+
+            //Get After hr tag 
+            /**
+             * Need to get date_from and date_to from here
+             */
+
+            // var all_text = '';
+            // $('.one_half hr').nextAll().each(function(i, e) {
+            //     if (i == 0) {
+            //         console.log('i', i);
+            //         var data = $(this);
+            //         var td_clone = $(this).clone();
+            //         $('strong', td_clone).remove();
+            //         console.log('all_text', parseInt(td_clone.text().replace(/ /g, '')));
+            //     }
+            // })
+
+
+            $('.one_half p').each(function(i, e) {
+                var data = $(this);
+                console.log('data', data);
+            })
+
         } else {
             console.log('Error for scrape from inner', error);
         }
