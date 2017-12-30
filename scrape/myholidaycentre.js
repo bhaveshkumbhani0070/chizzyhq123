@@ -25,24 +25,30 @@ exports.holidaycenterScrape = function(req, res) {
 // getAllUrl()
 
 function getAllUrl() {
-    var url = "https://www.myholidaycentre.com.au/";
-    request(url, function(error, response, html) {
-        if (!error) {
-            var $ = cheerio.load(html);
-            $('.item-tile a').each(function(i, e) {
-                var data = $(this);
-
-                if (data.attr("href").includes('http:')) {
-                    //console.log('this', data.attr("href"));
-                    getChildData(data.attr("href"));
+    pool.close();
+    pool.connect(function(err, connection) {
+        if (!err) {
+            var url = "https://www.myholidaycentre.com.au/";
+            request(url, function(error, response, html) {
+                if (!error) {
+                    var $ = cheerio.load(html);
+                    $('.item-tile a').each(function(i, e) {
+                        var data = $(this);
+                        if (data.attr("href").includes('http:')) {
+                            //console.log('this', data.attr("href"));
+                            getChildData(data.attr("href"));
+                        } else {
+                            //console.log('Other Urls', data.attr("href"));
+                        }
+                    })
                 } else {
-                    //console.log('Other Urls', data.attr("href"));
+                    console.log('Error', err);
                 }
-            })
+            });
         } else {
-            console.log('Error', err);
+            console.log('Connection Error');
         }
-    });
+    })
 }
 // pool.close();
 // pool.connect(function(err, connection) {
@@ -63,11 +69,11 @@ function getChildData(child) {
                 var allData = {};
                 var link = data.attr("href")
                 allData["link"] = link;
+                allData["destination"] = getDestination(link);
                 allData["title"] = data.find('.details h3').text();
                 var NightPrice = data.find('.details .small').text().split('$');
                 allData["nights"] = parseInt(NightPrice[0]);
                 allData["price"] = parseInt(NightPrice[1]);
-
                 setTimeout(function(z) {
                     requ.query("select * from deal where link='" + link + "'", function(err, cityD) {
                         if (!err) {
@@ -88,11 +94,11 @@ function getChildData(child) {
     });
 }
 
-// var allData = {
-//     link: "https://www.myfiji.com/package/sheraton-fiji-resort-ocean-view-room-7-nights-flash-sale/"
-// }
-
-// ScrapeFromInner(allData, 0);
+function getDestination(link) {
+    link = link.split("my").pop();
+    link = link.substr(0, link.indexOf('.'));
+    return link;
+}
 
 function ScrapeFromInner(allData, z) {
     request(allData.link, function(error, response, html) {
@@ -161,10 +167,6 @@ function ScrapeFromInner(allData, z) {
         }
     });
 }
-
-
-
-
 
 function getDate(d) {
     var date = d.trim().split('-')
