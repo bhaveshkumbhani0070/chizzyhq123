@@ -32,15 +32,24 @@ function getAllUrl() {
             request(url, function(error, response, html) {
                 if (!error) {
                     var $ = cheerio.load(html);
+                    var allLink = [];
                     $('.item-tile a').each(function(i, e) {
                         var data = $(this);
                         if (data.attr("href").includes('http:')) {
-                            //console.log('this', data.attr("href"));
-                            getChildData(data.attr("href"));
+                            allLink.push(data.attr("href"));
+
                         } else {
                             //console.log('Other Urls', data.attr("href"));
                         }
                     })
+                    for (var x = 0; x < allLink.length; x++) {
+                        setTimeout(function(i) {
+                            console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+                            console.log('@@   ' + allLink[i] + '  @@');
+                            console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+                            getChildData(allLink[i]);
+                        }, x * 40000, x);
+                    }
                 } else {
                     console.log('Error', err);
                 }
@@ -99,6 +108,10 @@ function getDestination(link) {
     link = link.substr(0, link.indexOf('.'));
     return link;
 }
+// var allData = {
+//     link: "https://www.myfiji.com/package/malolo-island-resort-island-bure-5-nights/"
+// }
+// ScrapeFromInner(allData, 0);
 
 function ScrapeFromInner(allData, z) {
     request(allData.link, function(error, response, html) {
@@ -149,7 +162,9 @@ function ScrapeFromInner(allData, z) {
                         d = d.split('-')
                         var firstDigit = d[0].match(/\d/);
                         var indexed = d[0].indexOf(firstDigit);
-                        var dd = getDate(d[0].slice(indexed) + '-' + d[1]);
+
+                        var dd = getDate(d[0].slice(indexed) + '-' + d[1].split(';')[0]);
+                        //console.log('date[i]', d[1].split(';'));
                         dd = dd.split('-')
                         var date_to = dd[0];
                         var date_from = dd[1];
@@ -161,7 +176,7 @@ function ScrapeFromInner(allData, z) {
                 }
             })
             allData["dates"] = dates;
-            console.log('allData', allData);
+            console.log(allData.link, 'dates', dates);
         } else {
             console.log('Error for scrape from inner', error);
         }
