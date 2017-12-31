@@ -19,10 +19,8 @@ const requ = new sql.Request(pool);
 // ** Int,Int,String('mm/dd/yyyy'),String('mm/dd/yyyy')
 
 exports.holidaycenterScrape = function(req, res) {
-
+    getAllUrl()
 }
-
-// getAllUrl()
 
 function getAllUrl() {
     pool.close();
@@ -59,6 +57,8 @@ function getAllUrl() {
         }
     })
 }
+
+/////////////////////////////////
 // pool.close();
 // pool.connect(function(err, connection) {
 //     if (!err) {
@@ -69,14 +69,16 @@ function getAllUrl() {
 //     }
 // });
 
+
 function getChildData(child) {
+    console.log('Starting  ', child);
     request(child, function(error, response, html) {
         if (!error) {
             var $ = cheerio.load(html);
             $('.et_pb_text_inner .element-item .item-tile a').each(function(i, e) {
                 var data = $(this);
                 var allData = {};
-                var link = data.attr("href")
+                var link = data.attr("href");
                 allData["link"] = link;
                 allData["destination"] = getDestination(link);
                 allData["title"] = data.find('.details h3').text();
@@ -95,7 +97,7 @@ function getChildData(child) {
                             console.log('Error for select data from deal table', err);
                         }
                     });
-                }, i * 3500, i);
+                }, i * 4000, i);
             })
         } else {
             console.log('Error', err);
@@ -108,12 +110,9 @@ function getDestination(link) {
     link = link.substr(0, link.indexOf('.'));
     return link;
 }
-// var allData = {
-//     link: "https://www.myfiji.com/package/malolo-island-resort-island-bure-5-nights/"
-// }
-// ScrapeFromInner(allData, 0);
 
 function ScrapeFromInner(allData, z) {
+    console.log('@@ Link', allData.link);
     request(allData.link, function(error, response, html) {
         if (!error) {
             var $ = cheerio.load(html);
@@ -128,11 +127,9 @@ function ScrapeFromInner(allData, z) {
                 })
             })
             allData["departure"] = departure;
-
             var purchase_by = $('.book-date .date').text();
             purchase_by = purchase_by.split('Book by')[1].trim();
             allData["purchase_by"] = dateFormate(purchase_by)
-
             var des = [];
             // Get Before hr tag
             $('.one_half hr').prevAll().each(function(i, e) {
@@ -146,24 +143,26 @@ function ScrapeFromInner(allData, z) {
             })
             des = des.reverse();
             allData["description"] = des.toString().replace(/(\,)/gm, "");
-
             //Get After hr tag 
             /**
              * Need to get date_from and date_to from here
              */
-
             var dates = [];
             $('.one_half hr').nextAll().eq(0).each(function(i, e) {
                 var data = $(this);
                 var date = data.text().split("Valid");
                 for (var i = 0; i < date.length; i++) {
                     if (date[i]) {
-                        var d = date[i].split("ex ").pop().replace("–", "").replace("–", "-");
+                        var d = date[i].split(":").pop().replace("–", "").replace("–", "-");
                         d = d.split('-')
+                        console.log('d', d);
                         var firstDigit = d[0].match(/\d/);
                         var indexed = d[0].indexOf(firstDigit);
-
-                        var dd = getDate(d[0].slice(indexed) + '-' + d[1].split(';')[0]);
+                        if (d[1]) {
+                            var dd = getDate(d[0].slice(indexed) + '-' + d[1].split(';')[0]);
+                        } else {
+                            var dd = getDate(d[0].trim());
+                        }
                         //console.log('date[i]', d[1].split(';'));
                         dd = dd.split('-')
                         var date_to = dd[0];
@@ -176,15 +175,92 @@ function ScrapeFromInner(allData, z) {
                 }
             })
             allData["dates"] = dates;
-            console.log(allData.link, 'dates', dates);
+            //console.log('allData', allData);
+            saveData(allData);
         } else {
             console.log('Error for scrape from inner', error);
         }
     });
 }
 
+function saveData(allData) {
+
+
+    var dealD = [];
+    var description = allData.description;
+    var destination = allData.destination;
+    // var stars = allData.stars;
+    var nights = allData.nights;
+    var link = allData.link;
+    var title = allData.title;
+    var purchase_by = allData.purchase_by;
+    console.log('purchase_by', purchase_by);
+    requ.query("insert into deal(description,destination,nights,link,title,purchase_by,agency) values( '" +
+        description + "',  '" +
+        destination + "', " +
+        nights + ",  '" +
+        link + "',  '" +
+        title + "', '" +
+        purchase_by + "','my holiday centre')",
+        function(err, dealAdded) {
+            if (!err) {
+                requ.query("SELECT max(id) id from deal", function(err, lastIns) {
+                    if (!err) {
+                        var d_id = lastIns.recordset[0].id;
+                        dealD["d_id"] = d_id;
+                        for (var k = 0; k < allData.departure.length; k++) {
+                            var deal_id = dealD.d_id;
+                            var departure = allData.departure[k].value || "";
+                            var price = parseFloat(allData.departure[k].price) || 1300.0;
+                            requ.query("insert into deal_departure(deal_id,departure,price) values(  '" +
+                                deal_id + "', '" +
+                                departure + "',  '" +
+                                price + "')",
+                                function(err, addDepart) {
+                                    if (!err) {
+                                        requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastInsDepart) {
+                                            if (!err) {
+                                                var deal_departure_id = lastInsDepart.recordset[0].Identity;
+                                                console.log('dates', allData.dates);
+                                                var date_from = allData.dates[0].date_from;
+                                                var date_to = allData.dates[0].date_to;
+                                                requ.query("insert into deal_dates(deal_id,deal_departure_id,date_from,date_to) values(  '" +
+                                                    deal_id + "',  " +
+                                                    deal_departure_id + ", '" +
+                                                    date_from + "',  '" +
+                                                    date_to + "')",
+                                                    function(err, dateIns) {
+                                                        if (!err) {
+                                                            console.log('INserted');
+                                                        } else {
+                                                            console.log('Error for inserting into deal date', err);
+                                                        }
+                                                    })
+                                            } else {
+                                                console.log('Error for identity', err);
+                                            }
+                                        });
+                                    } else {
+                                        console.log('Error for adding into deal_departure', err);
+                                    }
+                                });
+                        }
+                    } else {
+                        console.log('error for select into deal id', err);
+                        return;
+                    }
+                });
+            } else {
+                console.log('Error for insert into deal', err);
+                return;
+            }
+        });
+}
+
 function getDate(d) {
-    var date = d.trim().split('-')
+    console.log('d', d);
+    var date = d.trim().split('-') || d.split(' ');
+    console.log('date', date);
     var year = new Date(date[1]).getFullYear();
     var mm = date[0].trim().split(" ");
     if (!mm[1]) {
@@ -202,7 +278,7 @@ function getDate(d) {
 function dateFormate(d) {
     var date = new Date(d);
     var mm = parseInt(date.getMonth()) + 1;
-    return mm + '/' + date.getDate() + '/' + date.getFullYear();
+    return date.getFullYear() + '/' + mm + '/' + date.getDate();
 }
 
 /**
