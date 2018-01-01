@@ -34,3 +34,37 @@ function startScrape(ul) {
         }
     })
 }
+
+// childScrape("http://www.jetstar.com/au/en/holidays");
+
+function childScrape(link) {
+    request(link, function(err, response, html) {
+        if (!err) {
+            var $ = cheerio.load(html);
+            $('.js-va-scroll .product-section .product-section__body .thumbnail--x4 .cta__wrapper a').each(function(e) {
+                var data = $(this);
+                if (data.attr("href").includes('http:')) {
+                    var l = data.attr('href');
+                } else {
+                    var l = "http://www.jetstar.com" + data.attr('href');
+                }
+                console.log('data', l);
+            })
+
+        }
+    })
+}
+
+// childData("http://www.jetstar.com/au/en/holidays/deals");
+
+function childData(link) {
+    request(link, function(err, response, html) {
+        if (!err) {
+            var $ = cheerio.load(html);
+            $('.packages-wrapper .package-card--x2').each(function(e) {
+                var data = $(this);
+                console.log('data', $('.package-card__description'));
+            });
+        }
+    });
+}
