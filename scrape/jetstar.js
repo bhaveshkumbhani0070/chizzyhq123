@@ -12,6 +12,63 @@ exports.jetstarScrape = function(req, res) {
 
 }
 
+function callApi() {
+
+
+    var json = [{
+        "itemTypeCodeList": ["HTL", "FLT"],
+        "purchaseDate": "2017-12-12T01:00:00.000Z",
+        "itemTypeCode": "PKG",
+        "leadSlotItemTypeCode": "HTL",
+        "catalogCode": "TC",
+        "cultureCode": "en-AU",
+        "bookingSourceCode": "TC",
+        "pageSize": 6,
+        "absolutePage": 1,
+        "locationList": [{
+                "locationCode": "SYD",
+                "usageDate": "2018-03-12T01:00:00.000Z"
+            },
+            {
+                "locationCode": "MCY",
+                "usageDate": "2018-03-15T01:00:00.000Z"
+            }
+        ],
+        "participantAvailabilityList": [{
+                "participantTypeCode": "ADT",
+                "participantSequence": 0,
+                "primaryFlag": true
+            },
+            {
+                "participantTypeCode": "ADT",
+                "participantSequence": 1,
+                "primaryFlag": false
+            }
+        ],
+        "searchType": 3,
+        "itemVariationAttributeAvailabilityRequestList": [{
+            "itemVariationAttributeKey": "All"
+        }]
+    }];
+
+    var options = {
+        url: 'https://jqprodr3xtcapi.navitaire.com/api/tc/v1/booking/itemAvailability',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        json: json
+    };
+
+    request(options, function(err, res, body) {
+        if (err) {
+            console.log('error', err);
+        } else {
+            console.log('body', body.data[0].itemList);
+        }
+    });
+}
+
 var url = "http://www.jetstar.com/au/en/holidays/sunshine-coast";
 // startScrape(url);
 
