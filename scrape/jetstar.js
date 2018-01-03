@@ -11,45 +11,60 @@ const requ = new sql.Request(pool);
 exports.jetstarScrape = function(req, res) {
 
 }
+// destination=locationList[1].description
+// title=descriptionShort
+// description=descriptionLong
+// agency="jetstar"
+// purchase_by=locationList[i].usageDate
 
-// callApi();
+// departure=locationList[0].description
+//  price=maxPrice
+
+// deal(,,,,,   destination,title,description,,stars,link,agency,nights,purchase_by)
+// deal_departure(deal_id,departure,  price)
+// deal_dates(deal_id,deal_departure_id,date_from,date_to)
+// ADL
+ var airportCode=["MEL","AVV","VIZ","ADL","AYQ","BNE","CNS","DRW","HBA","HIS","HTI","LST","MCY","MKY",
+ "NTL","OOL","PER","PPP","SYD","TSV"];
+ 
+ // pool.close();
+ // pool.connect(function(err, connection) {
+ //     if (!err) {
+ //        callApi();
+ //     } else {
+ //        console.log('Error for connection');
+ //     }
+ // });    
 
 function callApi() {
-    var json = [{
-        "itemTypeCodeList": ["HTL", "FLT"],
-        "purchaseDate": "2017-12-12T01:00:00.000Z",
-        "itemTypeCode": "PKG",
-        "leadSlotItemTypeCode": "HTL",
-        "catalogCode": "TC",
-        "cultureCode": "en-AU",
-        "bookingSourceCode": "TC",
-        "pageSize": 6,
-        "absolutePage": 1,
-        "locationList": [{
-                "locationCode": "SYD",
-                "usageDate": "2018-03-12T01:00:00.000Z"
-            },
-            {
-                "locationCode": "MCY",
-                "usageDate": "2018-03-15T01:00:00.000Z"
-            }
-        ],
-        "participantAvailabilityList": [{
-                "participantTypeCode": "ADT",
-                "participantSequence": 0,
-                "primaryFlag": true
-            },
-            {
-                "participantTypeCode": "ADT",
-                "participantSequence": 1,
-                "primaryFlag": false
-            }
-        ],
-        "searchType": 3,
-        "itemVariationAttributeAvailabilityRequestList": [{
-            "itemVariationAttributeKey": "All"
-        }]
-    }];
+    var json = [
+    {
+        "itemTypeCodeList":["HTL","FLT"],
+        "purchaseDate":"2017-12-12T01:00:00.000Z",
+        "itemTypeCode":"PKG",
+        "leadSlotItemTypeCode":"HTL",
+        "catalogCode":"TC",
+        "cultureCode":"en-AU",
+        "bookingSourceCode":"TC",
+        "absolutePage":1,
+        "locationList":[
+            {"locationCode":"SYD","usageDate":"2018-03-12T01:00:00.000Z"},
+            {"locationCode":"PPP","usageDate":"2018-03-15T01:00:00.000Z"}],
+        "participantAvailabilityList":[
+            {"participantTypeCode":"ADT",
+            "participantSequence":0,
+            "primaryFlag":true
+            },{
+                "participantTypeCode":"ADT",
+                "participantSequence":1,
+                "primaryFlag":false
+            }],
+            "searchType":3,
+            "itemVariationAttributeAvailabilityRequestList":
+            [
+            {"itemVariationAttributeKey":"All"}
+            ]
+        }];
 
     var options = {
         url: 'https://jqprodr3xtcapi.navitaire.com/api/tc/v1/booking/itemAvailability',
@@ -65,14 +80,80 @@ function callApi() {
             console.log('error', err);
         } else {
             var data = body.data[0].itemList;
-            var allData = [];
+           
             for (var i = 0; i < data.length; i++) {
-                allData["title"] = data[i].descriptionShort;
-                allData["description"] = data[i].descriptionLong;
-                allData["price"] = data[i].maxPrice;
-                console.log('all data', data[i]);
+                setTimeout(function(x) {
+                    var dateFrom=dateFormate(data[x].locationList[0].usageDate);
+                    var dateTo=dateFormate(data[x].locationList[1].usageDate);
+                    var SendData= {
+                        "title":data[x].descriptionShort,
+                        "description": data[x].descriptionLong,
+                        "price": data[x].minPrice.amount,
+                         "destination":data[x].locationList[1].description,
+                         "departure":data[x].locationList[0].description,
+                         "agency":"jetstar",
+                         "purchase_by":dateFormate(data[x].locationList[1].usageDate),
+                         "date_from":dateFrom,
+                         "date_to":dateTo,
+                         "nights":getDay(dateFrom,dateTo)
+                    }; 
+                   SAVE(SendData,x)
+                 }, i * 1000,i);
             }
-            // console.log('allData',allData);
+           
+              function SAVE(data,x) {
+                console.log('x',x)
+                requ.query("insert into deal(description,destination,nights,title,purchase_by,agency) values( '" +
+                data.description.toString() + "',  '" +
+                data.destination + "', " +
+                data.nights + ",  '" +
+                data.title + "', '" +
+                data.purchase_by + "','jetstar')",
+                function(err, dealAdded) {
+                    if (!err) {
+                        requ.query("SELECT max(id) id from deal", function(err, lastIns) {
+                            if (!err) {
+                                var deal_id = lastIns.recordset[0].id;
+                               
+                                requ.query("insert into deal_departure(deal_id,departure,price) values(  '" +
+                                    deal_id + "', '" +
+                                    data.departure + "',  '" +
+                                    data.price + "')",
+                                    function(err, addDepart) {
+                                        if (!err) {
+                                            requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastInsDepart) {
+                                            if (!err) {
+                                                var deal_departure_id = lastInsDepart.recordset[0].Identity;
+                                                requ.query("insert into deal_dates(deal_id,deal_departure_id,date_from,date_to) values(  '" +
+                                                deal_id + "',  " +
+                                                deal_departure_id + ", '" +
+                                                data.date_from + "',  '" +
+                                                data.date_to + "')",
+                                                    function(err, dateIns) {
+                                                        if (!err) {
+                                                            console.log('INserted');
+                                                        } else {
+                                                            console.log('Error for inserting into deal date', err);
+                                                        }
+                                                    })
+                                            } else {
+                                                console.log('Error for select last from deal depar', err);
+                                            }
+                                            });
+                                        } else {
+                                            console.log('Error for insert data into deal departure', err);
+                                        }
+                                    })
+                                } else {
+                                    console.log('Error for selecting last id', err);
+                                }
+                            });
+                        } else {
+                            console.log('Error for Deal', err);
+                        }
+                    });
+                }
+
         }
     });
 }
@@ -302,9 +383,7 @@ function childData(link) {
     });
 }
 
-// deal(,,,,,   destination,title,description,,stars,link,agency,nights,purchase_by)
-// deal_departure(deal_id,departure,  price)
-// deal_dates(deal_id,deal_departure_id,date_from,date_to)
+
 
 function getDate(d) {
     // console.log('d', d);
@@ -329,4 +408,12 @@ function dateFormate(d) {
     var date = new Date(d);
     var mm = parseInt(date.getMonth()) + 1;
     return date.getFullYear() + '/' + mm + '/' + date.getDate();
+}
+
+function getDay(fromDate,toDate){
+    var date1 = new Date(fromDate);
+    var date2 = new Date(toDate);
+    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    var night= Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return parseInt(night); 
 }
