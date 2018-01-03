@@ -155,7 +155,7 @@ function childScrape(link) {
     })
 }
 
-// childData("http://www.jetstar.com/au/en/holidays/deals");
+childData("http://www.jetstar.com/au/en/holidays/deals");
 
 function childData(link) {
     console.log('link', link);
@@ -217,9 +217,19 @@ function childData(link) {
                             console.log('not valid date');
                         } else {
                             // console.log('Insert');
-                            var xlData = allData.link + "\n";
-                            console.log('xlData', xlData);
-
+                            var xlData = allData.link + '\t' +
+                                allData.description + '\t' +
+                                allData.title + '\t' +
+                                allData.destination + '\t' +
+                                allData.price + '\t' +
+                                allData.nights + '\t' +
+                                allData.date_from + '\t' +
+                                allData.date_to + '\t' +
+                                allData.stars + '\t' +
+                                allData.purchase_by + '\t' +
+                                allData.departure + '\t' +
+                                allData.agency + '\t' +
+                                "\n";
                             fs.appendFile('Filename.xlsx', xlData, (err) => {
                                 if (err) throw err;
                                 console.log('File created');
