@@ -8,13 +8,14 @@ var pool = require('../config/db');
 const requ = new sql.Request(pool);
 
 
+
 exports.jetstarScrape = function(req, res) {
 
 }
 
+// callApi();
+
 function callApi() {
-
-
     var json = [{
         "itemTypeCodeList": ["HTL", "FLT"],
         "purchaseDate": "2017-12-12T01:00:00.000Z",
@@ -64,7 +65,15 @@ function callApi() {
         if (err) {
             console.log('error', err);
         } else {
-            console.log('body', body.data[0].itemList);
+            var data = body.data[0].itemList;
+            var allData = [];
+            for (var i = 0; i < data.length; i++) {
+                allData["title"] = data[i].descriptionShort;
+                allData["description"] = data[i].descriptionLong;
+                allData["price"] = data[i].maxPrice;
+                console.log('all data', data[i]);
+            }
+            // console.log('allData',allData);
         }
     });
 }
@@ -118,30 +127,70 @@ function childData(link) {
     request(link, function(err, response, html) {
         if (!err) {
             var $ = cheerio.load(html);
+            var departure = $('.js-package-selection').text();
             $('.packages-wrapper .grid .js-static-package').each(function(e) {
                 var data = $(this);
-                var allData = [];
-                allData["title"] = data.find('.package-card__holiday-name').text();
-                allData["destination"] = data.find('.package-card__destination').text().trim();
+                // var allData = [];
+                // allData["title"] = data.find('.package-card__holiday-name').text();
+                // allData["destination"] = data.find('.package-card__destination').text().trim();
                 var stars = data.find('.rating__text').text().split('out of')[0]
                 stars = stars.trim().split('-')[1];
-                allData["stars"] = parseInt(stars);
-
-                // data.find('.package-card__prices .package-card__price').each(function(e) {
-                //     var data = $(this);
-                //     var allData = [];
-                //     allData["title"]=data.attr('data-package-name');
-                //     allData["destination"]=data.attr('data-destination-name');
-                //     allData["price"]=data.attr('data-package-price');
-
-                //     console.log('data', data.attr('data-package-price'));
-                // })
+                // allData["stars"] = parseInt(stars);
+                var description = [];
+                data.find('.package-card__body ul li').each(function(e) {
+                    var d = $(this);
+                    description.push(d.text());
+                })
+                var nights = parseInt(description[1]);
+                description = description.reverse()
+                data.find('.package-card__prices .package-card__price').each(function(e) {
+                    var data = $(this);
+                    var allData = [];
+                    allData["link"] = link;
+                    allData["description"] = description.toString();
+                    allData["title"] = data.attr('data-package-name');
+                    allData["destination"] = data.attr('data-destination-name');
+                    allData["price"] = data.attr('data-package-price');
+                    var date = getDate(data.attr('data-package-dates')).split('-');
+                    allData["nights"] = nights;
+                    allData["date_from"] = date[0];
+                    allData["date_to"] = date[1];
+                    allData["stars"] = stars;
+                    allData["purchase_by"] = date[1];
+                    allData["departure"] = departure;
+                    allData["agency"] = "jetstar";
+                    console.log('allData', allData);
+                })
             });
         }
     });
 }
 
-
-// deal(description,,stars,nights,link,,purchase_by,agency   destination,title)
-// deal_departure(deal_id,departure,price)
+// deal(,,,,,   destination,title,description,,stars,link,agency,nights,purchase_by)
+// deal_departure(deal_id,departure,  price)
 // deal_dates(deal_id,deal_departure_id,date_from,date_to)
+
+function getDate(d) {
+    // console.log('d', d);
+    var date = d.trim().split('-');
+    //console.log('date', date);
+    var year = new Date(date[1]).getFullYear();
+    var mm = date[0].trim().split(" ");
+    if (!mm[1]) {
+        var toDate = new Date(date[1]);
+        var from = toDate.setMonth(toDate.getMonth() - mm);
+        var from = new Date(from).setMonth(mm - 1)
+    } else {
+        var from = date[0] + ' ' + year;
+    }
+    var to = date[1]
+
+    return dateFormate(from) + '-' + dateFormate(to)
+}
+
+
+function dateFormate(d) {
+    var date = new Date(d);
+    var mm = parseInt(date.getMonth()) + 1;
+    return date.getFullYear() + '/' + mm + '/' + date.getDate();
+}
