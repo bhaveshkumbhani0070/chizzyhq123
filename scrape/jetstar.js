@@ -8,7 +8,6 @@ var pool = require('../config/db');
 const requ = new sql.Request(pool);
 
 
-
 exports.jetstarScrape = function(req, res) {
 
 }
@@ -100,13 +99,41 @@ function startScrape(ul) {
         }
     })
 }
+// pool.close();
+// pool.connect(function(err, connection) {
+//     if (!err) {
+//         //childData("http://www.jetstar.com/au/en/holidays/deals");
+//         childScrape("http://www.jetstar.com/au/en/holidays");
+//     } else {
 
-// childScrape("http://www.jetstar.com/au/en/holidays");
+//     }
+// });
+
+// var xl = require('excel4node');
+
+// var wb = new xl.Workbook();
+// var ws = wb.addWorksheet('jetstar');
+// var style = wb.createStyle({
+//     font: {
+//         size: 12
+//     }
+// });
+// ws.cell(1, 1).number(200).style(style);
+// ws.cell(1, 2).string('string1').style(style);
+
+// wb.write('Jetstar.xlsx');
+// var fs = require('fs');
+// var data = [1, 'abc']
+// fs.appendFile('Jetstar.xlsx', data, function(err) {
+//     if (err) throw err;
+//     console.log('Saved!');
+// });
 
 function childScrape(link) {
     request(link, function(err, response, html) {
         if (!err) {
             var $ = cheerio.load(html);
+            var allLink = [];
             $('.js-va-scroll .product-section .product-section__body .thumbnail--x4 .cta__wrapper a').each(function(e) {
                 var data = $(this);
                 if (data.attr("href").includes('http:')) {
@@ -114,16 +141,23 @@ function childScrape(link) {
                 } else {
                     var l = "http://www.jetstar.com" + data.attr('href');
                 }
-                console.log('data', l);
+                allLink.push(l);
+
             })
+            for (var i = 0; i < allLink.length; i++) {
+                setTimeout(function(x) {
+
+                    childData(allLink[x]);
+                }, i * 40000, i);
+            }
 
         }
     })
 }
 
-// childData("http://www.jetstar.com/au/en/holidays/deals");
 
 function childData(link) {
+    console.log('link', link);
     request(link, function(err, response, html) {
         if (!err) {
             var $ = cheerio.load(html);
@@ -143,24 +177,93 @@ function childData(link) {
                 })
                 var nights = parseInt(description[1]);
                 description = description.reverse()
-                data.find('.package-card__prices .package-card__price').each(function(e) {
-                    var data = $(this);
-                    var allData = [];
-                    allData["link"] = link;
-                    allData["description"] = description.toString();
-                    allData["title"] = data.attr('data-package-name');
-                    allData["destination"] = data.attr('data-destination-name');
-                    allData["price"] = data.attr('data-package-price');
-                    var date = getDate(data.attr('data-package-dates')).split('-');
-                    allData["nights"] = nights;
-                    allData["date_from"] = date[0];
-                    allData["date_to"] = date[1];
-                    allData["stars"] = stars;
-                    allData["purchase_by"] = date[1];
-                    allData["departure"] = departure;
-                    allData["agency"] = "jetstar";
-                    console.log('allData', allData);
-                })
+                setInterval(function() {
+                    data.find('.package-card__prices .package-card__price').each(function(e) {
+                        var data = $(this);
+                        var allData = [];
+                        allData["link"] = link;
+                        allData["description"] = description.toString();
+                        allData["title"] = data.attr('data-package-name');
+                        allData["destination"] = data.attr('data-destination-name');
+                        allData["price"] = data.attr('data-package-price');
+                        var date = getDate(data.attr('data-package-dates')).split('-');
+                        allData["nights"] = nights;
+                        allData["date_from"] = date[0];
+                        allData["date_to"] = date[1];
+                        allData["stars"] = stars;
+                        allData["purchase_by"] = date[1];
+                        allData["departure"] = departure;
+                        allData["agency"] = "jetstar";
+                        var price = data.attr('data-package-price');
+                        console.log('allData', allData.purchase_by);
+                        var d = new Date(allData.purchase_by)
+                        if (isNaN(d.getTime())) {
+                            console.log('not valid date');
+                        } else {
+                            console.log('Insert');
+
+                            // SAVE()
+                            function SAVE() {
+                                requ.query("insert into deal(description,destination,nights,link,title,purchase_by,agency) values( '" +
+                                    description.toString() + "',  '" +
+                                    data.attr('data-destination-name') + "', " +
+                                    nights + ",  '" +
+                                    link + "',  '" +
+                                    data.attr('data-package-name') + "', '" +
+                                    allData.purchase_by + "','jetstar')",
+                                    function(err, dealAdded) {
+                                        if (!err) {
+                                            requ.query("SELECT max(id) id from deal", function(err, lastIns) {
+                                                if (!err) {
+                                                    var deal_id = lastIns.recordset[0].id;
+                                                    console.log('Inserted', deal_id);
+                                                    requ.query("insert into deal_departure(deal_id,departure,price) values(  '" +
+                                                        deal_id + "', '" +
+                                                        departure + "',  '" +
+                                                        price + "')",
+                                                        function(err, addDepart) {
+                                                            if (!err) {
+                                                                requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastInsDepart) {
+                                                                    if (!err) {
+                                                                        var deal_departure_id = lastInsDepart.recordset[0].Identity;
+                                                                        console.log('dates', allData.dates);
+                                                                        var date_from = allData.date_from;
+                                                                        var date_to = allData.date_to;
+                                                                        requ.query("insert into deal_dates(deal_id,deal_departure_id,date_from,date_to) values(  '" +
+                                                                            deal_id + "',  " +
+                                                                            deal_departure_id + ", '" +
+                                                                            date_from + "',  '" +
+                                                                            date_to + "')",
+                                                                            function(err, dateIns) {
+                                                                                if (!err) {
+                                                                                    console.log('INserted');
+                                                                                } else {
+                                                                                    console.log('Error for inserting into deal date', err);
+                                                                                }
+                                                                            })
+                                                                    } else {
+                                                                        console.log('Error for select last from deal depar', err);
+                                                                    }
+                                                                });
+                                                            } else {
+                                                                console.log('Error for insert data into deal departure', err);
+                                                            }
+                                                        })
+
+                                                } else {
+                                                    console.log('Error for selecting last id', err);
+                                                }
+                                            });
+                                        } else {
+                                            console.log('Error for Deal', err);
+                                        }
+                                    });
+                            }
+
+                        }
+
+                    })
+                }, 2000);
             });
         }
     });
