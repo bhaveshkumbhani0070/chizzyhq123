@@ -155,7 +155,7 @@ function childScrape(link) {
     })
 }
 
-childData("http://www.jetstar.com/au/en/holidays/deals");
+// childData("http://www.jetstar.com/au/en/holidays/deals");
 
 function childData(link) {
     console.log('link', link);
