@@ -155,6 +155,7 @@ function childScrape(link) {
     })
 }
 
+// childData("http://www.jetstar.com/au/en/holidays/deals");
 
 function childData(link) {
     console.log('link', link);
@@ -195,12 +196,34 @@ function childData(link) {
                         allData["departure"] = departure;
                         allData["agency"] = "jetstar";
                         var price = data.attr('data-package-price');
-                        console.log('allData', allData.purchase_by);
+                        var InsData = {
+                            link: allData.link,
+                            description: allData.description,
+                            title: allData.title,
+                            destination: allData.destination,
+                            price: allData.price,
+                            nights: allData.nights,
+                            date_from: allData.date_from,
+                            date_to: allData.date_to,
+                            stars: allData.stars,
+                            purchase_by: allData.purchase_by,
+                            departure: allData.departure,
+                            agency: allData.agency
+                        }
+
+                        // console.log('allData', allData.purchase_by);
                         var d = new Date(allData.purchase_by)
                         if (isNaN(d.getTime())) {
                             console.log('not valid date');
                         } else {
-                            console.log('Insert');
+                            // console.log('Insert');
+                            var xlData = allData.link + "\n";
+                            console.log('xlData', xlData);
+
+                            fs.appendFile('Filename.xlsx', xlData, (err) => {
+                                if (err) throw err;
+                                console.log('File created');
+                            });
 
                             // SAVE()
                             function SAVE() {
