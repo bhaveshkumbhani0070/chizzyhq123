@@ -149,8 +149,14 @@ exports.getDestination = function(req, res) {
             // requ.query("select DISTINCT destination from deal", function(err, cityD) {
             requ.query("select DISTINCT d.destination from deal_departure de left join deal d on de.deal_id = d.id where de.departure = '" + destination + "' order by d.destination", function(err, cityD) {
                 if (!err) {
+                    var Citydata = [];
+                    for (var i = 0; i < cityD.recordset.length; i++) {
+                        if (cityD.recordset[i].destination == null) {} else {
+                            Citydata.push(cityD.recordset[i]);
+                        }
+                    }
                     console.log('Destination data get successs');
-                    res.send({ code: 200, status: 1, message: 'Destination data get successfully', data: cityD.recordset });
+                    res.send({ code: 200, status: 1, message: 'Destination data get successfully', data: Citydata });
                     return;
                 } else {
                     console.log('Error for get data from departture', err);
@@ -185,3 +191,41 @@ exports.getDestination = function(req, res) {
 //         console.log('Error for connection', err);
 //     }
 // })
+
+
+
+// var SearchQue = "select DISTINCT d.destination from deal_departure de left join deal d on de.deal_id = d.id";
+// pool.close();
+// pool.connect(function(err, connection) {
+//     if (!err) {
+//         requ.query(SearchQue, function(err, data) {
+//             if (!err) {
+//                 console.log('data', data.recordset.length);
+//                 var Citydata = [];
+//                 for (var i = 0; i < data.recordset.length; i++) {
+//                     if (data.recordset[i].destination == null) {
+//                         console.log('data', data.recordset[i]);
+
+//                         // requ.query('delete from deal_dates where id=' + data.recordset[i].deal_dates_id, function(err, del) {
+//                         //     if (!err) {
+//                         //         console.log('Delete');
+//                         //     } else {
+//                         //         console.log('Error for delete', err);
+//                         //     }
+//                         // })
+//                     } else {
+//                         Citydata.push(data.recordset[i]);
+//                     }
+//                 }
+//                 console.log('Citydata', Citydata);
+
+//             } else {
+//                 console.log('Error for selecting data from data base', err);
+//                 return;
+//             }
+//         })
+//     } else {
+//         console.log('Connection error', err);
+//         return;
+//     }
+// });
