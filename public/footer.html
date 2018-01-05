@@ -21,15 +21,15 @@
                         <dd><a href="#">Cruise Reviews</a></dd>
                     </dl>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-6 col-md-4">
                     <dl>
                         <dt>Search by Departure</dt>
-                        <dd><a href="#">Cruises from Sydney</a></dd>
-                        <dd><a href="#">Cruises from Brisbane</a></dd>
+                        <dd ng-repeat="data in departure"><a href="#/holiday/{{data.departure}}">Holiday Packages from {{data.departure}}</a></dd>
+                        <!-- <dd><a href="#">Cruises from Brisbane</a></dd>
                         <dd><a href="#">Cruises from Melbourne</a></dd>
                         <dd><a href="#">Cruises from Fremantle</a></dd>
                         <dd><a href="#">Cruises from Cairns</a></dd>
-                        <dd><a href="#">Cruises from Auckland</a></dd>
+                        <dd><a href="#">Cruises from Auckland</a></dd> -->
                     </dl>
                     <dl>
                         <dt>Search by Cruise</dt>
@@ -62,7 +62,7 @@
                         <dd><a href="#">Carnival Spirit Cruises</a></dd>
                     </dl>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-6 col-md-2">
                     <dl>
                         <dt>Blog</dt>
                         <dd><a href="#">Home</a></dd>

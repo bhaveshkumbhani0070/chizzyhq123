@@ -43,9 +43,9 @@ exports.getallHolidayDeal = function(req, res) {
     var dataForSearch = req.body;
     console.log('Data for search', dataForSearch)
     var date = dataForSearch.date;
-    var departure = dataForSearch.departure;
+    var departure = dataForSearch.departure || req.params.departure;
     var destination = dataForSearch.destination;
-
+    console.log('departure', departure);
     if (departure && destination && date) {
         var date_from = date.split("to")[0];
         var date_to = date.split("to")[1];

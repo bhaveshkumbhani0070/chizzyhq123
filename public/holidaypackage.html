@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html ng-app="holidayPack" class="no-js" lang="">
 
 <head>
@@ -7,7 +7,6 @@
     <title>HolidayPackage</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!-- CSS & JS -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/select2.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -17,8 +16,6 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/style.css">
-
-
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="js/vendor/jquery-1.12.0.min.js"></script>
     <script>
@@ -29,21 +26,13 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
     <script src="core.js"></script>
     <script src="js/plugins.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
     <script src="/node_module/select2/dist/js/select2.min.js"></script>
     <script src="js/slick.min.js"></script>
     <script src="js/flatpickr.js"></script>
     <script src="js/main.js"></script>
-
-    <!-- <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-    <script src="core.js"></script> -->
 </head>
 
 <body ng-controller="mainController">
-    <!--[if lt IE 8]>
-			<p class="browserupgrade">You are using an<strong>outhated</strong> browser. Please<a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-		<![endif]-->
 
     <header class="header-area">
         <div class="header-block">
@@ -106,207 +95,74 @@
             </div>
         </div>
     </header>
+    <div ng-include="'public/footer.html'">
+    </div>
+</body>
 
-    <section class="content-area">
-        <div class="holiday-search-area">
-            <div class="holiday-search-block">
-                <div class="container">
-                    <div class="content">
-                        <div class="row">
-                            <div class="col-sm-4 col-md-2">
-                                <select ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect)">
-										<option value="" disabled ng-selected="true">Departure City</option>
-								</select>
-                            </div>
-                            <div class="col-sm-5 col-md-3">
-                                <select ng-options="data.destination for data in destination" ng-model="sendData.desselect">
-										<option value="" disabled ng-selected="true">Destination</option>
-								</select>
-                            </div>
-                            <!-- <div class="col-sm-4 col-md-2">
-                                <select>
-										<option value="" disabled ng-selected="true">Cruise Line</option>
-										<option value="#">Option #1</option>
-										<option value="#">Option #2</option>
-										<option value="#">Option #3</option>
-										<option value="#">Option #4</option>
-										<option value="#">Option #5</option>
-										<option value="#">Option #6</option>
-										<option value="#">Option #7</option>
-										<option value="#">Option #8</option>
-										<option value="#">Option #9</option>
-										<option value="#">Option #10</option>
-									</select>
-                            </div>
-                            <div class="col-sm-4 col-md-2">
-                                <select>
-										<option value="-1" disabled selected>Cruise Ship</option>
-										<option value="#">Option #1</option>
-										<option value="#">Option #2</option>
-										<option value="#">Option #3</option>
-										<option value="#">Option #4</option>
-										<option value="#">Option #5</option>
-										<option value="#">Option #6</option>
-										<option value="#">Option #7</option>
-										<option value="#">Option #8</option>
-										<option value="#">Option #9</option>
-										<option value="#">Option #10</option>
-									</select>
-                            </div> -->
-                            <div class="col-sm-4 col-md-2">
-                                <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
-                            </div>
-                            <div class="col-sm-4 col-md-2">
-                                <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal(sendData)">SEARCH</button>
-                            </div>
+</html> -->
+
+
+
+<section class="content-area">
+    <div class="holiday-search-area">
+        <div class="holiday-search-block">
+            <div class="container">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-4 col-md-2">
+                            <select ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect)">
+                                    <option value="" disabled ng-selected="true">Departure City</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-5 col-md-3">
+                            <select ng-options="data.destination for data in destination" ng-model="sendData.desselect">
+                                    <option value="" disabled ng-selected="true">Destination</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal(sendData)">SEARCH</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="holiday-list-area">
-            <div class="holiday-list-block">
-                <div class="container">
-                    <h1>Holiday Packges departing from {{departureName}}</h1>
-                    <table>
-                        <thead>
-                            <tr class="searchHeader">
-                                <th ng-click="sortBy('date_from')">Travel Date</th>
-                                <th>Agency</th>
-                                <th ng-click="sortBy('price')">Price</th>
-                                <th ng-click="sortBy('departure')">Departure</th>
-                                <th ng-click="sortBy('destination')">Destination</th>
-                                <th ng-click="sortBy('title')">Package Name</th>
-                                <th ng-click="sortBy('nights')">Nights</th>
-                                <th ng-click="sortBy('purchase_by')">Purchase By</th>
-                                <th>Quad pp*</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="val in dealData | orderBy:dealName:reverse">
-                                <td data-th="Travel Date"><strong>{{val.date_from | date:'dd MMM yyyy'}} - {{val.date_to | date:'dd MMM yyyy'}}</strong></td>
-                                <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
-                                <td data-th="Price" class="price">${{val.price}}</td>
-                                <td data-th="Departure">{{val.departure}}</td>
-                                <td data-th="Destination">{{val.destination}}</td>
-                                <td data-th="Package Name">{{val.title}}</td>
-                                <td data-th="Nights">{{val.nights}}</td>
-                                <td data-th="Purchase By">{{val.purchase_by | date:'dd MMM yyyy'}}</td>
-                                <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
-                            </tr>
-                            <!-- <tr>
-                                <td data-th="Travel Date"><strong>6th May - 4th July 2017</strong></td>
-                                <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
-                                <td data-th="Price" class="price">$399</td>
-                                <td data-th="Destination">Fiji and South Pacific</td>
-                                <td data-th="Package Name">Sydney, Isle of Pines, Mystery Island, Dravuni Island Suva, Savu Savu, Lautok, Noumea</td>
-                                <td data-th="Nights">14</td>
-                                <td data-th="Purchase By">Sun Princess</td>
-                                <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
-                            </tr> -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-    <footer class="footer-area">
-        <div class="footer-block-01">
+    </div>
+    <div class="holiday-list-area">
+        <div class="holiday-list-block">
             <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <dl>
-                            <dt>Further Information</dt>
-                            <dd><a href="#">About Us</a></dd>
-                            <dd><a href="#">Advanced Search</a></dd>
-                            <dd><a href="#">Site Map</a></dd>
-                            <dd><a href="#">Flights &amp; Hotels</a></dd>
-                            <dd><a href="#">Privacy Policy</a></dd>
-                            <dd><a href="#">Contact Us</a></dd>
-                            <dd><a href="#">Cruise Reviews</a></dd>
-                            <dd><a href="#">About Us</a></dd>
-                            <dd><a href="#">Advanced Search</a></dd>
-                            <dd><a href="#">Site Map</a></dd>
-                            <dd><a href="#">Flights &amp; Hotels</a></dd>
-                            <dd><a href="#">Privacy Policy</a></dd>
-                            <dd><a href="#">Contact Us</a></dd>
-                            <dd><a href="#">Cruise Reviews</a></dd>
-                        </dl>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <dl>
-                            <dt>Search by Departure</dt>
-                            <dd><a href="#">Cruises from Sydney</a></dd>
-                            <dd><a href="#">Cruises from Brisbane</a></dd>
-                            <dd><a href="#">Cruises from Melbourne</a></dd>
-                            <dd><a href="#">Cruises from Fremantle</a></dd>
-                            <dd><a href="#">Cruises from Cairns</a></dd>
-                            <dd><a href="#">Cruises from Auckland</a></dd>
-                        </dl>
-                        <dl>
-                            <dt>Search by Cruise</dt>
-                            <dd><a href="#">Line P&amp;O Cruises</a></dd>
-                            <dd><a href="#">Princess Cruises</a></dd>
-                            <dd><a href="#">Carnival Cruises</a></dd>
-                            <dd><a href="#">Royal Caribbean Cruises</a></dd>
-                            <dd><a href="#">Celebrity Cruises</a></dd>
-                            <dd><a href="#">Holland America Line</a></dd>
-                            <dd><a href="#">Cunard Cruises</a></dd>
-                        </dl>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <dl>
-                            <dt>Search by Date</dt>
-                            <dd><a href="#">January 2017 Cruises</a></dd>
-                            <dd><a href="#">February 2017 Cruises</a></dd>
-                            <dd><a href="#">March 2017 Cruises</a></dd>
-                            <dd><a href="#">April 2017 Cruises</a></dd>
-                            <dd><a href="#">May 2017 Cruises</a></dd>
-                            <dd><a href="#">June 2017 Cruises</a></dd>
-                        </dl>
-                        <dl>
-                            <dt>Search by Ship</dt>
-                            <dd><a href="#">P&amp;O - Pacific Aria Cruises</a></dd>
-                            <dd><a href="#">P&amp;O - Pacific Dawn Cruises</a></dd>
-                            <dd><a href="#">P&amp;O - Pacific Eden Cruises</a></dd>
-                            <dd><a href="#">P&amp;O - Pacific Jewel Cruises</a></dd>
-                            <dd><a href="#">P&amp;O - Pacific Pearl Cruises</a></dd>
-                            <dd><a href="#">Carnival Spirit Cruises</a></dd>
-                        </dl>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <dl>
-                            <dt>Blog</dt>
-                            <dd><a href="#">Home</a></dd>
-                            <dd><a href="#">Tips</a></dd>
-                            <dd><a href="#">Food</a></dd>
-                            <dd><a href="#">Entertainment</a></dd>
-                            <dd><a href="#">Ports</a></dd>
-                            <dd><a href="#">News</a></dd>
-                            <dd><a href="#">Travel</a></dd>
-                        </dl>
-                    </div>
-                </div>
+                <h1>Holiday Packges departing from {{departureName}}</h1>
+                <table>
+                    <thead>
+                        <tr class="searchHeader">
+                            <th ng-click="sortBy('date_from')">Travel Date</th>
+                            <th>Agency</th>
+                            <th ng-click="sortBy('price')">Price</th>
+                            <th ng-click="sortBy('departure')">Departure</th>
+                            <th ng-click="sortBy('destination')">Destination</th>
+                            <th ng-click="sortBy('title')">Package Name</th>
+                            <th ng-click="sortBy('nights')">Nights</th>
+                            <th ng-click="sortBy('purchase_by')">Purchase By</th>
+                            <th>Quad pp*</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="val in dealData | orderBy:dealName:reverse">
+                            <td data-th="Travel Date"><strong>{{val.date_from | date:'dd MMM yyyy'}} - {{val.date_to | date:'dd MMM yyyy'}}</strong></td>
+                            <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
+                            <td data-th="Price" class="price">${{val.price}}</td>
+                            <td data-th="Departure">{{val.departure}}</td>
+                            <td data-th="Destination">{{val.destination}}</td>
+                            <td data-th="Package Name">{{val.title}}</td>
+                            <td data-th="Nights">{{val.nights}}</td>
+                            <td data-th="Purchase By">{{val.purchase_by | date:'dd MMM yyyy'}}</td>
+                            <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="footer-block-02">
-            <div class="container text-center">
-                <span>Copyright © 20017   |  Holiday Packges</span>
-            </div>
-        </div>
-    </footer>
-
-
-    <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script>
-        window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')
-    </script>
-    <script src="js/plugins.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script src="js/slick.min.js"></script>
-    <script src="js/flatpickr.js"></script>
-    <script src="js/main.js"></script> -->
-
-</body>
-
-</html>
+    </div>
+</section>

@@ -2,12 +2,18 @@ var holidayPack = angular.module('holidayPack', ['ngRoute']);
 
 holidayPack.config(function($routeProvider) {
     $routeProvider
-        .when("/home", {
+        .when("/", {
             templateUrl: "/public/home.html"
                 // controller: "homeClt"
         })
-        .when("/blue", {
-            templateUrl: "blue.htm"
+        .when('/holiday', {
+            templateUrl: "/public/holidaypackage.html"
+        })
+        .when('/holiday/:city', {
+            templateUrl: "/public/holidaypackage.html"
+        })
+        .otherwise({
+            redirectTo: '/holiday'
         });
 });
 // holidayPack.directive('jque', function() {
@@ -120,7 +126,7 @@ holidayPack.controller('mainController', function($scope, $http) {
         .success(function(data) {
             console.log('getallHolidayDeal', data);
             if (data.status) {
-                console.log('ok display me');
+                console.log('ok display me', data.city);
                 $scope.departure = data.city;
                 $scope.depselect = data.city[0].departure;
                 $scope.dealData = data.data;

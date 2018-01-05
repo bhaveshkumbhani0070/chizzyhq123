@@ -10,14 +10,12 @@
                                 <label for="departure_city">Departure City</label>
                                 <select class="form-control" ng-options="data.departure for data in departure" ng-model="sendData.depselect" id="departure_city">
 										<option value="" disabled ng-selected="true">Select Departure Port</option>
-										<!-- <option  ng-repeat="data in departure" value="{{data.departure}}">{{data.departure}}</option> -->
 									</select>
                             </div>
                             <div class="field">
                                 <label for="destination_city">Destination</label>
                                 <select class="form-control" ng-options="data.destination for data in destination" ng-model="sendData.desselect" id="destination_city">
 										<option value="" disabled ng-selected="true">Any</option>
-										<!-- <option  ng-repeat="data in destination" value="{{data.destination}}">{{data.destination}}</option> -->
 									</select>
                             </div>
 
@@ -81,43 +79,241 @@
                         </div>
                         <div class="content">
                             <div class="content-slider">
-                                <!-- <div class="item-slides">
-                                        <div class="item">
-                                            <h3>Siem Reap to Ho Chi Mich</h3>
-                                            <div class="package-slider">
-                                                <div class="slides">
-                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
-                                                </div>
-                                                <div class="slides">
-                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
-                                                </div>
-                                                <div class="slides">
-                                                    <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
-                                                </div>
+                                <div class="item-slides">
+                                    <div class="item">
+                                        <h3>Siem Reap to Ho Chi Mich</h3>
+                                        <div class="package-slider">
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
                                             </div>
-                                            <p><strong>7 Nights</strong> on River Cruise Ship</p>
-                                            <span>Departs 14 Feb 2017</span>
-                                            <div class="price">
-                                                <div class="price-content">
-                                                    <small>Twin Cabin from</small><span>$1348</span>/per person
-                                                </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
                                             </div>
-                                            <div class="buttonset">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-lg-6">
-                                                        <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
-                                                    </div>
-                                                    <div class="col-xs-12 col-lg-6">
-                                                        <a href="#" class="btn btn-01">VIEW</a>
-                                                    </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                        </div>
+                                        <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                        <span>Departs 14 Feb 2017</span>
+                                        <div class="price">
+                                            <div class="price-content">
+                                                <small>Twin Cabin from</small><span>$1348</span>/per person
+                                            </div>
+                                        </div>
+                                        <div class="buttonset">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                </div>
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-01">VIEW</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div>
+                                </div>
                                 <div class="item-slides">
-                                    <!-- ng-repeat="val in dealData" -->
                                     <div class="item">
-                                        <!-- <h3>{{val.title}}</h3> -->
+                                        <h3>Siem Reap to Ho Chi Mich</h3>
+                                        <div class="package-slider">
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                        </div>
+                                        <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                        <span>Departs 14 Feb 2017</span>
+                                        <div class="price">
+                                            <div class="price-content">
+                                                <small>Twin Cabin from</small><span>$1348</span>/per person
+                                            </div>
+                                        </div>
+                                        <div class="buttonset">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                </div>
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-01">VIEW</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-slides">
+                                    <div class="item">
+                                        <h3>Siem Reap to Ho Chi Mich</h3>
+                                        <div class="package-slider">
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                        </div>
+                                        <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                        <span>Departs 14 Feb 2017</span>
+                                        <div class="price">
+                                            <div class="price-content">
+                                                <small>Twin Cabin from</small><span>$1348</span>/per person
+                                            </div>
+                                        </div>
+                                        <div class="buttonset">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                </div>
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-01">VIEW</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-slides">
+                                    <div class="item">
+                                        <h3>Siem Reap to Ho Chi Mich</h3>
+                                        <div class="package-slider">
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                        </div>
+                                        <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                        <span>Departs 14 Feb 2017</span>
+                                        <div class="price">
+                                            <div class="price-content">
+                                                <small>Twin Cabin from</small><span>$1348</span>/per person
+                                            </div>
+                                        </div>
+                                        <div class="buttonset">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                </div>
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-01">VIEW</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-slides">
+                                    <div class="item">
+                                        <h3>Siem Reap to Ho Chi Mich</h3>
+                                        <div class="package-slider">
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                        </div>
+                                        <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                        <span>Departs 14 Feb 2017</span>
+                                        <div class="price">
+                                            <div class="price-content">
+                                                <small>Twin Cabin from</small><span>$1348</span>/per person
+                                            </div>
+                                        </div>
+                                        <div class="buttonset">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                </div>
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-01">VIEW</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-slides">
+                                    <div class="item">
+                                        <h3>Siem Reap to Ho Chi Mich</h3>
+                                        <div class="package-slider">
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                        </div>
+                                        <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                        <span>Departs 14 Feb 2017</span>
+                                        <div class="price">
+                                            <div class="price-content">
+                                                <small>Twin Cabin from</small><span>$1348</span>/per person
+                                            </div>
+                                        </div>
+                                        <div class="buttonset">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                </div>
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-01">VIEW</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-slides">
+                                    <div class="item">
+                                        <h3>Siem Reap to Ho Chi Mich</h3>
+                                        <div class="package-slider">
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                            <div class="slides">
+                                                <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
+                                            </div>
+                                        </div>
+                                        <p><strong>7 Nights</strong> on River Cruise Ship</p>
+                                        <span>Departs 14 Feb 2017</span>
+                                        <div class="price">
+                                            <div class="price-content">
+                                                <small>Twin Cabin from</small><span>$1348</span>/per person
+                                            </div>
+                                        </div>
+                                        <div class="buttonset">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-02">LUXURY RIVER CRUISE</a>
+                                                </div>
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <a href="#" class="btn btn-01">VIEW</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item-slides">
+                                    <div class="item">
+                                        <h3>{{val.title}}</h3>
                                         <div class="package-slider">
                                             <div class="slides">
                                                 <figure><img class="img-responsive" src="images/package_01.jpg" alt=""></figure>
@@ -165,62 +361,62 @@
             <div class="container">
                 <h2>Holiday Destinations</h2>
                 <div class="holiday-slider">
-                    <div class="item text-center" ng-repeat="val in dealData">
+                    <div class="item text-center">
                         <div class="content">
                             <figure><img class="img-responsive" src="images/holiday_01.jpg" alt=""></figure>
-                            <p>{{val.title}}</p>
+                            <p>South Pacific</p>
                             <a href="#" class="btn btn-01">VIEW</a>
                         </div>
                     </div>
-                    <!-- <div class="item text-center">
-                            <div class="content">
-                                <figure><img class="img-responsive" src="images/holiday_02.jpg" alt=""></figure>
-                                <p>South Pacific</p>
-                                <a href="#" class="btn btn-01">VIEW</a>
-                            </div>
+                    <div class="item text-center">
+                        <div class="content">
+                            <figure><img class="img-responsive" src="images/holiday_02.jpg" alt=""></figure>
+                            <p>South Pacific</p>
+                            <a href="#" class="btn btn-01">VIEW</a>
                         </div>
-                        <div class="item text-center">
-                            <div class="content">
-                                <figure><img class="img-responsive" src="images/holiday_03.jpg" alt=""></figure>
-                                <p>Alaska</p>
-                                <a href="#" class="btn btn-01">VIEW</a>
-                            </div>
+                    </div>
+                    <div class="item text-center">
+                        <div class="content">
+                            <figure><img class="img-responsive" src="images/holiday_03.jpg" alt=""></figure>
+                            <p>Alaska</p>
+                            <a href="#" class="btn btn-01">VIEW</a>
                         </div>
-                        <div class="item text-center">
-                            <div class="content">
-                                <figure><img class="img-responsive" src="images/holiday_04.jpg" alt=""></figure>
-                                <p>Mediterranean</p>
-                                <a href="#" class="btn btn-01">VIEW</a>
-                            </div>
+                    </div>
+                    <div class="item text-center">
+                        <div class="content">
+                            <figure><img class="img-responsive" src="images/holiday_04.jpg" alt=""></figure>
+                            <p>Mediterranean</p>
+                            <a href="#" class="btn btn-01">VIEW</a>
                         </div>
-                        <div class="item text-center">
-                            <div class="content">
-                                <figure><img class="img-responsive" src="images/holiday_01.jpg" alt=""></figure>
-                                <p>Australia &amp; NZ</p>
-                                <a href="#" class="btn btn-01">VIEW</a>
-                            </div>
+                    </div>
+                    <div class="item text-center">
+                        <div class="content">
+                            <figure><img class="img-responsive" src="images/holiday_01.jpg" alt=""></figure>
+                            <p>Australia &amp; NZ</p>
+                            <a href="#" class="btn btn-01">VIEW</a>
                         </div>
-                        <div class="item text-center">
-                            <div class="content">
-                                <figure><img class="img-responsive" src="images/holiday_02.jpg" alt=""></figure>
-                                <p>South Pacific</p>
-                                <a href="#" class="btn btn-01">VIEW</a>
-                            </div>
+                    </div>
+                    <div class="item text-center">
+                        <div class="content">
+                            <figure><img class="img-responsive" src="images/holiday_02.jpg" alt=""></figure>
+                            <p>South Pacific</p>
+                            <a href="#" class="btn btn-01">VIEW</a>
                         </div>
-                        <div class="item text-center">
-                            <div class="content">
-                                <figure><img class="img-responsive" src="images/holiday_03.jpg" alt=""></figure>
-                                <p>Alaska</p>
-                                <a href="#" class="btn btn-01">VIEW</a>
-                            </div>
+                    </div>
+                    <div class="item text-center">
+                        <div class="content">
+                            <figure><img class="img-responsive" src="images/holiday_03.jpg" alt=""></figure>
+                            <p>Alaska</p>
+                            <a href="#" class="btn btn-01">VIEW</a>
                         </div>
-                        <div class="item text-center">
-                            <div class="content">
-                                <figure><img class="img-responsive" src="images/holiday_04.jpg" alt=""></figure>
-                                <p>Mediterranean</p>
-                                <a href="#" class="btn btn-01">VIEW</a>
-                            </div>
-                        </div> -->
+                    </div>
+                    <div class="item text-center">
+                        <div class="content">
+                            <figure><img class="img-responsive" src="images/holiday_04.jpg" alt=""></figure>
+                            <p>Mediterranean</p>
+                            <a href="#" class="btn btn-01">VIEW</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
