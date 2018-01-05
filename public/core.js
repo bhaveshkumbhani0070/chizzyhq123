@@ -23,11 +23,11 @@ holidayPack.config(function($routeProvider) {
 //         link: "js/vendor/modernizr-2.8.3.min.js"
 //     };
 // });
-holidayPack.controller('homeClt', function($scope, $http) {
+// holidayPack.controller('homeClt', function($scope, $http) {
 
 
-})
-holidayPack.controller('mainController', function($scope, $http) {
+// })
+holidayPack.controller('mainController', function($scope, $http,$routeParams,$window) {
     //   $scope.dealData = [{ title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }];
     // $http.get('/api/getDeparture')
     //     .success(function(data) {
@@ -38,8 +38,33 @@ holidayPack.controller('mainController', function($scope, $http) {
     //         console.log(data.message);
     //     })
 
+    //var city = $routeParams.city;
+    //console.log('city',city); 
+    $scope.getCity=function(departure){
+        console.log('departure',departure);
+        //For get all result with city name
+        getDestination(departure);
+        var searchData = {
+            departure: departure,
+            withCity: false
+        }
+        $window.scrollTo(0, 0);
+        $scope.depselect=departure;
 
-
+        $http.post('/api/getallHolidayDeal', searchData)
+            .success(function(data) {
+                console.log('getallHolidayDeal', data);
+                if (data.status) {
+                    $scope.dealData = data.data;
+                } else {
+                    console.log('Something gone wrong!', data.message);
+                }
+            })
+            .error(function(data) {
+                console.log('Error: ' + data.message);
+            });
+    }
+    
 
     $scope.GetSearch = function(data) {
         var searchData = {
@@ -126,7 +151,7 @@ holidayPack.controller('mainController', function($scope, $http) {
         .success(function(data) {
             console.log('getallHolidayDeal', data);
             if (data.status) {
-                console.log('ok display me', data.city);
+                console.log('ok display me', data.city[0].departure);
                 $scope.departure = data.city;
                 $scope.depselect = data.city[0].departure;
                 $scope.dealData = data.data;

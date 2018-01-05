@@ -24,7 +24,7 @@
                 <div class="col-sm-6 col-md-4">
                     <dl>
                         <dt>Search by Departure</dt>
-                        <dd ng-repeat="data in departure"><a href="#/holiday/{{data.departure}}">Holiday Packages from {{data.departure}}</a></dd>
+                        <dd ng-repeat="data in departure"><a  ng-href="#/holiday/{{data.departure}}" ng-click="getCity(data.departure)">Holiday Packages from {{data.departure}}</a></dd>
                         <!-- <dd><a href="#">Cruises from Brisbane</a></dd>
                         <dd><a href="#">Cruises from Melbourne</a></dd>
                         <dd><a href="#">Cruises from Fremantle</a></dd>
