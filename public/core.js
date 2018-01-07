@@ -27,6 +27,24 @@ holidayPack.config(function($routeProvider) {
 
 
 // })
+
+holidayPack.directive('wbSelect2', function () {
+    return {
+        restrict: 'A',
+        scope: {
+                'selectWidth': '@',
+                'ngModel': '='
+        },
+        link: function (scope, element, attrs) {
+            //Setting default values for attribute params
+            scope.selectWidth = scope.selectWidth || 200;
+            element.select2({
+                width: scope.selectWidth,
+            });
+        }
+    };
+});
+
 holidayPack.controller('mainController', function($scope, $http,$routeParams,$window) {
     //   $scope.dealData = [{ title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }];
     // $http.get('/api/getDeparture')
@@ -40,23 +58,24 @@ holidayPack.controller('mainController', function($scope, $http,$routeParams,$wi
 
     //var city = $routeParams.city;
     //console.log('city',city); 
+
+
     $scope.getCity=function(departure){
         console.log('departure',departure);
-        //For get all result with city name
         getDestination(departure);
         var searchData = {
             departure: departure,
             withCity: false
         }
         $window.scrollTo(0, 0);
-        $scope.depselect=departure;
-
+        
         $http.post('/api/getallHolidayDeal', searchData)
             .success(function(data) {
                 console.log('getallHolidayDeal', data);
                 if (data.status) {
                     $scope.dealData = data.data;
-                } else {
+            $scope.depselect=departure;
+                    } else {
                     console.log('Something gone wrong!', data.message);
                 }
             })
@@ -64,7 +83,6 @@ holidayPack.controller('mainController', function($scope, $http,$routeParams,$wi
                 console.log('Error: ' + data.message);
             });
     }
-    
 
     $scope.GetSearch = function(data) {
         var searchData = {

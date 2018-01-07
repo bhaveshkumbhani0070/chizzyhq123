@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>HolidayPackage</title>
+    <title>HolidayPackages</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!-- CSS & JS -->
@@ -31,6 +31,9 @@
     <script src="core.js"></script>
     <script src="js/plugins.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+ -->
     <script src="/node_module/select2/dist/js/select2.min.js"></script>
     <script src="js/slick.min.js"></script>
     <script src="js/flatpickr.js"></script>
@@ -44,13 +47,11 @@
 
     <div ng-include="'public/header.html'">
     </div>
-    <div ng-view></div>
+    <section class="content-area">
+    <div ng-view ></div>
+    </section>
 
     <div ng-include="'public/footer.html'">
     </div>
-
-
-
 </body>
-
 </html>
