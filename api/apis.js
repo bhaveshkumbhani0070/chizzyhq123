@@ -172,14 +172,22 @@ exports.getDestination = function(req, res) {
     })
 }
 
+exports.getwithYear=function(req,res){
+    var date=req.params.date;
+    console.log('date',date);
+}
+
 // pool.close();
 // pool.connect(function(err, connnection) {
 //     if (!err) {
-//         requ.query('select * from deal where id=1', function(err, data) {
+        
+//         var SearchQue = "select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id left join deal_departure depa on date.deal_departure_id=depa.id where date.date_from >= '" + date_from + "' and date.date_to <= '" + date_to + "'";
+
+//         requ.query(SearchQue, function(err, data) {
 //             if (!err) {
-//                 console.log('data get success', data);
+//                 console.log('data get success', data.length);
 //                 for (var i = 0; i < data.recordset.length; i++) {
-//                     console.log('data', data.recordset[i].link);
+//                     console.log('data', data);
 
 //                 }
 //             } else {

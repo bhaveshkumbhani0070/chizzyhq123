@@ -24,12 +24,7 @@
                 <div class="col-sm-6 col-md-4">
                     <dl>
                         <dt>Search by Departure</dt>
-                        <dd ng-repeat="data in departure"><a  ng-href="#/holiday/{{data.departure}}" ng-click="getCity(data.departure)">Holiday Packages from {{data.departure}}</a></dd>
-                        <!-- <dd><a href="#">Cruises from Brisbane</a></dd>
-                        <dd><a href="#">Cruises from Melbourne</a></dd>
-                        <dd><a href="#">Cruises from Fremantle</a></dd>
-                        <dd><a href="#">Cruises from Cairns</a></dd>
-                        <dd><a href="#">Cruises from Auckland</a></dd> -->
+                        <dd ng-repeat="data in departure"><a  ng-href="#/holiday/departing/{{data.departure | lowercase}}" ng-click="getCity(data.departure)">Holiday Packages from {{data.departure}}</a></dd>
                     </dl>
                     <dl>
                         <dt>Search by Cruise</dt>
@@ -45,12 +40,12 @@
                 <div class="col-sm-6 col-md-3">
                     <dl>
                         <dt>Search by Date</dt>
-                        <dd><a href="#">January 2017 Cruises</a></dd>
-                        <dd><a href="#">February 2017 Cruises</a></dd>
+                        <dd ng-repeat="data in yearSearch"><a ng-click="searchWithYear(data.text)" href="#/holiday/during/{{data.text}}">{{data.value}} Holiday Packages</a></dd>
+                        <!-- <dd><a href="#">February 2017 Cruises</a></dd>
                         <dd><a href="#">March 2017 Cruises</a></dd>
                         <dd><a href="#">April 2017 Cruises</a></dd>
                         <dd><a href="#">May 2017 Cruises</a></dd>
-                        <dd><a href="#">June 2017 Cruises</a></dd>
+                        <dd><a href="#">June 2017 Cruises</a></dd> -->
                     </dl>
                     <dl>
                         <dt>Search by Ship</dt>

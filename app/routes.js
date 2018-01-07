@@ -22,4 +22,5 @@ module.exports = function(app) {
     app.get('/api/getDeparture', api.getDeparture);
     app.get('/api/getDestination/:destination', api.getDestination);
     app.post('/api/getallHolidayDeal', api.getallHolidayDeal);
+    app.get('/api/getwithYear/:date',api.getwithYear);
 };
