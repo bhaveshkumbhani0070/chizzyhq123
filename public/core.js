@@ -31,14 +31,14 @@ holidayPack.config(function($routeProvider) {
 
 // })
 
-holidayPack.directive('wbSelect2', function () {
+holidayPack.directive('wbSelect2', function() {
     return {
         restrict: 'A',
         scope: {
-                'selectWidth': '@',
-                'ngModel': '='
+            'selectWidth': '@',
+            'ngModel': '='
         },
-        link: function (scope, element, attrs) {
+        link: function(scope, element, attrs) {
             //Setting default values for attribute params
             scope.selectWidth = scope.selectWidth || 200;
             element.select2({
@@ -48,7 +48,7 @@ holidayPack.directive('wbSelect2', function () {
     };
 });
 
-holidayPack.controller('mainController', function($scope, $http,$routeParams,$window) {
+holidayPack.controller('mainController', function($scope, $http, $routeParams, $window) {
     //   $scope.dealData = [{ title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }];
     // $http.get('/api/getDeparture')
     //     .success(function(data) {
@@ -59,26 +59,27 @@ holidayPack.controller('mainController', function($scope, $http,$routeParams,$wi
     //         console.log(data.message);
     //     })
 
-    //var city = $routeParams.city;
-    //console.log('city',city); 
+    var city = $routeParams.city;
+    console.log('city', city);
 
     //  City list in footer
-    $scope.getCity=function(departure){
-        console.log('departure',departure);
-        getDestination(departure);
+    $scope.getCity = function(departure) {
+        console.log('departure', departure);
+
         var searchData = {
             departure: departure,
             withCity: false
         }
         $window.scrollTo(0, 0);
-        
+
         $http.post('/api/getallHolidayDeal', searchData)
             .success(function(data) {
                 console.log('getallHolidayDeal', data);
                 if (data.status) {
                     $scope.dealData = data.data;
-            $scope.depselect=departure;
-                    } else {
+                    $scope.depselect = departure;
+                    getDestination(departure);
+                } else {
                     console.log('Something gone wrong!', data.message);
                 }
             })
@@ -94,15 +95,17 @@ holidayPack.controller('mainController', function($scope, $http,$routeParams,$wi
         var year = now.getFullYear();
 
         var names = ['January', 'February', 'March', 'April', 'May', 'June',
-                     'July', 'August', 'September', 'October', 'November', 'December'];
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
         var short = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
-                     'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+            'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+        ];
 
         var res = [];
         for (var i = 0; i < 12; ++i) {
             res.push({
-                "value":names[month] + ' ' + year,
-                "text":short[month]+'-'+year
+                "value": names[month] + ' ' + year,
+                "text": short[month] + '-' + year
             });
             if (++month === 12) {
                 month = 0;
@@ -111,17 +114,17 @@ holidayPack.controller('mainController', function($scope, $http,$routeParams,$wi
         }
         return res;
     }
-    $scope.yearSearch=getNext12MonthNamesWithYear();
+    $scope.yearSearch = getNext12MonthNamesWithYear();
 
-    $scope.searchWithYear=function(monthYear){
-        console.log('monthYear',monthYear);
-        $http.get('/api/getwithYear/'+ monthYear)
-        .success(function(data){
-            console.log('data get success',data);
-        })
-        .error(function(error){
-            console.log('Error for get data from search');
-        });
+    $scope.searchWithYear = function(monthYear) {
+        console.log('monthYear', monthYear);
+        $http.get('/api/getwithYear/' + monthYear)
+            .success(function(data) {
+                console.log('data get success', data);
+            })
+            .error(function(error) {
+                console.log('Error for get data from search');
+            });
     }
 
     $scope.GetSearch = function(data) {
