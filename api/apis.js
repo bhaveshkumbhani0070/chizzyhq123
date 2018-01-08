@@ -183,7 +183,7 @@ exports.getwithYear = function(req, res) {
     pool.close();
     pool.connect(function(err, connnection) {
         if (!err) {
-            var SearchQue = "select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id left join deal_departure depa on date.deal_departure_id=depa.id where  '" + year + "' between YEAR(date.date_from) and YEAR(date.date_to) and '" + month + "' between MONTH(date.date_from) and MONTH(date.date_to) order by de.destination"
+            var SearchQue = "select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id right join deal_departure depa on date.deal_departure_id=depa.id where  '" + year + "' between YEAR(date.date_from) and YEAR(date.date_to) and '" + month + "' between MONTH(date.date_from) and MONTH(date.date_to) order by de.destination"
 
             requ.query(SearchQue, function(err, data) {
                 if (!err) {
@@ -202,7 +202,36 @@ exports.getwithYear = function(req, res) {
 }
 
 
+// var date = 'feb-2018';;
+// var short = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
+//     'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+// ];
+// var year = date.split('-')[1];
+// var month = short.indexOf(date.split('-')[0]) + 1;
+// pool.close();
+// pool.connect(function(err, connnection) {
+//     if (!err) {
+//         var SearchQue = "select d.*,de.* from deal d right join deal_departure de on d.id=de.deal_id"
 
+//         requ.query(SearchQue, function(err, data) {
+//             if (!err) {
+//                 console.log('data', data.recordset.length);
+//                 var total = 0;
+//                 for (var i = 0; i < data.recordset.length; i++) {
+//                     if (data.recordset[i].departure == "" || data.recordset[i].departure == null) {
+//                         total = total + 1;
+//                         console.log('blank data', data.recordset[i]);
+//                     }
+//                 }
+//                 console.log('total', total);
+//             } else {
+//                 console.log('Error for selecting data from data base', err);
+//             }
+//         })
+//     } else {
+//         console.log('Error for connection', err);
+//     }
+// })
 
 // var SearchQue = "select DISTINCT d.destination from deal_departure de left join deal d on de.deal_id = d.id";
 // pool.close();
