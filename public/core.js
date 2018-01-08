@@ -59,8 +59,8 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
     //         console.log(data.message);
     //     })
 
-    var city = $routeParams.city;
-    console.log('city', city);
+    // var city = $routeParams.city;
+    // console.log('city', city);
 
     //  City list in footer
     $scope.getCity = function(departure) {
@@ -118,9 +118,12 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
 
     $scope.searchWithYear = function(monthYear) {
         console.log('monthYear', monthYear);
+        $window.scrollTo(0, 0);
+
         $http.get('/api/getwithYear/' + monthYear)
             .success(function(data) {
                 console.log('data get success', data);
+                $scope.dealData = data.data;
             })
             .error(function(error) {
                 console.log('Error for get data from search');

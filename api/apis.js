@@ -172,33 +172,35 @@ exports.getDestination = function(req, res) {
     })
 }
 
-exports.getwithYear=function(req,res){
-    var date=req.params.date;
-    console.log('date',date);
+exports.getwithYear = function(req, res) {
+    var date = req.params.date;
+    console.log('date', date);
+    var short = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
+        'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+    ];
+    var year = date.split('-')[1];
+    var month = short.indexOf(date.split('-')[0]) + 1;
+    pool.close();
+    pool.connect(function(err, connnection) {
+        if (!err) {
+            var SearchQue = "select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id left join deal_departure depa on date.deal_departure_id=depa.id where  '" + year + "' between YEAR(date.date_from) and YEAR(date.date_to) and '" + month + "' between MONTH(date.date_from) and MONTH(date.date_to) order by de.destination"
+
+            requ.query(SearchQue, function(err, data) {
+                if (!err) {
+                    res.send({ code: 200, status: 1, message: 'Deal data get successfully', data: data.recordset });
+                    return;
+                } else {
+                    console.log('Error for selecting data from data base', err);
+                    res.send({ code: 422, status: 0, message: 'Error for selecting data from data base' });
+                    return;
+                }
+            })
+        } else {
+            console.log('Error for connection', err);
+        }
+    })
 }
-// select * from deal_dates where '2018/12/20' between date_from and date_to
 
-// pool.close();
-// pool.connect(function(err, connnection) {
-//     if (!err) {
-
-//         var SearchQue = "select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id left join deal_departure depa on date.deal_departure_id=depa.id where date.date_from >= '" + date_from + "' and date.date_to <= '" + date_to + "'";
-
-//         requ.query(SearchQue, function(err, data) {
-//             if (!err) {
-//                 console.log('data get success', data.length);
-//                 for (var i = 0; i < data.recordset.length; i++) {
-//                     console.log('data', data);
-//                 }
-//             } else {
-//                 console.log('Error for selecting data from deal table', err);
-//                 return;
-//             }
-//         })
-//     } else {
-//         console.log('Error for connection', err);
-//     }
-// })
 
 
 
