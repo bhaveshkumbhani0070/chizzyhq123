@@ -176,11 +176,12 @@ exports.getwithYear=function(req,res){
     var date=req.params.date;
     console.log('date',date);
 }
+// select * from deal_dates where '2018/12/20' between date_from and date_to
 
 // pool.close();
 // pool.connect(function(err, connnection) {
 //     if (!err) {
-        
+
 //         var SearchQue = "select date.*,depa.*,de.* from deal_dates date left join deal de on date.deal_id=de.id left join deal_departure depa on date.deal_departure_id=depa.id where date.date_from >= '" + date_from + "' and date.date_to <= '" + date_to + "'";
 
 //         requ.query(SearchQue, function(err, data) {
@@ -188,7 +189,6 @@ exports.getwithYear=function(req,res){
 //                 console.log('data get success', data.length);
 //                 for (var i = 0; i < data.recordset.length; i++) {
 //                     console.log('data', data);
-
 //                 }
 //             } else {
 //                 console.log('Error for selecting data from deal table', err);
