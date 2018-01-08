@@ -39,65 +39,65 @@
 </body>
 
 </html> -->
-    
-    <div class="holiday-search-area">
-        <div class="holiday-search-block">
-            <div class="container">
-                <div class="content">
-                    <div class="row">
-                        <div class="col-sm-4 col-md-2">
-                            <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect)">
+
+<div class="holiday-search-area">
+    <div class="holiday-search-block">
+        <div class="container">
+            <div class="content">
+                <div class="row">
+                    <div class="col-sm-4 col-md-2">
+                        <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect)">
                                     <option value="" disabled ng-selected="true">Departure City</option>
                             </select>
-                        </div>
-                        <div class="col-sm-5 col-md-3">
-                            <select wb-select2 ng-options="data.destination for data in destination" ng-model="sendData.desselect">
+                    </div>
+                    <div class="col-sm-5 col-md-3">
+                        <select wb-select2 ng-options="data.destination for data in destination" ng-model="sendData.desselect">
                                     <option value="" disabled ng-selected="true">Destination</option>
                             </select>
-                        </div>
-                        <div class="col-sm-4 col-md-2">
-                            <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
-                        </div>
-                        <div class="col-sm-4 col-md-2">
-                            <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal(sendData)">SEARCH</button>
-                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal(sendData)">SEARCH</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="holiday-list-area">
-        <div class="holiday-list-block">
-            <div class="container">
-                <h1>Holiday Packges departing from {{departureName}}</h1>
-                <table>
-                    <thead>
-                        <tr class="searchHeader">
-                            <th ng-click="sortBy('date_from')">Travel Date</th>
-                            <th>Agency</th>
-                            <th ng-click="sortBy('price')">Price</th>
-                            <th ng-click="sortBy('departure')">Departure</th>
-                            <th ng-click="sortBy('destination')">Destination</th>
-                            <th ng-click="sortBy('title')">Package Name</th>
-                            <th ng-click="sortBy('nights')">Nights</th>
-                            <th ng-click="sortBy('purchase_by')">Purchase By</th>
-                            <th>Quad pp*</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="val in dealData | orderBy:dealName:reverse">
-                            <td data-th="Travel Date"><strong>{{val.date_from | date:'dd MMM yyyy'}} - {{val.date_to | date:'dd MMM yyyy'}}</strong></td>
-                            <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
-                            <td data-th="Price" class="price">${{val.price}}</td>
-                            <td data-th="Departure">{{val.departure}}</td>
-                            <td data-th="Destination">{{val.destination}}</td>
-                            <td data-th="Package Name">{{val.title}}</td>
-                            <td data-th="Nights">{{val.nights}}</td>
-                            <td data-th="Purchase By">{{val.purchase_by | date:'dd MMM yyyy'}}</td>
-                            <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+</div>
+<div class="holiday-list-area">
+    <div class="holiday-list-block">
+        <div class="container">
+            <h1>Holiday Packges departing {{departureName}}</h1>
+            <table>
+                <thead>
+                    <tr class="searchHeader">
+                        <th ng-click="sortBy('date_from')">Travel Date</th>
+                        <th>Agency</th>
+                        <th ng-click="sortBy('price')">Price</th>
+                        <th ng-click="sortBy('departure')">Departure</th>
+                        <th ng-click="sortBy('destination')">Destination</th>
+                        <th ng-click="sortBy('title')">Package Name</th>
+                        <th ng-click="sortBy('nights')">Nights</th>
+                        <th ng-click="sortBy('purchase_by')">Purchase By</th>
+                        <th>Quad pp*</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="val in dealData | orderBy:dealName:reverse">
+                        <td data-th="Travel Date"><strong>{{val.date_from | date:'dd MMM yyyy'}} - {{val.date_to | date:'dd MMM yyyy'}}</strong></td>
+                        <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
+                        <td data-th="Price" class="price">${{val.price}}</td>
+                        <td data-th="Departure">{{val.departure}}</td>
+                        <td data-th="Destination">{{val.destination}}</td>
+                        <td data-th="Package Name">{{val.title}}</td>
+                        <td data-th="Nights">{{val.nights}}</td>
+                        <td data-th="Purchase By">{{val.purchase_by | date:'dd MMM yyyy'}}</td>
+                        <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>

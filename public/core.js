@@ -48,6 +48,7 @@ holidayPack.directive('wbSelect2', function() {
     };
 });
 
+
 holidayPack.controller('mainController', function($scope, $http, $routeParams, $window) {
     //   $scope.dealData = [{ title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }];
     // $http.get('/api/getDeparture')
@@ -63,6 +64,8 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
     // console.log('city', city);
 
     //  City list in footer
+
+
     $scope.getCity = function(departure) {
         console.log('departure', departure);
 
@@ -117,10 +120,9 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
     $scope.yearSearch = getNext12MonthNamesWithYear();
 
     $scope.searchWithYear = function(monthYear) {
-        console.log('monthYear', monthYear);
         $window.scrollTo(0, 0);
-
-        $http.get('/api/getwithYear/' + monthYear)
+        $scope.departureName = 'in ' + monthYear.value.split(' ')[0];
+        $http.get('/api/getwithYear/' + monthYear.text)
             .success(function(data) {
                 console.log('data get success', data);
                 $scope.dealData = data.data;
@@ -171,7 +173,7 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
     }
 
     function getDestination(departure) {
-        $scope.departureName = departure;
+        $scope.departureName = 'from ' + departure;
         $http.get('api/getDestination/' + departure)
             .success(function(data) {
                 console.log('getDestination', data.data);
