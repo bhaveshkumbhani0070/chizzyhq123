@@ -8,47 +8,71 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!-- CSS & JS -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/select2.css">
+    <link rel="stylesheet" href="css/normalize.css"></link>
+    <link rel="stylesheet" href="css/select2.css"></link>
     <!-- <link rel="stylesheet" href="/node_module/select2/dist/css/select2.css"></link> -->
 
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/slick.css">
-    <link rel="stylesheet" href="css/slick-theme.css">
-    <link rel="stylesheet" href="css/flatpickr.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
-
+    <link rel="stylesheet" href="css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="css/slick.css"></link>
+    <link rel="stylesheet" href="css/slick-theme.css"></link>
+    <link rel="stylesheet" href="/node_module/flatpickr/dist/flatpickr.css"></link>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"></link>
+    <link rel="stylesheet" href="css/main.css"></link>
 
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="js/vendor/jquery-1.12.0.min.js"></script>
     <script>
         window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')
     </script>
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
     <script src="core.js"></script>
     <script src="js/plugins.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
- -->
+
     <script src="/node_module/select2/dist/js/select2.min.js"></script>
+    <script src="/node_module/flatpickr/dist/flatpickr.js"></script>
     <script src="js/slick.min.js"></script>
-    <script src="js/flatpickr.js"></script>
+    <!-- <script src="js/flatpickr.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script> -->
     <script src="js/main.js"></script>
 </head>
 
 <body ng-controller="mainController">
-    <!--[if lt IE 8]>
-			<p class="browserupgrade">You are using an<strong>outdated</strong> browser. Please<a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-		<![endif]-->
-
-
     <div ng-include="'public/header.html'">
     </div>
     <section class="content-area">
+        <div class="holiday-search-area" ng-show="displayHoliday">
+            <div class="holiday-search-block">
+                <div class="container">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-2">
+                                <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect)">
+                                    <option value="" disabled ng-selected="true">Departure City</option>
+                            </select>
+                            </div>
+                            <div class="col-sm-5 col-md-3">
+                                <select wb-select2 ng-options="data.destination for data in destination" ng-model="sendData.desselect">
+                                    <option value="" disabled ng-selected="true">Destination</option>
+                            </select>
+                            </div>
+                            <div class="col-sm-4 col-md-2">
+                                <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
+                            </div>
+                            <div class="col-sm-4 col-md-2">
+                                <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal(sendData)">SEARCH</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div ng-view></div>
     </section>
 

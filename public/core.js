@@ -49,23 +49,23 @@ holidayPack.directive('wbSelect2', function() {
 });
 
 
-holidayPack.controller('mainController', function($scope, $http, $routeParams, $window) {
-    //   $scope.dealData = [{ title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }, { title: 'a' }];
-    // $http.get('/api/getDeparture')
-    //     .success(function(data) {
-    //         console.log('getDeparture', data.data);
-    //         $scope.departure = data.data;
-    //     })
-    //     .error(function(data) {
-    //         console.log(data.message);
-    //     })
+holidayPack.controller('mainController', function($scope, $http, $routeParams, $window, $location) {
 
-    // var city = $routeParams.city;
-    // console.log('city', city);
+    $scope.$watch(function() {
+        return $location.path();
+    }, function(value) {
+        console.log('value', value);
+        if (value.includes("/holiday")) {
+            $scope.displayHoliday = true;
+        } else {
+            $scope.displayHoliday = false;
+        }
+    });
+
+
 
     //  City list in footer
-
-
+    $scope.holiHader = false;
     $scope.getCity = function(departure) {
         console.log('departure', departure);
 
