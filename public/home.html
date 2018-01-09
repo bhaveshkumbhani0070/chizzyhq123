@@ -1,37 +1,3 @@
-<!-- <div class="banner-area">
-        <div class="banner-block">
-            <div class="container">
-                <div class="banner-form">
-                    <h2>Find<span>Holiday Packages</span></h2>
-                    <form>
-                        <fieldset>
-                            <div class="field">
-                                <label for="departure_city">Departure City</label>
-                                <select wb-select2 class="form-control" ng-options="data.departure for data in departure" ng-model="sendData.depselect" id="departure_city">
-										<option value="" disabled ng-selected="true">Select Departure Port</option>
-									</select>
-                            </div>
-                            <div class="field">
-                                <label for="destination_city">Destination</label>
-                                <select wb-select2 class="form-control" ng-options="data.destination for data in destination" ng-model="sendData.desselect" id="destination_city">
-										<option value="" disabled ng-selected="true">Any</option>
-									</select>
-                            </div>
-
-                            <div class="field">
-                                <label for="departure">Departure</label>
-                                <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
-                            </div>
-                        </fieldset>
-                    </form>
-                    <div class="buttonset">
-                        <button type="submit" class="btn btn-01" ng-click="GetSearch(sendData)">SEARCH NOW</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div> -->
 <div class="subscription-area">
     <div class="subscription-block">
         <div class="container">
@@ -61,6 +27,43 @@
         </div>
     </div>
 </div>
+
+<div class="holiday-list-area">
+    <div class="holiday-list-block">
+        <div class="container">
+            <h1>Holiday Packges departing {{departureName}}</h1>
+            <table>
+                <thead>
+                    <tr class="searchHeader">
+                        <th ng-click="sortBy('date_from')">Travel Date</th>
+                        <th>Agency</th>
+                        <th ng-click="sortBy('price')">Price</th>
+                        <th ng-click="sortBy('departure')">Departure</th>
+                        <th ng-click="sortBy('destination')">Destination</th>
+                        <th ng-click="sortBy('title')">Package Name</th>
+                        <th ng-click="sortBy('nights')">Nights</th>
+                        <th ng-click="sortBy('purchase_by')">Purchase By</th>
+                        <th>Quad pp*</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="val in dealData | orderBy:dealName:reverse | limitTo:10">
+                        <td data-th="Travel Date"><strong>{{val.date_from | date:'dd MMM yyyy'}} - {{val.date_to | date:'dd MMM yyyy'}}</strong></td>
+                        <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
+                        <td data-th="Price" class="price">${{val.price}}</td>
+                        <td data-th="Departure">{{val.departure}}</td>
+                        <td data-th="Destination">{{val.destination}}</td>
+                        <td data-th="Package Name">{{val.title}}</td>
+                        <td data-th="Nights">{{val.nights}}</td>
+                        <td data-th="Purchase By">{{val.purchase_by | date:'dd MMM yyyy'}}</td>
+                        <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--
 <div class="packages-area">
     <div class="packages-block">
         <div class="container">
@@ -354,8 +357,8 @@
             </div>
         </div>
     </div>
-</div>
-<div class="holiday-area">
+</div> -->
+<!-- <div class="holiday-area">
     <div class="holiday-block">
         <div class="container">
             <h2>Holiday Destinations</h2>
@@ -419,7 +422,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <div class="client-area">
     <div class="client-block">
         <div class="container">
