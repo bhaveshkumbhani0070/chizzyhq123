@@ -62,7 +62,7 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
         }
     });
 
-
+    // 2018-01-09 to 2018-01-24
 
     //  City list in footer
     $scope.holiHader = false;

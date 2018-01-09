@@ -73,6 +73,40 @@
                 </div>
             </div>
         </div>
+        <div class="banner-area" ng-hide="displayHoliday">
+            <div class="banner-block">
+                <div class="container">
+                    <div class="banner-form">
+                        <h2>Find<span>Holiday Packages</span></h2>
+                        <form>
+                            <fieldset>
+                                <div class="field">
+                                    <label for="departure_city">Departure City</label>
+                                    <select wb-select2 class="form-control" ng-options="data.departure for data in departure" ng-model="sendData.depselect" id="departure_city">
+										<option value="" disabled ng-selected="true">Select Departure Port</option>
+									</select>
+                                </div>
+                                <div class="field">
+                                    <label for="destination_city">Destination</label>
+                                    <select wb-select2 class="form-control" ng-options="data.destination for data in destination" ng-model="sendData.desselect" id="destination_city">
+										<option value="" disabled ng-selected="true">Any</option>
+									</select>
+                                </div>
+
+                                <div class="field">
+                                    <label for="departure">Departure</label>
+                                    <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
+                                </div>
+                            </fieldset>
+                        </form>
+                        <div class="buttonset">
+                            <button type="submit" class="btn btn-01" ng-click="GetSearch(sendData)">SEARCH NOW</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <div ng-view></div>
     </section>
 
