@@ -55,7 +55,7 @@
                             <div class="col-sm-4 col-md-2">
                                 <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect)">
                                     <option value="" disabled ng-selected="true">Departure City</option>
-                            </select>
+                                </select>
                             </div>
                             <div class="col-sm-5 col-md-3">
                                 <select wb-select2 ng-options="data.destination for data in destination" ng-model="sendData.desselect">
@@ -82,17 +82,16 @@
                             <fieldset>
                                 <div class="field">
                                     <label for="departure_city">Departure City</label>
-                                    <select wb-select2 class="form-control" ng-options="data.departure for data in departure" ng-model="sendData.depselect" id="departure_city">
-										<option value="" disabled ng-selected="true">Select Departure Port</option>
-									</select>
+                                    <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect)">
+                                        <option value="" disabled ng-selected="true">Departure City</option>
+                                    </select>
                                 </div>
                                 <div class="field">
                                     <label for="destination_city">Destination</label>
-                                    <select wb-select2 class="form-control" ng-options="data.destination for data in destination" ng-model="sendData.desselect" id="destination_city">
-										<option value="" disabled ng-selected="true">Any</option>
-									</select>
+                                    <select wb-select2 ng-options="data.destination for data in destination" ng-model="sendData.desselect">
+                                        <option value="" disabled ng-selected="true">Destination</option>
+                                    </select>
                                 </div>
-
                                 <div class="field">
                                     <label for="departure">Departure</label>
                                     <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
@@ -100,7 +99,7 @@
                             </fieldset>
                         </form>
                         <div class="buttonset">
-                            <button type="submit" class="btn btn-01" ng-click="GetSearch(sendData)">SEARCH NOW</button>
+                            <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal(sendData)">SEARCH NOW</button>
                         </div>
 
                     </div>
