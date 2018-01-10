@@ -20,12 +20,15 @@ var links = [
     "https://www.flightcentre.com.au/holidays/search?fdeparture=Gold+Coast" //8,GoldCoast
 ]
 
-exports.scrape = function(req, res) {
-    var l = req.params.l;
-    var url = links[l];
-    console.log('@@@@@@@@@@@@@@', l, url);
 
-    callScrape(url)
+
+exports.scrape = function(req, res) {
+    for (var i = 0; i < links.length; i++) {
+        setTimeout((j) => {
+            console.log('@@@@@@@@@@@@@@', links[j]);
+            callScrape(links[j])
+        }, i * 100000, i);
+    }
 
     function callScrape(url) {
         pool.close();
