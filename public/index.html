@@ -58,15 +58,15 @@
                                 </select>
                             </div>
                             <div class="col-sm-5 col-md-3">
-                                <select wb-select2 ng-options="data.destination for data in destination" ng-model="sendData.desselect">
+                                <select wb-select2 ng-options="data.destination for data in destination" ng-model="desselect">
                                     <option value="" disabled ng-selected="true">Destination</option>
                             </select>
                             </div>
                             <div class="col-sm-4 col-md-2">
-                                <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
+                                <input class="form-control datepicker" ng-model="date" id="departure" type="text" placeholder="Departure">
                             </div>
                             <div class="col-sm-4 col-md-2">
-                                <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal(sendData)">SEARCH</button>
+                                <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal()">SEARCH</button>
                             </div>
                         </div>
                     </div>
@@ -88,18 +88,18 @@
                                 </div>
                                 <div class="field">
                                     <label for="destination_city">Destination</label>
-                                    <select wb-select2 ng-options="data.destination for data in destination" ng-model="sendData.desselect">
+                                    <select wb-select2 ng-options="data.destination for data in destination" ng-model="desselect">
                                         <option value="" disabled ng-selected="true">Destination</option>
                                     </select>
                                 </div>
                                 <div class="field">
                                     <label for="departure">Departure</label>
-                                    <input class="form-control datepicker" ng-model="sendData.date" id="departure" type="text" placeholder="Departure">
+                                    <input class="form-control datepicker" ng-model="date" id="departure" type="text" placeholder="Departure">
                                 </div>
                             </fieldset>
                         </form>
                         <div class="buttonset">
-                            <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal(sendData)">SEARCH NOW</button>
+                            <button type="submit" class="btn btn-01" ng-click="GetallHolidayDeal()">SEARCH NOW</button>
                         </div>
 
                     </div>

@@ -186,13 +186,15 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
                 console.log(data.message);
             })
     }
-    $scope.GetallHolidayDeal = function(data) {
+    $scope.GetallHolidayDeal = function() {
         var searchData = {
-            date: data.date ? data.date : "",
+            date: $scope.date ? $scope.date : "",
             departure: $scope.depselect,
-            destination: data.desselect ? data.desselect.destination : "",
+            destination: $scope.desselect ? $scope.desselect.destination : "",
             withCity: false
         }
+
+        console.log('searchData', searchData);
         $http.post('/api/getallHolidayDeal', searchData)
             .success(function(data) {
                 console.log('data', data);
