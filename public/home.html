@@ -31,7 +31,7 @@
 <div class="holiday-list-area">
     <div class="holiday-list-block">
         <div class="container">
-            <h1>Holiday Packges departing {{departureName}}</h1>
+            <h1>Holiday Packges departing {{departureName}} <span ng-show="desselect">to {{desselect.destination}}</span> <span ng-show="date">{{date}}</span></h1>
             <!-- <h1>Holiday Packages from {{departureName}} to {{Destination}} || from {datefrom } to {dateto}</h1> -->
             <table>
                 <thead>
@@ -61,6 +61,9 @@
                         <td data-th="Nights">{{val.nights}}</td>
                         <td data-th="Purchase By">{{val.purchase_by | date:'dd MMM yyyy'}}</td>
                         <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
+                    </tr>
+                    <tr ng-show="!dealData.length">
+                        <td colspan="9">No deals found</td>
                     </tr>
                 </tbody>
             </table>
