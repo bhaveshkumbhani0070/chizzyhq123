@@ -15,6 +15,9 @@ holidayPack.config(function($routeProvider) {
         .when('/holiday/during/:month', {
             templateUrl: "/public/holidaypackage.html"
         })
+        .when('/popup', {
+            templateUrl: "/public/popup.html"
+        })
         .otherwise({
             redirectTo: '/holiday'
         });
