@@ -14,7 +14,6 @@ exports.virginScrape = function(req, res) {
 }
 
 // start();
-
 function start() {
     pool.close();
     pool.connect(function(err, connection) {
@@ -51,25 +50,13 @@ function Scrap(u, page) {
             $('.view-vah-holiday-packages-landing .view-content').children().each(function(e) {
                 var data = $(this);
                 if (!data.hasClass("views-row-first")) {
-
                     var chilUrl = "https://travel.virginaustralia.com" + data.find('.card__actions').children().attr('href');
                     var parts = chilUrl.split("/");
                     var destination = parts[parts.length - 1];
-
                     for (var j = 0; j < desti.length; j++) {
                         setTimeout(function(i) {
                             var url = chilUrl + "?origin_airport_nid=" + desti[i].id + "&Submit=Go&field_deal_search_type_value=flight_hotel"
-                            requ.query("select * from deal where link='" + url + "'", function(err, cityD) {
-                                if (!err) {
-                                    if (cityD.recordset.length > 0) {
-                                        console.log('Already there')
-                                    } else {
-                                        childData(url, desti[i].value, destination);
-                                    }
-                                } else {
-                                    console.log('Error for selecting url from deal');
-                                }
-                            });
+                            childData(url, desti[i].value, destination);
                         }, j * 50000, j);
                     }
                 }
@@ -89,79 +76,90 @@ function childData(u, departure, destination) {
             var description = "";
             $('.vah-layout__col').children().eq(0).children().each(function(e) {
                 var data = $(this);
-                description = description + data;
+                description = description + data.text();
             })
-
+            description=description.replace(/'/g, "");
             $('.view-vah-holiday-packages .view-content').children().each(function(e) {
                 var data = $(this);
                 var allData = [];
                 var stars = parseInt(data.find('.star-rating__value').text());
                 var nights = data.find('.vah-field-number-of-nights__value').text();
                 var title = data.find('.card__title').text();
+                title=title.replace(/'/g, "");
                 var purchase_by = purchageDate(data.find('.date-display-single').text()); //31/03/2018
-                var agency = "virginaustralia";
-
                 var price = data.find('.vah-field-price__value').text();
-                var dates = [];
-                $('.field-item').each(function(e) {
-                    var data = $(this);
-                    dates.push({
-                        date_from: data.find('.date-display-start').text(),
-                        date_to: data.find('.date-display-end').text()
-                    })
-                })
-                requ.query("insert into deal(description,destination,stars,nights,link,title,purchase_by,agency) values('" +
-                    description + "','" +
-                    destination + "'," +
-                    stars + "," +
-                    nights + ",'" +
-                    u + "','" +
-                    title + "','" +
-                    purchase_by + "','" +
-                    agency + "')",
-                    function(err, dealAdded) {
-                        if (!err) {
-                            requ.query("SELECT max(id) id from deal", function(err, lastIns) {
-                                if (!err) {
-                                    var deal_id = lastIns.recordset[0].id;
-                                    requ.query("insert into deal_departure(deal_id,departure,price) values('" +
-                                        deal_id + "','" +
-                                        departure + "','" +
-                                        price + "')",
-                                        function(err, addDepart) {
-                                            if (!err) {
-                                                requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastInsDepart) {
-                                                    if (!err) {
-                                                        var deal_departure_id = lastIns.recordset[0].Identity;
-                                                        for (var i = 0; i < dates.length; i++) {
-                                                            var from = dates[i].date_from;
-                                                            var to = dates[i].date_to;
-                                                            requ.query("insert into deal_dates(deal_id,deal_departure_id,date_from,date_to) values('" + deal_id + "','" + deal_departure_id + "','" + from + "','" + to + "')",
-                                                                function(err, dateIns) {
+                requ.query("select * from deal where agency='virginaustralia'  and title='" + title + "'", function(err, cityD) {
+                    if (!err) {
+                        if (cityD.recordset.length > 0) {
+                            console.log('Already there',title)
+                        } else {
+                            console.log('ok');
+                            // saveOrNot()
+                            function saveOrNot(){
+                                var dates = [];
+                                $('.field-item').each(function(e) {
+                                    var data = $(this);
+                                    dates.push({
+                                        date_from: data.find('.date-display-start').text(),
+                                        date_to: data.find('.date-display-end').text()
+                                    })
+                                })
+                                requ.query("insert into deal(description,destination,stars,nights,link,title,purchase_by,agency) values('" +
+                                    description + "','" +
+                                    destination + "'," +
+                                    parseInt(stars) + "," +
+                                    parseInt(nights) + ",'" +
+                                    u + "','" +
+                                    title + "','" +
+                                    purchase_by + "','virginaustralia')",
+                                    function(err, dealAdded) {
+                                        if (!err) {
+                                            requ.query("SELECT max(id) id from deal", function(err, lastIns) {
+                                                if (!err) {
+                                                    var deal_id = lastIns.recordset[0].id;
+                                                    requ.query("insert into deal_departure(deal_id,departure,price) values('" +
+                                                        deal_id + "','" +
+                                                        departure + "','" +
+                                                        price + "')",
+                                                        function(err, addDepart) {
+                                                            if (!err) {
+                                                                requ.query("SELECT @@IDENTITY AS 'Identity'", function(err, lastInsDepart) {
                                                                     if (!err) {
-                                                                        console.log('INserted');
+                                                                        var deal_departure_id = lastIns.recordset[0].Identity;
+                                                                        for (var i = 0; i < dates.length; i++) {
+                                                                            var from = dates[i].date_from;
+                                                                            var to = dates[i].date_to;
+                                                                            requ.query("insert into deal_dates(deal_id,deal_departure_id,date_from,date_to) values('" + deal_id + "','" + deal_departure_id + "','" + from + "','" + to + "')",
+                                                                                function(err, dateIns) {
+                                                                                    if (!err) {
+                                                                                        console.log('INserted');
+                                                                                    } else {
+                                                                                        console.log('Error for inserting into deal date', err);
+                                                                                    }
+                                                                                })
+                                                                        }
                                                                     } else {
-                                                                        console.log('Error for inserting into deal date', err);
-                                                                        return;
+                                                                        console.log('Error for select id')
                                                                     }
                                                                 })
-                                                        }
-                                                    } else {
-                                                        console.log('Error for select id')
-                                                    }
-                                                })
-                                            } else {
-                                                console.log('Error for Inset into deal_departure', err);
-                                            }
-                                        });
-                                } else {
-                                    console.log('Error for select Deal', err);
-                                }
-                            });
-                        } else {
-                            console.log('Error for Insert Deal', err);
+                                                            } else {
+                                                                console.log('Error for Inset into deal_departure', err);
+                                                            }
+                                                        });
+                                                } else {
+                                                    console.log('Error for select Deal', err);
+                                                }
+                                            });
+                                        } else {
+                                            console.log('Error for Insert Deal', err);
+                                        }
+                                    });  
+                            }      
                         }
-                    });
+                    } else {
+                        console.log('Error for selecting url from deal',err);
+                    }
+                }); 
             });
         } else {
             console.log('Error');
