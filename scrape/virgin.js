@@ -17,15 +17,17 @@ var url = "https://travel.virginaustralia.com/au/holidays?travel_theme_nid_2=All
 // Scrap(url, 1);
 
 function Scrap(u, page) {
-    console.log('url', url);
+    console.log('url', u);
     var url = u + page;
     request(url, function(error, response, html) {
         if (!error) {
             var $ = cheerio.load(html);
             var data = $(this);
-            $('.view-content').each(function(e) {
+            $('.view-vah-holiday-packages-landing .view-content').children().each(function(e) {
                 var data = $(this);
-                console.log('data', data);
+                if (!data.hasClass("views-row-first")) {
+                    console.log('data', data.find('.card__title').text());
+                }
             })
         } else {
             console.log('Error', error);
