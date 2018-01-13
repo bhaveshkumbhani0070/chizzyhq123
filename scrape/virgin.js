@@ -26,7 +26,8 @@ function Scrap(u, page) {
             $('.view-vah-holiday-packages-landing .view-content').children().each(function(e) {
                 var data = $(this);
                 if (!data.hasClass("views-row-first")) {
-                    console.log('data', data.find('.card__title').text());
+                    // console.log('data', data.find('.card__title').text());
+                    console.log('link', data.find('.card__actions').children().attr('href'))
                 }
             })
         } else {
