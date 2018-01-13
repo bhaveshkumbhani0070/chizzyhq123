@@ -112,9 +112,9 @@ function childData(u, departure, destination) {
                 })
                 requ.query("insert into deal(description,destination,stars,nights,link,title,purchase_by,agency) values('" +
                     description + "','" +
-                    destination + "','" +
-                    stars + "','" +
-                    nights + "','" +
+                    destination + "'," +
+                    stars + "," +
+                    nights + ",'" +
                     u + "','" +
                     title + "','" +
                     purchase_by + "','" +
