@@ -24,11 +24,9 @@ var config = {
     database: process.env.database
         // pool: {
         //     max: 20,
-        //     min: 10,
-        //     idleTimeoutMillis: 3000
+        //     min: 1,
+        //     idleTimeoutMillis: 30000
         // }
 };
 const pool = new sql.ConnectionPool(config)
-
-
 module.exports = pool;
