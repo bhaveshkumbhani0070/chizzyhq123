@@ -15,6 +15,7 @@ cron.schedule('0 0 0 * * *', function() {
     studentflight.Studentscrape();
     holidaycenter.holidaycenterScrape();
     jetstar.jetstarScrape();
+    virgin.virginScrape();
 });
 
 module.exports = function(app) {

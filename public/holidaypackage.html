@@ -74,7 +74,7 @@
             <table>
                 <thead>
                     <tr class="searchHeader">
-                        <th>Index</th>
+                        <!-- <th>Index</th> -->
                         <th ng-click="sortBy('date_from')">Travel Date</th>
                         <th>Agency</th>
                         <th ng-click="sortBy('price')">Price</th>
@@ -88,7 +88,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="val in dealData  track by $index | orderBy:dealName:reverse">
-                        <td>{{$index + 1 }}</td>
+                        <!-- <td>{{$index + 1 }}</td> -->
                         <td data-th="Travel Date"><strong>{{val.date_from | date:'dd MMM yyyy'}} - {{val.date_to | date:'dd MMM yyyy'}}</strong></td>
                         <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
                         <td data-th="Price" class="price">${{val.price}}</td>
@@ -98,6 +98,9 @@
                         <td data-th="Nights">{{val.nights}}</td>
                         <td data-th="Purchase By">{{val.purchase_by | date:'dd MMM yyyy'}}</td>
                         <td data-th="Quad pp*"><a href="#" class="btn btn-01">VIEW</a></td>
+                    </tr>
+                    <tr ng-show="!dealData.length">
+                        <td colspan="9">No deals found</td>
                     </tr>
                 </tbody>
             </table>

@@ -10,10 +10,8 @@ const requ = new sql.Request(pool);
 
 
 exports.virginScrape = function(req, res) {
-
+    start();
 }
-
-// start();
 
 function start() {
     pool.close();
@@ -21,10 +19,13 @@ function start() {
         if (!err) {
             console.log('Connected');
             var url = "https://travel.virginaustralia.com/au/holidays?travel_theme_nid_2=All&holiday_package_nid=All&Submit=Find%20Holidays&page=";
-            // for (var i = 0; i < 7; i++){
-
-            // }
-            // Scrap(url, 1);
+            for (var i = 1; i < 8; i++){
+                setTimeout(function(y) {
+                    Scrap(url, y);
+                }, i * 1000000, i); // we're passing x
+           
+                
+            }
         } else {
             console.log('connection error', err);
         }
@@ -57,6 +58,31 @@ function Scrap(u, page) {
                         var chilUrl = "https://travel.virginaustralia.com" + data.find('.card__actions').children().attr('href');
                         var parts = chilUrl.split("/");
                         var destination = parts[parts.length - 1];
+                        if(destination=="Apollo Bay"){
+                            destination="Apollo Bay, Australia"
+                        }
+                        if(destination=="Bali (Denpasar)"){
+                            destination="Bali, Indonesia"
+                        }
+                        if(destination=="Auckland"){
+                            destination="Auckland, New Zealand"
+                        }
+                        if(destination=="Bangkok")
+                        {
+                            destination="Bangkok, Thailand"
+                        }
+                        if(destination=="Blue Mountains"){
+                            destination="Blue Mountains, Australia"
+                        }
+                        if(destination=="Brisbane"){
+                            destination="Brisbane, Australia"
+                        }
+                        if(destination=="broome"){
+                            destination="Broome, Australia"
+                        }
+                        if(destination=="Byron Bay"){
+                            destination="Byron Bay, Australia"
+                        }
                         for (var j = 0; j < desti.length; j++) {
                             setTimeout(function(i) {
                                 var url = chilUrl + "?origin_airport_nid=" + desti[i].id + "&Submit=Go&field_deal_search_type_value=flight_hotel"
@@ -68,7 +94,7 @@ function Scrap(u, page) {
                     else{
                         console.log('this is first');
                     }
-                }, 150000 + offset);    
+                }, 140000 + offset);    
                 offset += 5000;
             })
         } else {
@@ -108,13 +134,14 @@ function childData(u, departure, destination) {
                             date_to: purchageDate(data.find('.date-display-end').text())
                         })
                     })                                      
-                    requ.query("select * from deal where agency='virginaustralia' and price='"+price+"'  and title='" + title + "'", function(err, cityD) {
+                    requ.query("select * from deal where agency='virginaustralia' and destination='"+destination+"'  and title='" + title + "'", function(err, cityD) {
                         if (!err) {
                             if (cityD.recordset.length > 0) {
                                 console.log('Already there',title)
                             } else {
                                  // console.log(title);
-                                // saveOrNot()
+                            
+                                saveOrNot()
                                 function saveOrNot(){  
                                     requ.query("insert into deal(description,destination,stars,nights,link,title,purchase_by,agency) values('" +
                                         description + "','" +

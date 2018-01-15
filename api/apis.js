@@ -137,8 +137,7 @@ exports.getDeparture = function(req, res) {
         }
     })
 }
-
-
+  
 exports.getDestination = function(req, res) {
     pool.close();
     var destination = req.params.destination;
