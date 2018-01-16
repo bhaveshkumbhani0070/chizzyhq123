@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express(); // create our app w/ express
 //var mongoose = require('mongoose'); // mongoose for mongodb
-var port = process.env.port || 9001; // set the port
+var port = process.env.port || 9000; // set the port
 //var database = require('./config/database'); // load the database config
 
 var morgan = require('morgan'); // log requests to the console (express4)
