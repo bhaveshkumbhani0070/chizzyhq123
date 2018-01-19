@@ -1,32 +1,200 @@
 <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg" >
 
         <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content" style="background-color: #EAEAEA">
+            <!-- <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
+                <h5 class="modal-title">Your trip</h5>
+            </div> -->
             <div class="modal-body">
-                <div class="container">
+                <form  method="post" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <p><b>Your trip</b></p>
-                                <form>
+                        <div class="col-md-12">
+                                <div class="col-md-12 " style="margin-left: 15px">
+                                  <h4>Your trip</h4>
+                                </div>
+                         </div>
+                        <div class="col-md-9 col-lg-9 col-sm-9">
+                            <div class="col-md-12">
+                                <div class="col-md-6 form-group">
+                                  <h6>DEPARTING FORM<sup style="color: red">*</sup></h6>
+                                   <select class="form-control"   name="menuid" required="">
+                                        
+                                                 <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <h6>DEPARTING FORM<sup style="color: red">*</sup></h6>
+                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-9 form-group">
+                                        <div class="col-md-4">
+                                            <select class="form-control"   name="menuid" required="">
+                                        
+                                                 <option value=""></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
+                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                        </div>
+                                        <div class="col-md-5" style="margin-left: 0px;padding-left: 0px">
+                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                  
+                                    </div>
+                                </div>
+                                
+                            </div> 
+                            <div class="col-md-12">
+                                <h6 style="margin-left: 10px">TRAVEL DATE<sup style="color: red">*</sup></h6>
+                             </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-9 form-group">
+                                        <div class="col-md-3">
+                                            <!-- <span class="fa fa-user-o" style="color: red"></span> -->
 
-                                </form>
+                                            <select class="form-control"   name="menuid" required="">
+                                             <option value=""></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
+                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                        </div>
+                                        <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
+                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                        </div>
+                                        <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
+                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                  
+                                    </div>
+                                </div>
+                                
+                            </div>  
+                           <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                  <h6>ANY QUESTION OR COMMENT<sup style="color: red">*</sup></h6>
+                                  <textarea class="form-control" rows="2" cols="10" id="comment"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                  <h4>Your personal details</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-3 form-group">
+                                  <h6>TITLE<sup style="color: red">*</sup></h6>
+                                   <select class="form-control"   name="menuid" required="">
+                                        
+                                                 <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                  <h6>FIRST NAME<sup style="color: red">*</sup></h6>
+                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                </div>
+                                <div class="col-md-3 form-group">
+                                  <h6>LAST NAME<sup style="color: red">*</sup></h6>
+                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                </div>
+                                <div class="col-md-3 form-group">
+                                  <h6>POSTCODE<sup style="color: red">*</sup></h6>
+                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <div class="col-md-4"><h6>CONTACT PREFERENCE</h6></div>
+                                    <div class="col-md-8">
+                                        <input type="radio" name="gender" value="male"><span style="font-size: 14px">Phone</span> 
+                                     <input type="radio" name="gender" value="female"><span style="font-size: 14px"> Email</span><br>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6 form-group">
+                                  <h6>PHONE<sup style="color: red">*</sup></h6>
+                                   <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <h6>EMAIL<sup style="color: red">*</sup></h6>
+                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-10 form-group">
+                                   <input type="checkbox" value=""><span style="font-size: 13px;margin-left: 15px">SIGN ME UP FOR EXCLUSIVE TRAVEL DEAL EMAILS</span>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                  <!-- <h6>SIGN ME UP FOR EXCLUSIVE TRAVEL DEAL EMAILS</h6>
+                                 --></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                   <h6>By proceeding I agree to Flight Centre's <a href=""><u style="color:blue">Terms of Use</u></a> and my personal information being handled in accordance with Flight Centre's <a href=""><u style="color:blue">Privacy Policy</u> .</a></h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                  <p><button style="width:580px;height: 45px;color: white;background-color: #81b622;border:none;border-radius:2px">GET YOUR QUOTE</button></p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <p>Small</p>
+                        <div class="col-md-3 col-lg-3 col-sm-3">
+                            <div class="col-md-12" style="margin-top: 20px">
+                                <img src="https://placeholdit.imgix.net/~text?txtsize=24&txt=570%C3%9750&w=200&h=200">
+                            </div>
+                            <div class="col-md-12">
+                                <div style="border-radius: 100%;width: 60px;height: 60px;background-color: white;margin-left: -30px;margin-top: 0px;text-align: center;border: inset; border-style: dotted;border-color: red;display: block;float: left">
+                                    <i class="fa fa-check fa-2x" style="color: red;margin: -15px;padding-top: -15px"></i>
+                                 <div style="margin-top: -8px;font-size: 12px"><b>Insider TIPS</b></div>
+                                </div>
+                                <div style="background-color: lightgray;height: 60px">
+                                    <span>Talk to an</span></br>
+                                    <b style="font-size: 18px">Airfare Expert</b>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div style="margin-left: -30px;margin-top: 25px">
+                                    <span><b>Our consultants : </b></span>
+                                    <div style="margin-top: 15px">
+                                        <i class="fa fa-check" style="color: red;"></i>
+                                        <span style="margin-left: 5px;font-size: 13px">Are Airfare Experts</span>
+                                    </div>
+                                    <div style="margin-top: 15px">
+                                        <i class="fa fa-check" style="color: red;"></i>
+                                        <span style="margin-left: 5px;font-size: 13px">Are 100% based in Australia</span>
+                                    </div>
+                                    <div style="margin-top: 15px">
+                                        <i class="fa fa-check" style="color: red;"></i>
+                                        <span style="margin-left: 5px;font-size: 13px">Can answer your question</span>
+                                        <span style="margin-left: 24px;font-size: 13px"> about fare types and inclusions</span>
+                                    </div>
+                                    <div style="margin-top: 15px">
+                                        <i class="fa fa-check" style="color: red;"></i>
+                                        <span style="margin-left: 5px;font-size: 13px">Can find exclusive package </span>
+                                        <span style="margin-left: 24px;font-size: 13px">to save you money</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
+                    </div>  
+                </form>         
+             </div>
+            <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+            </div> -->
         </div>
 
     </div>

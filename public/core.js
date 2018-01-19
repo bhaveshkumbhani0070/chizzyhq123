@@ -15,9 +15,6 @@ holidayPack.config(function($routeProvider) {
         .when('/holiday/during/:month', {
             templateUrl: "/public/holidaypackage.html"
         })
-        .when('/popup', {
-            templateUrl: "/public/popup.html"
-        })
         .otherwise({
             redirectTo: '/holiday'
         });
@@ -50,6 +47,13 @@ holidayPack.directive('wbSelect2', function() {
         }
     };
 });
+
+// holidayPack.filter('startFrom', function() {
+//     return function(input, start) {
+//         start = +start; //parse to int
+//         return input.slice(start);
+//     }
+// });
 
 
 holidayPack.controller('mainController', function($scope, $http, $routeParams, $window, $location) {
