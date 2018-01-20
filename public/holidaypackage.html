@@ -87,7 +87,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="val in dealData  track by $index | orderBy:dealName:reverse">
+                    <!-- | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize -->
+                    <tr ng-repeat="val in dealData | orderBy:dealName:reverse ">
                         <!-- <td>{{$index + 1 }}</td> -->
                         <td data-th="Travel Date"><strong>{{val.date_from | date:'dd MMM yyyy'}} - {{val.date_to | date:'dd MMM yyyy'}}</strong></td>
                         <td data-th="Agency"><img src="images/img_agency_01.gif" alt="Princess Cruise"></td>
@@ -105,5 +106,20 @@
                 </tbody>
             </table>
         </div>
+        <!-- <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+        <select ng-model="pageSize" id="pageSize" class="form-control">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+        <ul>
+            <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+            Previous
+        </button> {{currentPage+1}}/{{numberOfPages()}}
+            <button ng-disabled="currentPage >= dealData.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+            Next
+        </button> -->
+
     </div>
 </div>

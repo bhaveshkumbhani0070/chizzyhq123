@@ -56,7 +56,28 @@ holidayPack.directive('wbSelect2', function() {
 // });
 
 
-holidayPack.controller('mainController', function($scope, $http, $routeParams, $window, $location) {
+holidayPack.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
+
+holidayPack.controller('mainController', function($scope, $http, $routeParams, $window, $location, $filter) {
+
+    $scope.dealData = [];
+
+    $scope.currentPage = 0;
+    $scope.pageSize = 5;
+    $scope.q = '';
+
+    $scope.getData = function() {
+        return $filter('filter')($scope.dealData, $scope.q)
+    }
+
+    $scope.numberOfPages = function() {
+        return Math.ceil($scope.dealData.length / $scope.pageSize);
+    }
 
     $scope.$watch(function() {
         return $location.path();
