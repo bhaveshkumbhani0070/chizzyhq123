@@ -1,5 +1,5 @@
 <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg" >
+    <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
         <div class="modal-content" style="background-color: #EAEAEA">
@@ -8,146 +8,147 @@
                 <h5 class="modal-title">Your trip</h5>
             </div> -->
             <div class="modal-body">
-                <form  method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-12">
-                                <div class="col-md-12 " style="margin-left: 15px">
-                                  <h4>Your trip</h4>
-                                </div>
-                         </div>
+                            <div class="col-md-12 " style="margin-left: 15px">
+                                <h4>Your trip</h4>
+                            </div>
+                        </div>
                         <div class="col-md-9 col-lg-9 col-sm-9">
                             <div class="col-md-12">
                                 <div class="col-md-6 form-group">
-                                  <h6>DEPARTING FORM<sup style="color: red">*</sup></h6>
-                                   <select class="form-control"   name="menuid" required="">
-                                        
-                                                 <option value=""></option>
+                                    <h6>DEPARTING FROM<sup style="color: red">*</sup></h6>
+                                    <select class="form-control popup" name="menuid" required="">
+                                        <option value=""></option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 form-group">
-                                  <h6>DEPARTING FORM<sup style="color: red">*</sup></h6>
-                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                    <h6>TRAVELLING TO<sup style="color: red">*</sup></h6>
+                                    <input type="text" class="form-control popup" placeholder="Enter Name" name="name" required="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-9 form-group">
                                         <div class="col-md-4">
-                                            <select class="form-control"   name="menuid" required="">
-                                        
-                                                 <option value=""></option>
+                                            <select class="form-control popup" name="menuid" required="">
+                                                 <option value="1">1 Traveller</option>
+                                                 <option value="2">2 Traveller</option>
                                             </select>
                                         </div>
                                         <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
-                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                            <input type="text" class="form-control popup" style="border-style: dashed;" placeholder="Budget" name="name" required="">
                                         </div>
                                         <div class="col-md-5" style="margin-left: 0px;padding-left: 0px">
-                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                            <input type="text" class="form-control popup" style="border-style: dashed;" placeholder="Experience Type" name="name" required="">
                                         </div>
                                     </div>
                                     <div class="col-md-3 form-group">
-                                  
+
                                     </div>
                                 </div>
-                                
-                            </div> 
+
+                            </div>
                             <div class="col-md-12">
-                                <h6 style="margin-left: 10px">TRAVEL DATE<sup style="color: red">*</sup></h6>
-                             </div>
+                                <h6 style="margin-left: 10px">TRAVEL DATES<sup style="color: red">*</sup></h6>
+                            </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-9 form-group">
                                         <div class="col-md-3">
                                             <!-- <span class="fa fa-user-o" style="color: red"></span> -->
 
-                                            <select class="form-control"   name="menuid" required="">
+                                            <select class="form-control popup" name="menuid" required="">
                                              <option value=""></option>
                                             </select>
                                         </div>
                                         <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
-                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                            <input type="text" class="form-control popup" style="border-style: dashed;" placeholder="Enter Name" name="name" required="">
                                         </div>
                                         <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
-                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                            <input type="text" class="form-control popup" style="border-style: dashed;" placeholder="Enter Name" name="name" required="">
                                         </div>
                                         <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
-                                            <input type="text" class="form-control" style="border-style: dashed;"  placeholder="Enter Name" name="name" required="">
+                                            <input type="text" class="form-control popup" style="border-style: dashed;" placeholder="Enter Name" name="name" required="">
                                         </div>
                                     </div>
                                     <div class="col-md-3 form-group">
-                                  
+
                                     </div>
                                 </div>
-                                
-                            </div>  
-                           <div class="col-md-12">
+
+                            </div>
+                            <div class="col-md-12">
                                 <div class="col-md-12 form-group">
-                                  <h6>ANY QUESTION OR COMMENT<sup style="color: red">*</sup></h6>
-                                  <textarea class="form-control" rows="2" cols="10" id="comment"></textarea>
+                                    <h6>ANY QUESTIONS OR COMMENTS?<sup style="color: red">*</sup></h6>
+                                    <textarea class="form-control popup" rows="2" cols="10" id="comment"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12 form-group">
-                                  <h4>Your personal details</h4>
+                                    <h4>Your personal details</h4>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-3 form-group">
-                                  <h6>TITLE<sup style="color: red">*</sup></h6>
-                                   <select class="form-control"   name="menuid" required="">
-                                        
-                                                 <option value=""></option>
+                                    <h6>TITLE<sup style="color: red">*</sup></h6>
+                                    <select class="form-control popup" name="menuid" required="">
+                                        <option value=""></option>
                                     </select>
                                 </div>
                                 <div class="col-md-3 form-group">
-                                  <h6>FIRST NAME<sup style="color: red">*</sup></h6>
-                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                    <h6>FIRST NAME<sup style="color: red">*</sup></h6>
+                                    <input type="text" class="form-control popup" placeholder="Enter Name" name="name" required="">
                                 </div>
                                 <div class="col-md-3 form-group">
-                                  <h6>LAST NAME<sup style="color: red">*</sup></h6>
-                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                    <h6>LAST NAME<sup style="color: red">*</sup></h6>
+                                    <input type="text" class="form-control popup" placeholder="Enter Name" name="name" required="">
                                 </div>
                                 <div class="col-md-3 form-group">
-                                  <h6>POSTCODE<sup style="color: red">*</sup></h6>
-                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                    <h6>POSTCODE<sup style="color: red">*</sup></h6>
+                                    <input type="text" class="form-control popup" placeholder="Enter Name" name="name" required="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12 form-group">
-                                    <div class="col-md-4"><h6>CONTACT PREFERENCE</h6></div>
-                                    <div class="col-md-8">
-                                        <input type="radio" name="gender" value="male"><span style="font-size: 14px">Phone</span> 
-                                     <input type="radio" name="gender" value="female"><span style="font-size: 14px"> Email</span><br>
+                                    <div class="col-md-4">
+                                        <h6>CONTACT PREFERENCE</h6>
                                     </div>
-                                    
+                                    <div class="col-md-8">
+                                        <input type="radio" name="gender" value="male"><span style="font-size: 14px">Phone</span>
+                                        <input type="radio" name="gender" value="female"><span style="font-size: 14px"> Email</span><br>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-6 form-group">
-                                  <h6>PHONE<sup style="color: red">*</sup></h6>
-                                   <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                    <h6>PHONE<sup style="color: red">*</sup></h6>
+                                    <input type="text" class="form-control popup" name="name" required="">
                                 </div>
                                 <div class="col-md-6 form-group">
-                                  <h6>EMAIL<sup style="color: red">*</sup></h6>
-                                  <input type="text" class="form-control"  placeholder="Enter Name" name="name" required="">
+                                    <h6>EMAIL<sup style="color: red">*</sup></h6>
+                                    <input type="text" class="form-control popup" name="name" required="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-10 form-group">
-                                   <input type="checkbox" value=""><span style="font-size: 13px;margin-left: 15px">SIGN ME UP FOR EXCLUSIVE TRAVEL DEAL EMAILS</span>
+                                    <input type="checkbox" value=""><span style="font-size: 13px;margin-left: 15px">SIGN ME UP FOR EXCLUSIVE TRAVEL DEAL EMAILS</span>
                                 </div>
                                 <div class="col-md-2 form-group">
-                                  <!-- <h6>SIGN ME UP FOR EXCLUSIVE TRAVEL DEAL EMAILS</h6>
-                                 --></div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-12 form-group">
-                                   <h6>By proceeding I agree to Flight Centre's <a href=""><u style="color:blue">Terms of Use</u></a> and my personal information being handled in accordance with Flight Centre's <a href=""><u style="color:blue">Privacy Policy</u> .</a></h6>
+                                    <!-- <h6>SIGN ME UP FOR EXCLUSIVE TRAVEL DEAL EMAILS</h6>
+                                 -->
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-12 form-group">
-                                  <p><button style="width:580px;height: 45px;color: white;background-color: #81b622;border:none;border-radius:2px">GET YOUR QUOTE</button></p>
+                                    <h6>By proceeding I agree to Flight Centre's <a href=""><u style="color:blue">Terms of Use</u></a> and my personal information being handled in accordance with Flight Centre's <a href=""><u style="color:blue">Privacy Policy</u> .</a></h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <p><button style="width:580px;height: 45px;color: white;background-color: #81b622;border:none;border-radius:2px">GET YOUR QUOTE</button></p>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +159,7 @@
                             <div class="col-md-12">
                                 <div style="border-radius: 100%;width: 60px;height: 60px;background-color: white;margin-left: -30px;margin-top: 0px;text-align: center;border: inset; border-style: dotted;border-color: red;display: block;float: left">
                                     <i class="fa fa-check fa-2x" style="color: red;margin: -15px;padding-top: -15px"></i>
-                                 <div style="margin-top: -8px;font-size: 12px"><b>Insider TIPS</b></div>
+                                    <div style="margin-top: -8px;font-size: 12px"><b>Insider TIPS</b></div>
                                 </div>
                                 <div style="background-color: lightgray;height: 60px">
                                     <span>Talk to an</span></br>
@@ -189,9 +190,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>  
-                </form>         
-             </div>
+                    </div>
+                </form>
+            </div>
             <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div> -->
