@@ -287,6 +287,13 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
             console.log('Error: ' + data.message);
         });
 
+    // Display selected data into model 
+    $scope.viewModelWithData = function(val) {
+        console.log('Display me ', val);
+        $scope.depselect = val.departure;
+        $scope.desselect = val.destination;
+    }
+
     // For Sorting
     $scope.reverse = true;
     $scope.sortBy = function(dealName) {

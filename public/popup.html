@@ -19,13 +19,14 @@
                             <div class="col-md-12">
                                 <div class="col-md-6 form-group">
                                     <h6>DEPARTING FROM<sup style="color: red">*</sup></h6>
-                                    <select class="form-control popup" name="menuid" required="">
-                                        <option value=""></option>
-                                    </select>
+                                    <input type="text" class="form-control popup" placeholder="Anywhere" ng-model="depselect" name="name" required="">
+                                    <!-- <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect">
+                                        <option value="" disabled ng-selected="true">Anywhere</option>
+                                    </select> -->
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <h6>TRAVELLING TO<sup style="color: red">*</sup></h6>
-                                    <input type="text" class="form-control popup" placeholder="Enter Name" name="name" required="">
+                                    <input type="text" class="form-control popup" placeholder="Destination" ng-model="desselect" name="name" required="">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -58,7 +59,6 @@
                                     <div class="col-md-9 form-group">
                                         <div class="col-md-3">
                                             <!-- <span class="fa fa-user-o" style="color: red"></span> -->
-
                                             <select class="form-control popup" name="menuid" required="">
                                              <option value=""></option>
                                             </select>
@@ -69,9 +69,9 @@
                                         <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
                                             <input type="text" class="form-control popup" style="border-style: dashed;" placeholder="Enter Name" name="name" required="">
                                         </div>
-                                        <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
+                                        <!-- <div class="col-md-3" style="margin-left: 0px;padding-left: 0px">
                                             <input type="text" class="form-control popup" style="border-style: dashed;" placeholder="Enter Name" name="name" required="">
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="col-md-3 form-group">
 
