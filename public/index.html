@@ -57,12 +57,12 @@
                     <div class="content">
                         <div class="row">
                             <div class="col-sm-4 col-md-2">
-                                <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect)">
+                                <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect,false)">
                                     <option value="" disabled ng-selected="true">Departure City</option>
                                 </select>
                             </div>
                             <div class="col-sm-5 col-md-3">
-                                <select wb-select2 ng-options="data.destination for data in destination" ng-model="desselect">
+                                <select wb-select2 ng-options="data.destination for data in destination" ng-model="desselect" ng-change="getDesti(depselect,desselect)">
                                     <option value="" disabled ng-selected="true">Destination</option>
                             </select>
                             </div>
@@ -86,13 +86,13 @@
                             <fieldset>
                                 <div class="field">
                                     <label for="departure_city">Departure City</label>
-                                    <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect)">
+                                    <select wb-select2 ng-options="data.departure as  data.departure  for data in departure" ng-model="depselect" ng-change="getDesti(depselect,false)">
                                         <option value="" disabled ng-selected="true">Anywhere</option>
                                     </select>
                                 </div>
                                 <div class="field">
                                     <label for="destination_city">Destination</label>
-                                    <select wb-select2 ng-options="data.destination for data in destination" ng-model="desselect">
+                                    <select wb-select2 ng-options="data.destination for data in destination" ng-model="desselect" ng-change="getDesti(depselect,desselect)">
                                         <option value="" disabled ng-selected="true">Destination</option>
                                     </select>
                                 </div>

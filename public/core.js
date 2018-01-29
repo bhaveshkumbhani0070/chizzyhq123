@@ -183,24 +183,48 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
                 console.log('Error: ' + data.message);
             });
     };
-    $scope.getDesti = function(departure) {
-        getDestination(departure);
-        var searchData = {
-            departure: departure,
-            withCity: false
+    $scope.getDesti = function(departure, destination) {
+        console.log('departure', departure);
+        console.log('destination', destination.destination);
+
+        if (destination) {
+            var searchData = {
+                departure: departure,
+                destination: destination.destination,
+                withCity: false
+            }
+            $http.post('/api/getallHolidayDeal', searchData)
+                .success(function(data) {
+                    console.log('getallHolidayDeal', data);
+                    if (data.status) {
+                        $scope.dealData = data.data;
+                    } else {
+                        console.log('Something gone wrong!', data.message);
+                    }
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data.message);
+                });
+        } else {
+            getDestination(departure);
+            var searchData = {
+                departure: departure,
+                withCity: false
+            }
+            $http.post('/api/getallHolidayDeal', searchData)
+                .success(function(data) {
+                    console.log('getallHolidayDeal', data);
+                    if (data.status) {
+                        $scope.dealData = data.data;
+                    } else {
+                        console.log('Something gone wrong!', data.message);
+                    }
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data.message);
+                });
         }
-        $http.post('/api/getallHolidayDeal', searchData)
-            .success(function(data) {
-                console.log('getallHolidayDeal', data);
-                if (data.status) {
-                    $scope.dealData = data.data;
-                } else {
-                    console.log('Something gone wrong!', data.message);
-                }
-            })
-            .error(function(data) {
-                console.log('Error: ' + data.message);
-            });
+
     }
 
     function getDestination(departure) {
