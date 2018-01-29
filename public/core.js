@@ -253,6 +253,9 @@ holidayPack.controller('mainController', function($scope, $http, $routeParams, $
                 if (data.status) {
                     console.log('ok display me');
                     $scope.dealData = data.data;
+                    if ($scope.date && data.data.length == 0) {
+                        alert('No deals have been found in your date range. Here are some dates you may be interested in');
+                    }
                 } else {
                     console.log('Something gone wrong!', data.message);
                 }
